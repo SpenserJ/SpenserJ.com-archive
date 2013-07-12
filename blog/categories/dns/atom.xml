@@ -4,7 +4,7 @@
   <title><![CDATA[Category: DNS | Spenser Jones]]></title>
   <link href="http://SpenserJ.github.io/blog/categories/dns/atom.xml" rel="self"/>
   <link href="http://SpenserJ.github.io/"/>
-  <updated>2013-07-12T12:21:12-06:00</updated>
+  <updated>2013-07-12T14:10:58-06:00</updated>
   <id>http://SpenserJ.github.io/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
@@ -24,7 +24,7 @@
 
 <p>Logging in as root is a surefire way to let hackers into your box, so lets begin by creating a new user, adding them to an admin group for sudo.</p>
 
-<p>```
+<p>``` plain
 $ sudo addgroup admin
 Adding group &lsquo;admin&rsquo; (GID 1001)
 Done.</p>
@@ -55,7 +55,7 @@ Other []:
 
 <p>You&rsquo;ll also want to create a private key on your computer, and disable that pesky password authentication on the server.</p>
 
-<p><code>
+<p><code>plain
 $ mkdir ~/.ssh
 $ echo "ssh-rsa [your public key]" &gt; ~/.ssh/authorized_keys
 </code></p>
@@ -68,7 +68,7 @@ AllowUsers spenserj
 
 <p>Reload SSH to apply the changes, and then try logging in <strong>in a new session</strong> to ensure everything worked. If you can&rsquo;t log in, you&rsquo;ll still have your original session to fix things up.</p>
 
-<p><code>
+<p><code>plain
 $ sudo service ssh restart
 ssh stop/waiting
 ssh start/running, process 1599
@@ -76,7 +76,7 @@ ssh start/running, process 1599
 
 <h3>Update the server</h3>
 
-<p>```
+<p>``` plain
 $ sudo apt-get update
 &hellip;
 Hit <a href="http://ca.archive.ubuntu.com">http://ca.archive.ubuntu.com</a> precise-updates/universe Translation-en_CA
@@ -117,7 +117,7 @@ Setting up iptables (1.4.12-1ubuntu5) &hellip;
 
 <p>NSD will start as soon as you install it, and complain if you don&rsquo;t have a config file created already, so we&rsquo;ll create a blank file for now.</p>
 
-<p><code>
+<p><code>plain
 $ sudo mkdir /etc/nsd3
 $ sudo touch /etc/nsd3/nsd.conf
 $ sudo apt-get install nsd3
@@ -144,9 +144,9 @@ grep: /etc/aliases: No such file or directory
 
 <h3>Give yourself access to <code>/etc/nsd3</code></h3>
 
-<p>By default, you won&rsquo;t have access to /etc/nsd3 without working as root, and running as root is bad form, so let&rsquo;s add the nsd group to our account. We probably have some kernel updates that need to be applied, and we need to relogin for the group to apply, so this is the perfect time to reboot our server as well.</p>
+<p>By default, you won&rsquo;t have access to <code>/etc/nsd3</code> without working as root, and running as root is bad form, so let&rsquo;s add the nsd group to our account. We probably have some kernel updates that need to be applied, and we need to relogin for the group to apply, so this is the perfect time to reboot our server as well.</p>
 
-<p>```
+<p>``` plain
 $ sudo usermod -a -G nsd spenserj
 $ sudo reboot now
 Broadcast message from spenserj@dnsmaster</p>
@@ -157,7 +157,113 @@ Broadcast message from spenserj@dnsmaster</p>
 <p>The system is going down for reboot NOW!
 ```</p>
 
-<h1>More to come shortly.</h1>
+<h2>Configure NSD</h2>
+
+<h3>Configure NSD as a Master</h3>
+
+<p>You&rsquo;ll find a sample configuration at <code>/etc/nsd3/nsd.conf.sample</code>, and <a href="http://linux.die.net/man/5/nsd.conf">man nsd.conf</a> is a great place to find more information. The config is quite simplistic though, and I was un and running in minutes.</p>
+
+<p>``` plain
+server:
+  logfile: &ldquo;/var/log/nsd.log&rdquo;
+  username: nsd
+  hide-version: yes
+  identity: &ldquo;ns1.ambrose.edu&rdquo;</p>
+
+<h1>Primary ambrose.edu Forward Lookup Zone</h1>
+
+<p>zone:
+  name: ambrose.edu
+  zonefile: forward/ambrose.edu.zone</p>
+
+<p>  notify:      dnsslave1 NOKEY
+  provide-xfr: dnsslave1 NOKEY</p>
+
+<p>  notify:      dnsslave2 slave2key
+  provide-xfr: dnsslave2 slave2key</p>
+
+<h1>Shaw Reverse Lookup Zone</h1>
+
+<p>zone:
+  name: 237.244.66.in-addr.arpa
+  zonefile: reverse/66.244.237.zone</p>
+
+<p>  notify:      dnsslave1 NOKEY
+  provide-xfr: dnsslave1 NOKEY</p>
+
+<p>  notify:      dnsslave2 slave2key
+  provide-xfr: dnsslave2 slave2key</p>
+
+<p>key:
+  name: slave2key
+  algorithm: hmac-md5
+  secret: &ldquo;95hP9OTvHID2jJO2GNaeuw==&rdquo;
+```</p>
+
+<h3>Configure NSD as a Slave</h3>
+
+<p>The slave configuration is nearly identical to the master, with the only change being the <code>notify</code> and <code>provide-xfr</code> lines changing to the slave-variant. Each zone is required to have a zonefile, but you don&rsquo;t need to fill it out if it pulls from the master, so I just touched each file and left it empty.</p>
+
+<p>``` plain
+zone:
+  name: ambrose.edu
+  zonefile: forward/ambrose.edu.zone</p>
+
+<p>  allow-notify:      dnsmaster NOKEY
+  request-xfr:  AXFR dnsmaster NOKEY
+```</p>
+
+<h3>Zonefiles</h3>
+
+<p>NSD uses BIND zonefiles, and there is a plethora of documentation and guides on how to write one, so hit up your favourite search engine and you&rsquo;ll be on your way. Don&rsquo;t forget to update the SOA Serial whenever you make a change, otherwise the next step won&rsquo;t work.</p>
+
+<h3>Applying your configuration changes</h3>
+
+<p>If you&rsquo;ve modified your <code>nsd.conf</code>, you&rsquo;ll need to restart NSD.</p>
+
+<p><code>plain
+$ sudo nsdc restart
+</code></p>
+
+<p>Otherwise, changes to zonefiles require the zone database to be rebuilt and reloaded.</p>
+
+<p><code>plain
+$ sudo nsdc rebuild
+$ sudo nsdc reload
+</code></p>
+
+<p>If you have any slaves configured, be sure to check your logs for errors. If you don&rsquo;t set the server verbosity to 1 (incoming notifies/transfers) or 2 (soft warnings), and don&rsquo;t receive an error, it is likely working.</p>
+
+<h2>Confirming your Master/Slave zones</h2>
+
+<p>Dig is a wonderful tool when testing DNS changes. Check the forward and reverse zones of each of your nameservers, and make sure the serial and information matches. Then update the serial on your master, rebuild/reload, and check the slave again.</p>
+
+<p><code>plain Check a Forward Zone
+$ dig @ns2.ambrose.edu +nocmd mail.ambrose.edu any +multiline +noall +answer
+mail.ambrose.edu.       10800 IN A 66.244.237.42
+</code></p>
+
+<p>``` plain Check a Reverse Zone
+$ dig @ns2.ambrose.edu +nocmd 237.244.66.in-addr.arpa. any +multiline +noall +answer
+237.244.66.in-addr.arpa. 10800 IN SOA ns1.ambrose.edu. helpdesk.ambrose.edu. (</p>
+
+<pre><code>                            2013071201 ; serial
+                            604800     ; refresh (1 week)
+                            86400      ; retry (1 day)
+                            2419200    ; expire (4 weeks)
+                            604800     ; minimum (1 week)
+                            )
+</code></pre>
+
+<p>237.244.66.in-addr.arpa. 10800 IN NS ns1.</p>
+
+<p>$ dig @ns2.ambrose.edu +nocmd 42.237.244.66.in-addr.arpa. any +multiline +noall +answer
+42.237.244.66.in-addr.arpa. 10800 IN PTR mail.ambrose.edu.
+```</p>
+
+<h2>Get a second opinion</h2>
+
+<p>There are quite a few automated tests that will check the responses from your nameservers, and ensure everything is in working order. I found that <a href="http://dnscheck.pingdom.com/">Pingdom</a>, the <a href="http://dnscheck.iis.se/">Swedish Internet Infrastructure Foundation</a>, and <a href="http://www.intodns.com/">IntoDNS</a> were extremely helpful.</p>
 ]]></content>
   </entry>
   
