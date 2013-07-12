@@ -4,7 +4,7 @@
   <title><![CDATA[Spenser Jones]]></title>
   <link href="http://SpenserJ.github.io/atom.xml" rel="self"/>
   <link href="http://SpenserJ.github.io/"/>
-  <updated>2013-07-12T10:37:00-06:00</updated>
+  <updated>2013-07-12T11:04:28-06:00</updated>
   <id>http://SpenserJ.github.io/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
@@ -12,5 +12,34 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Testing]]></title>
+    <link href="http://SpenserJ.github.io/blog/2013/07/12/testing/"/>
+    <updated>2013-07-12T10:54:00-06:00</updated>
+    <id>http://SpenserJ.github.io/blog/2013/07/12/testing</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Building the Science Lab]]></title>
+    <link href="http://SpenserJ.github.io/blog/2013/05/14/building-the-science-lab/"/>
+    <updated>2013-05-14T19:53:00-06:00</updated>
+    <id>http://SpenserJ.github.io/blog/2013/05/14/building-the-science-lab</id>
+    <content type="html"><![CDATA[<p>There have been a significant number of bugs with the <a href="http://pecl.php.net/package/APC">Alternative PHP Cache (APC)</a> over the past year, causing me to pass over PHP updates for fear of segfaults, however that has finally come to an end. APC is still just as buggy, but <a href="https://wiki.php.net/rfc/optimizerplus">PHP 5.5</a> will be bringing <a href="http://pecl.php.net/package/ZendOpcache">Zend OPCache</a> to the core, so I&rsquo;ve decided to transition early and configure the PECL package. As Zend OPCache does not come with a User Cache, I decided to set up Memcache on the <a href="https://ambrose.edu/">Ambrose University College</a> Drupal website, and was seeing benchmarks of around 65 requests per second (up from 30-35 req/sec with APC only).</p>
+
+<p>As <a href="https://github.com/krakjoe/apcu">APCu</a> (userland caching) continues to branch from the crusty old APC branch, and the old APC Opcaching code is remove, I&rsquo;ll be running a few tests to see whether APCu can bring more to the table than Memcache can, as I have no need for the distributed functionality that Memcache provides.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Spring Cleaning]]></title>
+    <link href="http://SpenserJ.github.io/blog/2013/05/14/spring-cleaning/"/>
+    <updated>2013-05-14T13:39:00-06:00</updated>
+    <id>http://SpenserJ.github.io/blog/2013/05/14/spring-cleaning</id>
+    <content type="html"><![CDATA[<p>I&rsquo;ve decided to wipe out a few years worth of hastily written blog posts and start fresh. Fitting, given that I&rsquo;m also switching to <a href="http://spenserj.com">SpenserJ.com</a> as my domain name, after waiting for it to expire for the better part of two years. My vision is for this site to be a landing zone for the various ideas and tweaks that come to me every week.</p>
+]]></content>
+  </entry>
   
 </feed>

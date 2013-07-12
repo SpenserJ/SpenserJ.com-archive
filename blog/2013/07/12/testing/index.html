@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Spenser Jones</title>
+  <title>Testing - Spenser Jones</title>
   <meta name="author" content="Spenser Jones">
 
   
@@ -19,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://SpenserJ.github.io">
+  <link rel="canonical" href="http://SpenserJ.github.io/blog/2013/07/12/testing">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Spenser Jones" type="application/atom+xml">
@@ -64,15 +64,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/07/12/testing/">Testing</a></h1>
+      <h1 class="entry-title">Testing</h1>
     
     
       <p class="meta">
@@ -95,62 +92,18 @@
   </header>
 
 
-  <div class="entry-content">
+<div class="entry-content">
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/14/building-the-science-lab/">Building the Science Lab</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
   
 
+<span class="byline author vcard">Posted by <span class="fn">Spenser Jones</span></span>
 
-<time datetime="2013-05-14T19:53:00-06:00" pubdate data-updated="true">May 14<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>There have been a significant number of bugs with the <a href="http://pecl.php.net/package/APC">Alternative PHP Cache (APC)</a> over the past year, causing me to pass over PHP updates for fear of segfaults, however that has finally come to an end. APC is still just as buggy, but <a href="https://wiki.php.net/rfc/optimizerplus">PHP 5.5</a> will be bringing <a href="http://pecl.php.net/package/ZendOpcache">Zend OPCache</a> to the core, so I&rsquo;ve decided to transition early and configure the PECL package. As Zend OPCache does not come with a User Cache, I decided to set up Memcache on the <a href="https://ambrose.edu/">Ambrose University College</a> Drupal website, and was seeing benchmarks of around 65 requests per second (up from 30-35 req/sec with APC only).</p>
-
-<p>As <a href="https://github.com/krakjoe/apcu">APCu</a> (userland caching) continues to branch from the crusty old APC branch, and the old APC Opcaching code is remove, I&rsquo;ll be running a few tests to see whether APCu can bring more to the table than Memcache can, as I have no need for the distributed functionality that Memcache provides.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/14/spring-cleaning/">Spring Cleaning</a></h1>
-    
-    
-      <p class="meta">
-        
 
 
 
@@ -162,27 +115,32 @@
   
 
 
-<time datetime="2013-05-14T13:39:00-06:00" pubdate data-updated="true">May 14<span>th</span>, 2013</time>
-        
-      </p>
+<time datetime="2013-07-12T10:54:00-06:00" pubdate data-updated="true">Jul 12<span>th</span>, 2013</time>
+      
+
+
+    </p>
     
-  </header>
-
-
-  <div class="entry-content"><p>I&rsquo;ve decided to wipe out a few years worth of hastily written blog posts and start fresh. Fitting, given that I&rsquo;m also switching to <a href="http://spenserj.com">SpenserJ.com</a> as my domain name, after waiting for it to expire for the better part of two years. My vision is for this site to be a landing zone for the various ideas and tweaks that come to me every week.</p>
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://SpenserJ.github.io/blog/2013/07/12/testing/" data-via="" data-counturl="http://SpenserJ.github.io/blog/2013/07/12/testing/" >Tweet</a>
+  
+  
+  
 </div>
-  
-  
 
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/05/14/building-the-science-lab/" title="Previous Post: Building the Science Lab">&laquo; Building the Science Lab</a>
+      
+      
+    </p>
+  </footer>
+</article>
 
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
 </div>
+
 <aside class="sidebar">
   
     <section>
@@ -210,6 +168,7 @@
 
   
 </aside>
+
 
     </div>
   </div>
