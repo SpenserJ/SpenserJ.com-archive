@@ -4,7 +4,7 @@
   <title><![CDATA[Category: DNS | Spenser Jones]]></title>
   <link href="http://SpenserJ.github.io/blog/categories/dns/atom.xml" rel="self"/>
   <link href="http://SpenserJ.github.io/"/>
-  <updated>2013-07-12T14:10:58-06:00</updated>
+  <updated>2013-07-12T14:13:59-06:00</updated>
   <id>http://SpenserJ.github.io/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
@@ -19,6 +19,9 @@
     <updated>2013-07-12T11:31:00-06:00</updated>
     <id>http://SpenserJ.github.io/blog/2013/07/12/setting-up-nsd3-for-dns</id>
     <content type="html"><![CDATA[<p>There are two major players in the Domain Name System server market: <a href="https://www.isc.org/downloads/bind/">Bind</a> and <a href="https://www.nlnetlabs.nl/projects/nsd/">NSD</a>. The former has been around since the 1980s and makes up a majority of the installations in use today, while the latter saw its first release around the turn of the century, and is designed to be purely authoritative (incapable of recursive DNS queries). While selecting a DNS server for <a href="https://ambrose.edu">Ambrose University College</a>, NSD&rsquo;s ability to easily run from a Chroot, and its lightweight footprint (currently using 69MB of RAM for the entire server), easily won our vote. Furthermore, NSD can make use of BIND&rsquo;s zonefiles, and the migration from our old server was complete in a matter of minutes.</p>
+
+<!-- more -->
+
 
 <h2>Securing your server</h2>
 

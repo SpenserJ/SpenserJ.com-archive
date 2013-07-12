@@ -98,6 +98,9 @@ $(document).ready(
 	<h2 class="title">Setting Up NSD3 for DNS</h2>
 	<div class="entry-content"><p>There are two major players in the Domain Name System server market: <a href="https://www.isc.org/downloads/bind/">Bind</a> and <a href="https://www.nlnetlabs.nl/projects/nsd/">NSD</a>. The former has been around since the 1980s and makes up a majority of the installations in use today, while the latter saw its first release around the turn of the century, and is designed to be purely authoritative (incapable of recursive DNS queries). While selecting a DNS server for <a href="https://ambrose.edu">Ambrose University College</a>, NSD&rsquo;s ability to easily run from a Chroot, and its lightweight footprint (currently using 69MB of RAM for the entire server), easily won our vote. Furthermore, NSD can make use of BIND&rsquo;s zonefiles, and the migration from our old server was complete in a matter of minutes.</p>
 
+<!-- more -->
+
+
 <h2>Securing your server</h2>
 
 <p>Logging in as root is a surefire way to let hackers into your box, so lets begin by creating a new user, adding them to an admin group for sudo.</p>
