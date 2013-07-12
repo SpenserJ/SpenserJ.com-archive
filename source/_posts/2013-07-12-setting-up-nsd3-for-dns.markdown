@@ -9,6 +9,8 @@ categories:
 ---
 There are two major players in the Domain Name System server market: [Bind](https://www.isc.org/downloads/bind/) and [NSD](https://www.nlnetlabs.nl/projects/nsd/). The former has been around since the 1980s and makes up a majority of the installations in use today, while the latter saw its first release around the turn of the century, and is designed to be purely authoritative (incapable of recursive DNS queries). While selecting a DNS server for [Ambrose University College](https://ambrose.edu), NSD's ability to easily run from a Chroot, and its lightweight footprint (currently using 69MB of RAM for the entire server), easily won our vote. Furthermore, NSD can make use of BIND's zonefiles, and the migration from our old server was complete in a matter of minutes.
 
+<!-- more -->
+
 ## Securing your server
 
 Logging in as root is a surefire way to let hackers into your box, so lets begin by creating a new user, adding them to an admin group for sudo.
