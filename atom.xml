@@ -4,7 +4,7 @@
   <title><![CDATA[Spenser Jones]]></title>
   <link href="http://SpenserJ.github.io/atom.xml" rel="self"/>
   <link href="http://SpenserJ.github.io/"/>
-  <updated>2013-07-12T11:27:43-06:00</updated>
+  <updated>2013-07-12T11:39:19-06:00</updated>
   <id>http://SpenserJ.github.io/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
@@ -12,6 +12,15 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Setting up NSD3 for DNS]]></title>
+    <link href="http://SpenserJ.github.io/blog/2013/07/12/setting-up-nsd3-for-dns/"/>
+    <updated>2013-07-12T11:31:00-06:00</updated>
+    <id>http://SpenserJ.github.io/blog/2013/07/12/setting-up-nsd3-for-dns</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Testing, 1 2 3. This is a test.]]></title>
