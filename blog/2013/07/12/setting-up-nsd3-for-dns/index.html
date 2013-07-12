@@ -9,7 +9,7 @@
 
 <meta name="author" content="Spenser Jones"> 
 
-<meta name="description" content=" Jul 12th, 2013 "> <meta name="keywords" content="">
+<meta name="description" content="There are two major players in the Domain Name System server market: Bind and NSD. The former has been around since the 1980s and makes up a majority &hellip;"> <meta name="keywords" content="">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -96,7 +96,229 @@ $(document).ready(
 
 	<div id="content" class="inner"><article class="post">
 	<h2 class="title">Setting Up NSD3 for DNS</h2>
-	<div class="entry-content">
+	<div class="entry-content"><p>There are two major players in the Domain Name System server market: <a href="https://www.isc.org/downloads/bind/">Bind</a> and <a href="https://www.nlnetlabs.nl/projects/nsd/">NSD</a>. The former has been around since the 1980s and makes up a majority of the installations in use today, while the latter saw its first release around the turn of the century, and is designed to be purely authoritative (incapable of recursive DNS queries). While selecting a DNS server for <a href="https://ambrose.edu">Ambrose University College</a>, NSD&rsquo;s ability to easily run from a Chroot, and its lightweight footprint (currently using 69MB of RAM for the entire server), easily won our vote. Furthermore, NSD can make use of BIND&rsquo;s zonefiles, and the migration from our old server was complete in a matter of minutes.</p>
+
+<h2>Securing your server</h2>
+
+<p>Logging in as root is a surefire way to let hackers into your box, so lets begin by creating a new user, adding them to an admin group for sudo.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo addgroup admin
+</span><span class='line'>Adding group 'admin' (GID 1001)
+</span><span class='line'>Done.
+</span><span class='line'>
+</span><span class='line'>$ sudo adduser spenserj
+</span><span class='line'>Adding user `spenserj' ...
+</span><span class='line'>Adding new group `spenserj' (1002) ...
+</span><span class='line'>Adding new user `spenserj' (1001) with group `spenserj' ...
+</span><span class='line'>Creating home directory `/home/spenserj' ...
+</span><span class='line'>Copying files from `/etc/skel' ...
+</span><span class='line'>Enter new UNIX password:
+</span><span class='line'>Retype new UNIX password:
+</span><span class='line'>passwd: password updated successfully
+</span><span class='line'>Changing the user information for spenserj
+</span><span class='line'>Enter the new value, or press ENTER for the default
+</span><span class='line'>    Full Name []: Spenser Jones
+</span><span class='line'>    Room Number []:
+</span><span class='line'>    Work Phone []:
+</span><span class='line'>    Home Phone []:
+</span><span class='line'>    Other []:
+</span><span class='line'>Is the information correct? [Y/n] y
+</span><span class='line'>
+</span><span class='line'>$ sudo usermod -a -G admin spenserj</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You&rsquo;ll also want to create a private key on your computer, and disable that pesky password authentication on the server.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ mkdir ~/.ssh
+</span><span class='line'>$ echo "ssh-rsa [your public key]" &gt; ~/.ssh/authorized_keys</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>/etc/ssh/sshd_config</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>PermitRootLogin no
+</span><span class='line'>PasswordAuthentication no
+</span><span class='line'>AllowUsers spenserj</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Reload SSH to apply the changes, and then try logging in <strong>in a new session</strong> to ensure everything worked. If you can&rsquo;t log in, you&rsquo;ll still have your original session to fix things up.</p>
+
+<figure class='code'><figcaption><span>/etc/ssh/sshd_config</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo service ssh restart
+</span><span class='line'>ssh stop/waiting
+</span><span class='line'>ssh start/running, process 1599</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Update the server</h3>
+
+<figure class='code'><figcaption><span>/etc/ssh/sshd_config</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get update
+</span><span class='line'>...
+</span><span class='line'>Hit http://ca.archive.ubuntu.com precise-updates/universe Translation-en_CA
+</span><span class='line'>Hit http://ca.archive.ubuntu.com precise-updates/universe Translation-en
+</span><span class='line'>Hit http://ca.archive.ubuntu.com precise-backports/main Translation-en
+</span><span class='line'>Hit http://ca.archive.ubuntu.com precise-backports/multiverse Translation-en
+</span><span class='line'>Hit http://ca.archive.ubuntu.com precise-backports/restricted Translation-en
+</span><span class='line'>Hit http://ca.archive.ubuntu.com precise-backports/universe Translation-en
+</span><span class='line'>Fetched 3,285 kB in 5s (573 kB/s)
+</span><span class='line'>Reading package lists... Done
+</span><span class='line'>
+</span><span class='line'>$ sudo apt-get upgrade
+</span><span class='line'>Reading package lists... Done
+</span><span class='line'>Building dependency tree
+</span><span class='line'>Reading state information... Done
+</span><span class='line'>The following packages have been kept back:
+</span><span class='line'>  linux-headers-generic-lts-quantal linux-image-generic-lts-quantal
+</span><span class='line'>The following packages will be upgraded:
+</span><span class='line'>  accountsservice apport apt apt-transport-https apt-utils aptitude bash ...
+</span><span class='line'>73 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+</span><span class='line'>Need to get 61.0 MB of archives.
+</span><span class='line'>After this operation, 151 kB of additional disk space will be used.
+</span><span class='line'>Do you want to continue [Y/n]? Y
+</span><span class='line'>...
+</span><span class='line'>Setting up libisc83 (1:9.8.1.dfsg.P1-4ubuntu0.6) ...
+</span><span class='line'>Setting up libdns81 (1:9.8.1.dfsg.P1-4ubuntu0.6) ...
+</span><span class='line'>Setting up libisccc80 (1:9.8.1.dfsg.P1-4ubuntu0.6) ...
+</span><span class='line'>Setting up libisccfg82 (1:9.8.1.dfsg.P1-4ubuntu0.6) ...
+</span><span class='line'>Setting up libbind9-80 (1:9.8.1.dfsg.P1-4ubuntu0.6) ...
+</span><span class='line'>Setting up liblwres80 (1:9.8.1.dfsg.P1-4ubuntu0.6) ...
+</span><span class='line'>Setting up bind9-host (1:9.8.1.dfsg.P1-4ubuntu0.6) ...
+</span><span class='line'>Setting up dnsutils (1:9.8.1.dfsg.P1-4ubuntu0.6) ...
+</span><span class='line'>Setting up iptables (1.4.12-1ubuntu5) ...
+</span><span class='line'>...</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Install NSD</h2>
+
+<p>NSD will start as soon as you install it, and complain if you don&rsquo;t have a config file created already, so we&rsquo;ll create a blank file for now.</p>
+
+<figure class='code'><figcaption><span>/etc/ssh/sshd_config</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo mkdir /etc/nsd3
+</span><span class='line'>$ sudo touch /etc/nsd3/nsd.conf
+</span><span class='line'>$ sudo apt-get install nsd3
+</span><span class='line'>Reading package lists... Done
+</span><span class='line'>Building dependency tree
+</span><span class='line'>Reading state information... Done
+</span><span class='line'>The following NEW packages will be installed:
+</span><span class='line'>  nsd3
+</span><span class='line'>0 upgraded, 1 newly installed, 0 to remove and 2 not upgraded.
+</span><span class='line'>Need to get 931 kB of archives.
+</span><span class='line'>After this operation, 1,672 kB of additional disk space will be used.
+</span><span class='line'>Get:1 http://ca.archive.ubuntu.com/ubuntu/ precise/universe nsd3 amd64 3.2.9-1 [931 kB]
+</span><span class='line'>Fetched 931 kB in 1s (491 kB/s)
+</span><span class='line'>Selecting previously unselected package nsd3.
+</span><span class='line'>(Reading database ... 49711 files and directories currently installed.)
+</span><span class='line'>Unpacking nsd3 (from .../nsd3_3.2.9-1_amd64.deb) ...
+</span><span class='line'>Processing triggers for ureadahead ...
+</span><span class='line'>Processing triggers for man-db ...
+</span><span class='line'>Setting up nsd3 (3.2.9-1) ...
+</span><span class='line'>grep: /etc/aliases: No such file or directory
+</span><span class='line'> * Building nsd3 zones... [ OK ]
+</span><span class='line'> * Starting nsd3...       [ OK ]</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Give yourself access to <code>/etc/nsd3</code></h3>
+
+<p>By default, you won&rsquo;t have access to /etc/nsd3 without working as root, and running as root is bad form, so let&rsquo;s add the nsd group to our account. We probably have some kernel updates that need to be applied, and we need to relogin for the group to apply, so this is the perfect time to reboot our server as well.</p>
+
+<figure class='code'><figcaption><span>/etc/ssh/sshd_config</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo usermod -a -G nsd spenserj
+</span><span class='line'>$ sudo reboot now
+</span><span class='line'>Broadcast message from spenserj@dnsmaster
+</span><span class='line'>    (/dev/pts/0) at 17:23 ...
+</span><span class='line'>
+</span><span class='line'>The system is going down for reboot NOW!</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>More to come shortly.</h1>
 </div>
 
 
@@ -115,6 +337,10 @@ $(document).ready(
 
 <time datetime="2013-07-12T11:31:00-06:00" pubdate data-updated="true">Jul 12<span>th</span>, 2013</time></div>
 	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/dns/'>DNS</a>, <a class='category' href='/blog/categories/server-administration/'>Server Administration</a>
+
 
 </div>
 	
