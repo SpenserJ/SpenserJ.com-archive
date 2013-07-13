@@ -4,7 +4,7 @@
   <title><![CDATA[Spenser Jones]]></title>
   <link href="http://SpenserJ.github.io/atom.xml" rel="self"/>
   <link href="http://SpenserJ.github.io/"/>
-  <updated>2013-07-13T17:08:01-06:00</updated>
+  <updated>2013-07-13T17:16:17-06:00</updated>
   <id>http://SpenserJ.github.io/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
@@ -445,20 +445,20 @@
 
 <h2>Step 2: Creating your plugin&rsquo;s project</h2>
 
-<p>Open the &ldquo;New Project&rdquo; window, choose &ldquo;Framework &amp; Library,&rdquo; choose &ldquo;Bundle,&rdquo; and set the Framework to &ldquo;Cocoa.&rdquo;
-Right click on your Bundle under the &ldquo;Targets&rdquo; section of the sidebar, and choose &ldquo;Get Info.&rdquo; Go to the properties tab, and set the &ldquo;Principle Class&rdquo; to the same as your plugin name (I&rsquo;m using MyFirstAdiumPlugin). Also, set your identifier, which is normally the reverse of your domain. Since my domain is SpenserJones.com, I will use com.spenserjones.MyFirstAdiumPlugin. Finally, set the &ldquo;Creator&rdquo; code to &ldquo;AdIM&rdquo;, and confirm that the Type is &ldquo;BNDL.&rdquo;
+<p>Open the <code>New Project</code> window, choose <code>Framework &amp; Library</code>, choose <code>Bundle</code>, and set the Framework to <code>Cocoa</code>.
+Right click on your Bundle under the <code>Targets</code> section of the sidebar, and choose <code>Get Info</code>. Go to the properties tab, and set the <code>Principle Class</code> to the same as your plugin name (I&rsquo;m using MyFirstAdiumPlugin). Also, set your identifier, which is normally the reverse of your domain. Since my domain is SpenserJones.com, I will use com.spenserjones.MyFirstAdiumPlugin. Finally, set the <code>Creator</code> code to <code>AdIM</code>, and confirm that the Type is <code>BNDL</code>.
 Under the Build tab of the Info window, change the following settings:</p>
 
-<table>
+<table width="100%">
 <tbody>
-<tr><th>Setting</th><th>Value</th></tr>
+<tr><th style="text-align: center;">Setting</th><th style="text-align: center;">Value</th></tr>
 <tr>
 <td>Wrapper Extension</td>
 <td>AdiumPlugin</td>
 </tr>
 <tr>
 <td>Installation Directory</td>
-<td>&#8221;$(HOME)/Library/Application Support/Adium 2.0/PlugIns/&#8221;</td>
+<td>`$(HOME)/Library/Application Support/Adium 2.0/PlugIns/`</td>
 </tr>
 <tr>
 <td>Base SDK</td>
@@ -468,13 +468,13 @@ Under the Build tab of the Info window, change the following settings:</p>
 </table>
 
 
-<p>Finally, drag <code>$(ADIUM)/build/Development/Adium.framework</code> (where $(ADIUM) is the directory where you checked out Adium) into &ldquo;Frameworks and Libraries/Other Frameworks&rdquo; in the sidebar of XCode. When prompted, check the &ldquo;Copy items into destination group&rsquo;s folder (if needed)&rdquo; and &ldquo;Recursively create groups for any added folders.&rdquo;</p>
+<p>Finally, drag <code>$(ADIUM)/build/Development/Adium.framework</code> (where $(ADIUM) is the directory where you checked out Adium) into <code>Frameworks and Libraries/Other Frameworks</code> in the sidebar of XCode. When prompted, check the <code>Copy items into destination group's folder (if needed)</code> and <code>Recursively create groups for any added folders.</code></p>
 
 <h2>Step 3: Writing the code</h2>
 
-<p>Click on the folder &ldquo;Classes&rdquo; in the left pane of the main window of XCode, and then click &ldquo;File &ndash; New File&rdquo; (CMD-N). Choose &ldquo;Cocoa Class&rdquo; and then &ldquo;Objective-C class.&rdquo; Leave the subclass as &ldquo;NSObject,&rdquo; as we will be changing this shortly. Name the file the same name as your plugin, and check the &ldquo;Also create *.h&rdquo; box.
-Open up MyFirstAdiumPlugin.h, and add an import line of <code>#import &lt;Adium/AIPlugin.h&gt;</code> and also change <code>MyFirstAdiumPlugin : NSObject</code> to <code>MyFirstAdiumPlugin : NSObject &lt;AIPlugin&gt;</code>
-Create two void functions in MyFirstAdiumPlugin.m called installPlugin and uninstallPlugin.  After doing these steps, your code should look like:</p>
+<p>Click on the folder <code>Classes</code> in the left pane of the main window of XCode, and then click <code>File - New File</code> (CMD-N). Choose <code>Cocoa Class</code> and then <code>Objective-C class</code>. Leave the subclass as <code>NSObject</code>, as we will be changing this shortly. Name the file the same name as your plugin, and check the <code>Also create \*.h</code> box.
+Open up <code>MyFirstAdiumPlugin.h</code>, and add an import line of <code>#import &lt;Adium/AIPlugin.h&gt;</code> and also change <code>MyFirstAdiumPlugin : NSObject</code> to <code>MyFirstAdiumPlugin : NSObject &lt;AIPlugin&gt;</code>
+Create two void functions in <code>MyFirstAdiumPlugin.m</code> called installPlugin and uninstallPlugin.  After doing these steps, your code should look like:</p>
 
 <figure class='code'><figcaption><span>MyFirstAdiumPlugin.h</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -536,13 +536,13 @@ Create two void functions in MyFirstAdiumPlugin.m called installPlugin and unins
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Before you get too excited about having coded a plugin, there is one more step. Open &ldquo;Info.plist&rdquo; and add the following line, replacing {VERSION} with the version of Adium you compiled: <code>&lt;key&gt;AIMinimumAdiumVersionRequirement&lt;/key&gt; &lt;string&gt;{VERSION}&lt;/string&gt;</code></p>
+<p>Before you get too excited about having coded a plugin, there is one more step. Open <code>Info.plist</code> and add the following line, replacing <code>{VERSION}</code> with the version of Adium you compiled: <code>&lt;key&gt;AIMinimumAdiumVersionRequirement&lt;/key&gt; &lt;string&gt;{VERSION}&lt;/string&gt;</code></p>
 
 <p>As of writing this, the release version is 1.3, while the beta is 1.4. Adium 1.4 will require users to have Leopard or better, while 1.3 requires Tiger.</p>
 
 <h2>Step 4: Bask in the glory of your first Adium plugin</h2>
 
-<p>All that is left is to compile and install your first Adium plugin. Click build, confirm that there are no errors, and then double-click MyFirstAdiumPlugin/build/Debug/MyFirstAdiumPlugin.AdiumPlugin from Finder.</p>
+<p>All that is left is to compile and install your first Adium plugin. Click build, confirm that there are no errors, and then double-click <code>MyFirstAdiumPlugin/build/Debug/MyFirstAdiumPlugin.AdiumPlugin</code> from Finder.</p>
 
 <h2>Step 5: Add some functionality</h2>
 
