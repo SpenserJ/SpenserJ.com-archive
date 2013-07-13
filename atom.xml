@@ -4,7 +4,7 @@
   <title><![CDATA[Spenser Jones]]></title>
   <link href="http://SpenserJ.github.io/atom.xml" rel="self"/>
   <link href="http://SpenserJ.github.io/"/>
-  <updated>2013-07-12T14:47:52-06:00</updated>
+  <updated>2013-07-13T17:08:01-06:00</updated>
   <id>http://SpenserJ.github.io/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
@@ -427,6 +427,126 @@
     <updated>2013-05-14T13:39:00-06:00</updated>
     <id>http://SpenserJ.github.io/blog/2013/05/14/spring-cleaning</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve decided to wipe out a few years worth of hastily written blog posts and start fresh. Fitting, given that I&rsquo;m also switching to <a href="http://spenserj.com">SpenserJ.com</a> as my domain name, after waiting for it to expire for the better part of two years. My vision is for this site to be a landing zone for the various ideas and tweaks that come to me every week.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Building your first Adium Plugin]]></title>
+    <link href="http://SpenserJ.github.io/blog/2010/08/13/building-your-first-adium-plugin/"/>
+    <updated>2010-08-13T16:51:00-06:00</updated>
+    <id>http://SpenserJ.github.io/blog/2010/08/13/building-your-first-adium-plugin</id>
+    <content type="html"><![CDATA[<p><strong>This guide is extremely outdated. It was originally authored on August 13th, 2010, and has not been updated recently.</strong></p>
+
+<p><em>As a warning, Adium Plugins use internal Adium APIs, which sometimes change. If you build a plugin, it may break with future versions of Adium, so be prepared for some upkeep down the road, unless you want to be rude and build a great program, and then abandon it and all of its users.</em> This guide assumes that you understand the basics of Objective-C, XCode, and programming in general. If you don&rsquo;t meet one of these prerequisites, please go research the basics and then come back.</p>
+
+<h2>Step 1: Compiling Adium</h2>
+
+<p>Before you can start coding a plugin, you need the Adium plugin framework. To get this, download and build Adium from <a href="http://trac.adium.im/wiki/GettingNewestAdiumSource">http://trac.adium.im/wiki/GettingNewestAdiumSource</a>. Be sure to download the version that most of your plugin&rsquo;s users will be using (e.g. stable). If you cannot complete this step without googling, I would suggest learning the basics of Objective-C and XCode, among other things, first.</p>
+
+<h2>Step 2: Creating your plugin&rsquo;s project</h2>
+
+<p>Open the &ldquo;New Project&rdquo; window, choose &ldquo;Framework &amp; Library,&rdquo; choose &ldquo;Bundle,&rdquo; and set the Framework to &ldquo;Cocoa.&rdquo;
+Right click on your Bundle under the &ldquo;Targets&rdquo; section of the sidebar, and choose &ldquo;Get Info.&rdquo; Go to the properties tab, and set the &ldquo;Principle Class&rdquo; to the same as your plugin name (I&rsquo;m using MyFirstAdiumPlugin). Also, set your identifier, which is normally the reverse of your domain. Since my domain is SpenserJones.com, I will use com.spenserjones.MyFirstAdiumPlugin. Finally, set the &ldquo;Creator&rdquo; code to &ldquo;AdIM&rdquo;, and confirm that the Type is &ldquo;BNDL.&rdquo;
+Under the Build tab of the Info window, change the following settings:</p>
+
+<table>
+<tbody>
+<tr><th>Setting</th><th>Value</th></tr>
+<tr>
+<td>Wrapper Extension</td>
+<td>AdiumPlugin</td>
+</tr>
+<tr>
+<td>Installation Directory</td>
+<td>&#8221;$(HOME)/Library/Application Support/Adium 2.0/PlugIns/&#8221;</td>
+</tr>
+<tr>
+<td>Base SDK</td>
+<td>Mac OS X 10.5 (or the lowest version of Mac OS X you can set it to)</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>Finally, drag <code>$(ADIUM)/build/Development/Adium.framework</code> (where $(ADIUM) is the directory where you checked out Adium) into &ldquo;Frameworks and Libraries/Other Frameworks&rdquo; in the sidebar of XCode. When prompted, check the &ldquo;Copy items into destination group&rsquo;s folder (if needed)&rdquo; and &ldquo;Recursively create groups for any added folders.&rdquo;</p>
+
+<h2>Step 3: Writing the code</h2>
+
+<p>Click on the folder &ldquo;Classes&rdquo; in the left pane of the main window of XCode, and then click &ldquo;File &ndash; New File&rdquo; (CMD-N). Choose &ldquo;Cocoa Class&rdquo; and then &ldquo;Objective-C class.&rdquo; Leave the subclass as &ldquo;NSObject,&rdquo; as we will be changing this shortly. Name the file the same name as your plugin, and check the &ldquo;Also create *.h&rdquo; box.
+Open up MyFirstAdiumPlugin.h, and add an import line of <code>#import &lt;Adium/AIPlugin.h&gt;</code> and also change <code>MyFirstAdiumPlugin : NSObject</code> to <code>MyFirstAdiumPlugin : NSObject &lt;AIPlugin&gt;</code>
+Create two void functions in MyFirstAdiumPlugin.m called installPlugin and uninstallPlugin.  After doing these steps, your code should look like:</p>
+
+<figure class='code'><figcaption><span>MyFirstAdiumPlugin.h</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='obj-c'><span class='line'><span class="cp">#import &lt;Cocoa/Cocoa.h&gt;</span>
+</span><span class='line'><span class="cp">#import &lt;Adium/AIPlugin.h&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@interface</span> <span class="nc">MyFirstAdiumPlugin</span> : <span class="nc">NSObject</span> <span class="o">&lt;</span><span class="n">AIPlugin</span><span class="o">&gt;</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>MyFirstAdiumPlugin.m</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='obj-c'><span class='line'><span class="cp">#import &quot;MyFirstAdiumPlugin.h&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@implementation</span> <span class="nc">MyFirstAdiumPlugin</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">installPlugin</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">uninstallPlugin</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Before you get too excited about having coded a plugin, there is one more step. Open &ldquo;Info.plist&rdquo; and add the following line, replacing {VERSION} with the version of Adium you compiled: <code>&lt;key&gt;AIMinimumAdiumVersionRequirement&lt;/key&gt; &lt;string&gt;{VERSION}&lt;/string&gt;</code></p>
+
+<p>As of writing this, the release version is 1.3, while the beta is 1.4. Adium 1.4 will require users to have Leopard or better, while 1.3 requires Tiger.</p>
+
+<h2>Step 4: Bask in the glory of your first Adium plugin</h2>
+
+<p>All that is left is to compile and install your first Adium plugin. Click build, confirm that there are no errors, and then double-click MyFirstAdiumPlugin/build/Debug/MyFirstAdiumPlugin.AdiumPlugin from Finder.</p>
+
+<h2>Step 5: Add some functionality</h2>
+
+<p>I&rsquo;d assume that you want a plugin that actually DOES something, instead of sits pretty in your plugins folder, right? Adium&rsquo;s documentation for plugin creation is fairly sparse (and always has been), however there is a map of Adium&rsquo;s API at <a href="http://trac.adium.im/wiki/MapOfAdium">http://trac.adium.im/wiki/MapOfAdium</a>, and plenty of plugins online that you can examine. Hopefully I will find time soon to write up a continuation of this guide, for adding functionality. If you use this guide to create a plugin, I&rsquo;d love it if you would share what you&rsquo;ve done in the comments below!</p>
 ]]></content>
   </entry>
   

@@ -5,11 +5,11 @@
 	<script data-cfasync="false" type="text/javascript" src="//use.typekit.net/axj3cfp.js"></script>
 	<script data-cfasync="false" type="text/javascript">try{Typekit.load();}catch(e){}</script>
 	<meta charset="utf-8">
-	<title>Code for Cookies  | Spenser Jones</title>
+	<title>Building your first Adium Plugin  | Spenser Jones</title>
 
 <meta name="author" content="Spenser Jones"> 
 
-<meta name="description" content="There are two major players in the Domain Name System server market: Bind and NSD. The former has been around since the 1980s and makes up a &hellip;"> <meta name="keywords" content="">
+<meta name="description" content="This guide is extremely outdated. It was originally authored on August 13th, 2010, and has not been updated recently. As a warning, Adium Plugins use &hellip;"> <meta name="keywords" content="">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -96,171 +96,9 @@ $(document).ready(
 
 </header>
 
-	<div id="content" class="inner">
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/07/12/setting-up-nsd3-for-dns/">
-		
-			Setting Up NSD3 for DNS</a>
-	</h2>
-	<div class="entry-content">
-		<p>There are two major players in the Domain Name System server market: <a href="https://www.isc.org/downloads/bind/">Bind</a> and <a href="https://www.nlnetlabs.nl/projects/nsd/">NSD</a>. The former has been around since the 1980s and makes up a majority of the installations in use today, while the latter saw its first release around the turn of the century, and is designed to be purely authoritative (incapable of recursive DNS queries). While selecting a DNS server for <a href="https://ambrose.edu">Ambrose University College</a>, NSD&rsquo;s ability to easily run from a Chroot, and its lightweight footprint (currently using 69MB of RAM for the entire server), easily won our vote. Furthermore, NSD can make use of BIND&rsquo;s zonefiles, and the migration from our old server was complete in a matter of minutes.</p>
-
-
-		
-		<a href="/blog/2013/07/12/setting-up-nsd3-for-dns/" class="more-link">Read on &rarr;</a>
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-12T11:31:00-06:00" pubdate data-updated="true">Jul 12<span>th</span>, 2013</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/dns/'>DNS</a>, <a class='category' href='/blog/categories/server-administration/'>Server Administration</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/07/12/testing-1-2-3-this-is-a-test/">
-		
-			Testing, 1 2 3. This Is a Test.</a>
-	</h2>
-	<div class="entry-content">
-		<p>I&rsquo;ve decided to give <a href="http://octopress.org/">Octopress</a> a chance, and so far I&rsquo;m enjoying it far more than <a href="https://drupal.org/">Drupal</a>. While a content management framework is great, I&rsquo;ve always found that there is far too much bloat for it to be used as a blogging platform. On top of that, <a href="http://daringfireball.net/projects/markdown/">Markdown</a> is a fantastic language, and being able to easily write beautiful code through it is extremely enticing.</p>
-
-<p>Only time will tell if this results in me posting more frequently, but I&rsquo;m optimistic.</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-12T10:54:00-06:00" pubdate data-updated="true">Jul 12<span>th</span>, 2013</time></div>
-	<div class="tags">
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/05/14/building-the-science-lab/">
-		
-			Building the Science Lab</a>
-	</h2>
-	<div class="entry-content">
-		<p>There have been a significant number of bugs with the <a href="http://pecl.php.net/package/APC">Alternative PHP Cache (APC)</a> over the past year, causing me to pass over PHP updates for fear of segfaults, however that has finally come to an end. APC is still just as buggy, but <a href="https://wiki.php.net/rfc/optimizerplus">PHP 5.5</a> will be bringing <a href="http://pecl.php.net/package/ZendOpcache">Zend OPCache</a> to the core, so I&rsquo;ve decided to transition early and configure the PECL package. As Zend OPCache does not come with a User Cache, I decided to set up Memcache on the <a href="https://ambrose.edu/">Ambrose University College</a> Drupal website, and was seeing benchmarks of around 65 requests per second (up from 30-35 req/sec with APC only).</p>
-
-<p>As <a href="https://github.com/krakjoe/apcu">APCu</a> (userland caching) continues to branch from the crusty old APC branch, and the old APC Opcaching code is remove, I&rsquo;ll be running a few tests to see whether APCu can bring more to the table than Memcache can, as I have no need for the distributed functionality that Memcache provides.</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-14T19:53:00-06:00" pubdate data-updated="true">May 14<span>th</span>, 2013</time></div>
-	<div class="tags">
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/05/14/spring-cleaning/">
-		
-			Spring Cleaning</a>
-	</h2>
-	<div class="entry-content">
-		<p>I&rsquo;ve decided to wipe out a few years worth of hastily written blog posts and start fresh. Fitting, given that I&rsquo;m also switching to <a href="http://spenserj.com">SpenserJ.com</a> as my domain name, after waiting for it to expire for the better part of two years. My vision is for this site to be a landing zone for the various ideas and tweaks that come to me every week.</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-14T13:39:00-06:00" pubdate data-updated="true">May 14<span>th</span>, 2013</time></div>
-	<div class="tags">
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2010/08/13/building-your-first-adium-plugin/">
-		
-			Building Your First Adium Plugin</a>
-	</h2>
-	<div class="entry-content">
-		<p><strong>This guide is extremely outdated. It was originally authored on August 13th, 2010, and has not been updated recently.</strong></p>
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Building Your First Adium Plugin</h2>
+	<div class="entry-content"><p><strong>This guide is extremely outdated. It was originally authored on August 13th, 2010, and has not been updated recently.</strong></p>
 
 <p><em>As a warning, Adium Plugins use internal Adium APIs, which sometimes change. If you build a plugin, it may break with future versions of Adium, so be prepared for some upkeep down the road, unless you want to be rude and build a great program, and then abandon it and all of its users.</em> This guide assumes that you understand the basics of Objective-C, XCode, and programming in general. If you don&rsquo;t meet one of these prerequisites, please go research the basics and then come back.</p>
 
@@ -372,10 +210,7 @@ Create two void functions in MyFirstAdiumPlugin.m called installPlugin and unins
 <h2>Step 5: Add some functionality</h2>
 
 <p>I&rsquo;d assume that you want a plugin that actually DOES something, instead of sits pretty in your plugins folder, right? Adium&rsquo;s documentation for plugin creation is fairly sparse (and always has been), however there is a map of Adium&rsquo;s API at <a href="http://trac.adium.im/wiki/MapOfAdium">http://trac.adium.im/wiki/MapOfAdium</a>, and plenty of plugins online that you can examine. Hopefully I will find time soon to write up a continuation of this guide, for adding functionality. If you use this guide to create a plugin, I&rsquo;d love it if you would share what you&rsquo;ve done in the comments below!</p>
-
-		
-		
-	</div>
+</div>
 
 
 <div class="meta">
@@ -398,11 +233,30 @@ Create two void functions in MyFirstAdiumPlugin.m called installPlugin and unins
 	
 </div></article>
 
-<nav id="pagenavi">
-    
-    
-    <div class="center"><a href="/archives">Blog Archives</a></div>
-</nav></div>
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+	
+<!---	<a class="addthis_counter addthis_pill_style"></a> --->
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
 	<footer id="footer" class="inner">Copyright &copy; 2013
 
     Spenser Jones
@@ -423,7 +277,10 @@ Powered by Octopress.
       var disqus_shortname = 'spenserj';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://SpenserJ.github.io/blog/2010/08/13/building-your-first-adium-plugin/';
+        var disqus_url = 'http://SpenserJ.github.io/blog/2010/08/13/building-your-first-adium-plugin/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
