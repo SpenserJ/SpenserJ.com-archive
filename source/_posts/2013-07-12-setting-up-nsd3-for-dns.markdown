@@ -149,7 +149,7 @@ The system is going down for reboot NOW!
 
 You'll find a sample configuration at `/etc/nsd3/nsd.conf.sample`, and [man nsd.conf](http://linux.die.net/man/5/nsd.conf) is a great place to find more information. The config is quite simplistic though, and I was un and running in minutes.
 
-``` plain 
+``` plain /etc/nsd3/nsd.conf
 server:
   logfile: "/var/log/nsd.log"
   username: nsd
@@ -195,7 +195,7 @@ NzmiUkU7zA/2rQ6nnjut3w==
 
 The slave configuration is nearly identical to the master, with the only change being the `notify` and `provide-xfr` lines changing to the slave-variant. Each zone is required to have a zonefile, but you don't need to fill it out if it pulls from the master, so I just touched each file and left it empty.
 
-``` plain 
+``` plain /etc/nsd3/nsd.conf
 zone:
   name: ambrose.edu
   zonefile: forward/ambrose.edu.zone
