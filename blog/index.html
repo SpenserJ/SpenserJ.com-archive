@@ -255,6 +255,64 @@ $(document).ready(
     <article class="post">
 	<h2 class="title">
 		
+		<a href="/blog/2011/03/25/adding-iframes-to-blackbaud-netcommunity/">
+		
+			Adding iFrames to Blackbaud NetCommunity <= 6.15.70</a>
+	</h2>
+	<div class="entry-content">
+		<p>Version 6.15 of Blackbaud NetCommunity consisted of many large changes to how BBNC works, one of which was the editor. In this update, Blackbaud moved from BBCuteEditor to TinyMCE (a great decision IMO, as TinyMCE is one of the most popular WYSIWYG editors). Sadly, patch 70 and below do not support iFrames, even if you have the iFrame set as a &ldquo;Safe HTML Tag&rdquo; in the settings. Blackbaud is working on a patch for this (patch 71 to be exact), however they do not have an ETA for it yet.</p>
+
+<p>We have always had maps embedded in our website, to help visitors find us, and we recently decided to also embed a few YouTube videos. Due to the change in 6.15 however, we could no longer do so, and I went on a hunt to find the key to the iFrame kingdom. After using the find-in-file feature of Windows, and coming up short on anything, I wrote a quick little script to rewrite the editor initialization code, remove existing editors, and reinitialize them, with the iframe allowed. It wasn&rsquo;t the most elegant solution, however it worked for the interm, as I waited for Blackbaud to release P71. While implementing it however, I stumbled across the original initialization code, and instantly threw what I had written out.</p>
+
+<p>Since it took a while for me to find this, I figure it may come in handy for anyone else that needs to add iFrames to TinyMCE in Blackbaud NetCommunity, or for anyone wanting to tweak the editor in the future.</p>
+
+<p>The file that you&rsquo;ll want to edit is <code>{NetCommunity}/admin/HTMLEditorControl2.ascx</code>. For adding iFrames to the valid elements, I changed:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;appfx:HtmlEditorSetting Name="extended_valid_elements" Value="'style[dir&lt;ltr?rtl|lang|media|title|type]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>to:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;appfx:HtmlEditorSetting Name="extended_valid_elements" Value="'iframe[src|width|height|name|align],style[dir&lt;ltr?rtl|lang|media|title|type]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Save the file, and refresh the editor, and you should now be able to insert iFrames into your page. Through this file, you can also change the theme that is used, disable certain toolbar buttons, and adjust anything else that is in the <a href="http://tinymce.moxiecode.com/wiki.php/Configuration">TinyMCE Configuration</a>.</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-03-25T12:47:00-06:00" pubdate data-updated="true">Mar 25<span>th</span>, 2011</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/blackbaud-netcommunity/'>Blackbaud NetCommunity</a>, <a class='category' href='/blog/categories/tinymce/'>TinyMCE</a>, <a class='category' href='/blog/categories/web/'>Web</a>
+
+
+</div>
+	
+</div></article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
 		<a href="/blog/2011/02/23/creating-a-blackbaud-netcommunity-custom-part/">
 		
 			Creating a Blackbaud NetCommunity Custom Part</a>
