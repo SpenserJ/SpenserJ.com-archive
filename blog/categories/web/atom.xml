@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Web | Spenser Jones]]></title>
   <link href="http://SpenserJ.github.io/blog/categories/web/atom.xml" rel="self"/>
   <link href="http://SpenserJ.github.io/"/>
-  <updated>2013-07-13T18:46:40-06:00</updated>
+  <updated>2013-07-13T18:50:51-06:00</updated>
   <id>http://SpenserJ.github.io/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
@@ -21,6 +21,9 @@
     <content type="html"><![CDATA[<p>I&rsquo;ve recently been given the task of creating some custom plugins for NetCommunity, so we can do things like unify the design of our Faculty Biography pages at Ambrose. I have prior experience with C#, so I figured it would be a fairly simple process, once I figured out how their API works, however there is minimal documentation, and all of the tutorials online are either outdated or incomplete.</p>
 
 <p>As such, I am going to write up a concise walkthrough for creating a NetCommunity plugin (for 6.15) using C#, from scratch, up until you have a functional part.</p>
+
+<!-- more -->
+
 
 <p>Begin by creating a new &ldquo;ASP.NET Empty Web Application&rdquo; project in Microsoft Visual Web Developer (<a href="http://cl.ly/4nce">http://cl.ly/4nce</a>). Right click on References, in the Solution Explorer, and choose Add Reference. Under the Browse tab, navigate to the Bin folder of your NetCommunity installation, and choose <code>BBNCExtensions.dll</code> (<a href="http://cl.ly/4nOt">http://cl.ly/4nOt</a>). Finally, go into the Project menu, and click <code>{ProjectName} properties</code>, and change Target framework to <code>.NET Framework 3.5</code> (under the application tab). You&rsquo;re now ready to start coding some basic functionality into your application.</p>
 
@@ -126,6 +129,9 @@ fieldEducation.Text = get_data.education;
 
 <p>One issue we have run into is that Internet Explorer does not play nice with our CSS3 box shadows (using CSS3Pie), and will save the progressive enhancements that are loaded specifically for IE, as part of the page and/or part, for all browsers. This results in pages that have been edited using IE, showing two box shadows in CSS3 compliant browsers, and only one in IE. Since IE is to blame (and has issues with other parts of the editor), I decided to kill off support for using IE when in administration mode.</p>
 
+<!-- more -->
+
+
 <p>While I was working on my IE-proofing, one of our content authors accidentally clicked the &ldquo;Template Designer&rdquo; button, which resulted in her inserting a part on every page on the website. This is not the first time we have encountered this issue, and last time it happened, it took about two hours to fix, as changes were also made to the HTML of the template. Two lines of javascript later, and the Stylesheet editor and Template Designer buttons no longer appear. If I need to make changes, I can always go through the page finder, but changes are so infrequent that having a front-and-center button is just asking for trouble.</p>
 
 <p>Incase you would like to implement similar &ldquo;fixes&rdquo; on your NetCommunity website, I have the code for 6.10 posted below :)</p>
@@ -184,6 +190,9 @@ if ($.browser.msie) { $('#divPage', top.document).css('color','#fff').html(ieDis
     <updated>2010-12-17T17:24:00-07:00</updated>
     <id>http://SpenserJ.github.io/blog/2010/12/17/css3-and-pictos</id>
     <content type="html"><![CDATA[<p>Over the past six months, I&rsquo;ve been charged with redeveloping the <a href="https://www2.ambrose.edu/">Ambrose University College</a> website, using BlackBaud NetCommunity. I worked together with the creative department (mainly focused on print media) for a new design (old one is <del><a href="https://www2.ambrose.edu/">here</a></del> offline), and with many other departments for training in content management and functionality. I&rsquo;ve learned quite a bit through the process, and grown immensely in my skills (primarily CSS and C#.Net). This post, however, is not so much about the experience I went through, as it is with the advancements I&rsquo;ve made when it comes to CSS3 replacing images, and support for it in all major browsers.</p>
+
+<!-- more -->
+
 
 <p>The initial design was thrown together over a few months, as I worked on getting content uploaded, and functionality working. It was not until two weeks ago that I was able to sit back and actually focus on making the website look good, instead of making it functional. Although I am  not a fan of certain aspects of the design, I have focused on improving what I could in it, and providing support for all browsers, including the bane of every designer/developer&hellip; Internet Explorer. During the &ldquo;throw it together to make people happy&rdquo; phase, I used plenty of images for buttons, and the designers rounded corners in all of the header images that we uploaded, however that increases their workload, and makes it harder to tweak buttons in the future (which we end up doing more than I&rsquo;d like to admit). It quickly became apparent that the website would become a time-sink for those that manage it, and a resource-hog for those that view it, if drastic measures were not taken. Which brings me to two weeks ago&hellip;</p>
 

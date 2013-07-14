@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ASP.Net | Spenser Jones]]></title>
   <link href="http://SpenserJ.github.io/blog/categories/asp-dot-net/atom.xml" rel="self"/>
   <link href="http://SpenserJ.github.io/"/>
-  <updated>2013-07-13T18:46:40-06:00</updated>
+  <updated>2013-07-13T18:50:51-06:00</updated>
   <id>http://SpenserJ.github.io/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
@@ -21,6 +21,9 @@
     <content type="html"><![CDATA[<p>I&rsquo;ve recently been given the task of creating some custom plugins for NetCommunity, so we can do things like unify the design of our Faculty Biography pages at Ambrose. I have prior experience with C#, so I figured it would be a fairly simple process, once I figured out how their API works, however there is minimal documentation, and all of the tutorials online are either outdated or incomplete.</p>
 
 <p>As such, I am going to write up a concise walkthrough for creating a NetCommunity plugin (for 6.15) using C#, from scratch, up until you have a functional part.</p>
+
+<!-- more -->
+
 
 <p>Begin by creating a new &ldquo;ASP.NET Empty Web Application&rdquo; project in Microsoft Visual Web Developer (<a href="http://cl.ly/4nce">http://cl.ly/4nce</a>). Right click on References, in the Solution Explorer, and choose Add Reference. Under the Browse tab, navigate to the Bin folder of your NetCommunity installation, and choose <code>BBNCExtensions.dll</code> (<a href="http://cl.ly/4nOt">http://cl.ly/4nOt</a>). Finally, go into the Project menu, and click <code>{ProjectName} properties</code>, and change Target framework to <code>.NET Framework 3.5</code> (under the application tab). You&rsquo;re now ready to start coding some basic functionality into your application.</p>
 

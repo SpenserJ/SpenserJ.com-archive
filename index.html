@@ -264,131 +264,9 @@ $(document).ready(
 
 <p>As such, I am going to write up a concise walkthrough for creating a NetCommunity plugin (for 6.15) using C#, from scratch, up until you have a functional part.</p>
 
-<p>Begin by creating a new &ldquo;ASP.NET Empty Web Application&rdquo; project in Microsoft Visual Web Developer (<a href="http://cl.ly/4nce">http://cl.ly/4nce</a>). Right click on References, in the Solution Explorer, and choose Add Reference. Under the Browse tab, navigate to the Bin folder of your NetCommunity installation, and choose <code>BBNCExtensions.dll</code> (<a href="http://cl.ly/4nOt">http://cl.ly/4nOt</a>). Finally, go into the Project menu, and click <code>{ProjectName} properties</code>, and change Target framework to <code>.NET Framework 3.5</code> (under the application tab). You&rsquo;re now ready to start coding some basic functionality into your application.</p>
-
-<p>Right click on your project in the Solution Explorer (should be the bold title at the very top), and choose <code>Add-&gt;New Item</code>. You will want to create two new <code>Web User Controls</code> named <code>Display.ascx</code> and <code>Editor.ascx</code> (<a href="http://cl.ly/4n69">http://cl.ly/4n69</a>). In Display.ascx.cs and Editor.ascx.cs, add the following &ldquo;using&rdquo; statements:</p>
-
-<figure class='code'><figcaption><span>Display.ascx.cs and Editor.ascx.cs</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">using</span> <span class="nn">BBNCExtensions</span><span class="p">;</span>
-</span><span class='line'><span class="k">using</span> <span class="nn">BBNCExtensions.Parts</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Then, in <code>Display.ascx.cs</code>, change <code>System.WebUI.UserControl</code> (the class to inherit from) to <code>BBNCExtensions.Parts.CustomPartDisplayBase</code>. In <code>Editor.ascx.cs</code>, you&rsquo;ll want to change <code>System.WebUI.UserControl</code> to <code>BBNCExtensions.Parts.CustomPartEditorBase</code>. You&rsquo;ll also want to add two functions, as follow:</p>
-
-<figure class='code'><figcaption><span>Display.ascx.cs</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">OnLoadContent</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">public</span> <span class="k">override</span> <span class="kt">bool</span> <span class="nf">OnSaveContent</span><span class="p">(</span><span class="kt">bool</span> <span class="n">bDialogIsClosing</span><span class="p">){</span>
-</span><span class='line'>    <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Your plugin is now finished, and it is time to build it, and set it up in NetCommunity. Click build, and copy <code>bin/{ProjectName}.dll</code> to <code>{NetCommunityInstall}/Bin</code>, and copy <code>Display.ascx</code> and <code>Editor.ascx</code> (from the project root) to <code>{NetCommunityInstall}/Custom/{ProjectName}/</code>. Then open up the Custom Part settings page in NetCommunity, click <code>New custom part</code>, and give your part a name. For Display/Edit Control Source, enter <code>~\Custom\{ProjectName}\{Display|Editor}.ascx</code> (depending on which field you&rsquo;re changing), and leave <code>Supports Personalization for</code> set to <code>Not Supported</code>.</p>
-
-<p>Save the custom part, and try creating a part, and you should see a blank editor page, and a blank display page (after you save it). Your NetCommunity plugin is now built, so give yourself a pat on the back, take a quick break, and then we&rsquo;ll add some basic functionality.</p>
-
-<p>Every change you make will require that you update either the DLL, the ascx files, or both (depending on what you change), so lets automate that with some build events. Click the Project Menu, and then <code>{ProjectName} Properties</code>. Open the Build Events tab, and edit the Post-build event so that it reads (with obvious path adjustments):</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>copy "$(ProjectDir)*.ascx"  "c:\Program Files\Blackbaud\NetCommunity\Custom\$(ProjectName)"
-</span><span class='line'>copy "$(TargetDir)$(ProjectName).dll" "c:\Program Files\Blackbaud\NetCommunity\Bin"</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Click build, and you should see it automatically copy the three files into their appropriate directories.</p>
-
-<p>Now to bring the plugin to life, and add some actual functionality. Right click on your project in the Solution Explorer, and choose <code>Add-&gt;Class</code>. Name it something appropriate, as this class will hold the settings for this part. Inside of the class declaration, add a public variable for every property of the part (e.g. public string name = &ldquo;&rdquo;;).</p>
-
-<p>Open <code>Editor.ascx</code> in design mode, and add a text field (you can add labels and formatting whenever you please) for each property that you want to make editable, and set the ID to match the property name. I chose to prefix each with &ldquo;field&rdquo; to make it easier to find, which resulted in things like &ldquo;fieldEducation&rdquo; as an ID, but as long as you can keep track of each property, you can name it any proper variable name.</p>
-
-<p>Then, go back to <code>Editor.ascx.cs</code>, and in your <code>OnSaveContent</code> function, add the following (adjusting as necessary). I&rsquo;m going to use property_class, but replace that with whatever you named the class you created above (containing your property declarations):</p>
-
-<figure class='code'><figcaption><span>Editor.ascx.cs - OnSaveContent</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="c1">// Lets create an empty property_class variable, to save our data</span>
-</span><span class='line'><span class="n">property_class</span> <span class="n">save_data</span> <span class="p">=</span> <span class="k">new</span> <span class="n">property_class</span><span class="p">();</span>
-</span><span class='line'><span class="c1">// For each property that you have, add a line similar to this</span>
-</span><span class='line'><span class="n">save_data</span><span class="p">.</span><span class="n">education</span> <span class="p">=</span> <span class="n">fieldEducation</span><span class="p">.</span><span class="n">Text</span><span class="p">;</span>
-</span><span class='line'><span class="c1">// Now lets save all of those properties to the part</span>
-</span><span class='line'><span class="k">base</span><span class="p">.</span><span class="n">Content</span><span class="p">.</span><span class="n">SaveContent</span><span class="p">(</span><span class="n">save_data</span><span class="p">);</span>
-</span><span class='line'><span class="c1">// Finally, let the browser know that everything worked, and let the window close</span>
-</span><span class='line'><span class="c1">// When you add validation, return false if you find an error</span>
-</span><span class='line'><span class="k">return</span> <span class="k">true</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>While still in <code>Editor.ascx.cs</code>, add the following to <code>OnLoadContent</code>, again modifying it as needed:</p>
-
-<figure class='code'><figcaption><span>Editor.ascx.cs - OnLoadContent</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="c1">// Check if we&#39;re not updating the data (e.g. we just opened the editor)</span>
-</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">Request</span><span class="p">.</span><span class="n">RequestType</span> <span class="p">!=</span> <span class="s">&quot;POST&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="c1">// Load the content from our part, as property_class</span>
-</span><span class='line'>    <span class="n">property_class</span> <span class="n">get_data</span> <span class="p">=</span> <span class="k">base</span><span class="p">.</span><span class="n">Content</span><span class="p">.</span><span class="n">GetContent</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="n">property_class</span><span class="p">))</span> <span class="k">as</span> <span class="n">property_class</span><span class="p">;</span>
-</span><span class='line'>    <span class="c1">// If get_data is null, this is a brand new part. If it isn&#39;t null, lets set our fields to the data</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">get_data</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="c1">// Add a line like this for every property in property_class</span>
-</span><span class='line'>        <span class="n">fieldEducation</span><span class="p">.</span><span class="n">Text</span> <span class="p">=</span> <span class="n">get_data</span><span class="p">.</span><span class="n">education</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>If you build the part, and try it in NetCommunity at this point, you&rsquo;ll find that you can create and edit the part, and it will retain your changes, however it doesn&rsquo;t display your changes anywhere. To add that in, open up <code>Display.ascx</code> in design mode, and add Literal tags to your code, again, setting the ID to something logical. Then open up <code>Display.ascx.cs</code>, and add the following to your <code>Page_Load</code> function, as usual, editing it where needed:</p>
-
-<figure class='code'><figcaption><span>Display.ascx - Page_Load</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="c1">// Load the content from our part, as property_class</span>
-</span><span class='line'><span class="n">property_class</span> <span class="n">get_data</span> <span class="p">=</span> <span class="k">base</span><span class="p">.</span><span class="n">Content</span><span class="p">.</span><span class="n">GetContent</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="n">property_class</span><span class="p">))</span> <span class="k">as</span> <span class="n">property_class</span><span class="p">;</span>
-</span><span class='line'><span class="c1">// Has this part been saved before?</span>
-</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">get_data</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="c1">// Add a line like this for every property in property_class</span>
-</span><span class='line'>    <span class="n">fieldEducation</span><span class="p">.</span><span class="n">Text</span> <span class="p">=</span> <span class="n">get_data</span><span class="p">.</span><span class="n">education</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>If you save and build your part again, you&rsquo;ll see that your properties are now being displayed as well. Congratulations on successfully building your first Blackbaud NetCommunity Custom Part.</p>
 
 		
-		
+		<a href="/blog/2011/02/23/creating-a-blackbaud-netcommunity-custom-part/" class="more-link">Read on &rarr;</a>
 	</div>
 
 
@@ -429,72 +307,9 @@ $(document).ready(
 
 <p>One issue we have run into is that Internet Explorer does not play nice with our CSS3 box shadows (using CSS3Pie), and will save the progressive enhancements that are loaded specifically for IE, as part of the page and/or part, for all browsers. This results in pages that have been edited using IE, showing two box shadows in CSS3 compliant browsers, and only one in IE. Since IE is to blame (and has issues with other parts of the editor), I decided to kill off support for using IE when in administration mode.</p>
 
-<p>While I was working on my IE-proofing, one of our content authors accidentally clicked the &ldquo;Template Designer&rdquo; button, which resulted in her inserting a part on every page on the website. This is not the first time we have encountered this issue, and last time it happened, it took about two hours to fix, as changes were also made to the HTML of the template. Two lines of javascript later, and the Stylesheet editor and Template Designer buttons no longer appear. If I need to make changes, I can always go through the page finder, but changes are so infrequent that having a front-and-center button is just asking for trouble.</p>
-
-<p>Incase you would like to implement similar &ldquo;fixes&rdquo; on your NetCommunity website, I have the code for 6.10 posted below :)</p>
-
-<figure class='code'><figcaption><span>NetCommunity 6.10</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>  <span class="kd">var</span> <span class="nx">$adminMenu</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#bbAdminMenuDiv&#39;</span><span class="p">,</span> <span class="nx">top</span><span class="p">.</span><span class="nb">document</span><span class="p">);</span>
-</span><span class='line'>  <span class="kd">var</span> <span class="nx">ieDisabledMessage</span> <span class="o">=</span> <span class="s1">&#39;In order to edit the Ambrose website, please use Firefox. IE support has been disabled due to compatibility issues.&#39;</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="nx">browser</span><span class="p">.</span><span class="nx">msie</span> <span class="o">&amp;&amp;</span> <span class="nx">$adminMenu</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;div, table, a&#39;</span><span class="p">,</span> <span class="nx">$adminMenu</span><span class="p">).</span><span class="nx">remove</span><span class="p">();</span>
-</span><span class='line'>    <span class="nx">$adminMenu</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">ieDisabledMessage</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="nx">top</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;/AdminPage.aspx&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#pagecntnt_AdminToolbar_btn2, #pagecntnt_AdminToolbar_btn3&#39;</span><span class="p">,</span> <span class="nx">top</span><span class="p">.</span><span class="nb">document</span><span class="p">).</span><span class="nx">remove</span><span class="p">();</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="nx">browser</span><span class="p">.</span><span class="nx">msie</span><span class="p">)</span> <span class="p">{</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#pagecntnt_divContentPane&#39;</span><span class="p">,</span> <span class="nx">top</span><span class="p">.</span><span class="nb">document</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">ieDisabledMessage</span><span class="p">);</span> <span class="p">}</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><em>As of December 22nd, we have upgraded to 6.15, and the administration menu and screens have changed. As such, I have rewritten the code, and it is also posted below</em></p>
-
-<figure class='code'><figcaption><span>NetCommunity 6.15</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>  <span class="kd">var</span> <span class="nx">$adminMenu</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#ctl05_bbBetaAdminMenuDiv&#39;</span><span class="p">,</span> <span class="nx">top</span><span class="p">.</span><span class="nb">document</span><span class="p">);</span>
-</span><span class='line'>  <span class="kd">var</span> <span class="nx">ieDisabledMessage</span> <span class="o">=</span> <span class="s1">&#39;In order to edit the Ambrose website, please use Firefox. IE support has been disabled due to compatibility issues.&#39;</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="nx">browser</span><span class="p">.</span><span class="nx">msie</span> <span class="o">&amp;&amp;</span> <span class="nx">$adminMenu</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;ul.bb_mainMenu li:gt(0), .bb_subMenu&#39;</span><span class="p">,</span> <span class="nx">$adminMenu</span><span class="p">).</span><span class="nx">remove</span><span class="p">();</span>
-</span><span class='line'>    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;li:first&#39;</span><span class="p">,</span> <span class="nx">$adminMenu</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="s1">&#39;&lt;h2 style=&quot;padding: 0px 12px;&quot;&gt;&#39;</span> <span class="o">+</span> <span class="nx">ieDisabledMessage</span> <span class="o">+</span> <span class="s1">&#39;&lt;/h2&gt;&#39;</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="nx">top</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;ambrose.edu/cms/&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#pagecntnt_AdminToolbar_btn1lnk, #pagecntnt_AdminToolbar_btn2lnk&#39;</span><span class="p">,</span> <span class="nx">top</span><span class="p">.</span><span class="nb">document</span><span class="p">).</span><span class="nx">remove</span><span class="p">();</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="nx">browser</span><span class="p">.</span><span class="nx">msie</span><span class="p">)</span> <span class="p">{</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#divPage&#39;</span><span class="p">,</span> <span class="nx">top</span><span class="p">.</span><span class="nb">document</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;color&#39;</span><span class="p">,</span><span class="s1">&#39;#fff&#39;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">ieDisabledMessage</span><span class="p">);</span> <span class="p">}</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
 
 		
-		
+		<a href="/blog/2010/12/20/locking-down-blackbaud-netcommunity-content-authoring/" class="more-link">Read on &rarr;</a>
 	</div>
 
 
@@ -533,18 +348,9 @@ $(document).ready(
 	<div class="entry-content">
 		<p>Over the past six months, I&rsquo;ve been charged with redeveloping the <a href="https://www2.ambrose.edu/">Ambrose University College</a> website, using BlackBaud NetCommunity. I worked together with the creative department (mainly focused on print media) for a new design (old one is <del><a href="https://www2.ambrose.edu/">here</a></del> offline), and with many other departments for training in content management and functionality. I&rsquo;ve learned quite a bit through the process, and grown immensely in my skills (primarily CSS and C#.Net). This post, however, is not so much about the experience I went through, as it is with the advancements I&rsquo;ve made when it comes to CSS3 replacing images, and support for it in all major browsers.</p>
 
-<p>The initial design was thrown together over a few months, as I worked on getting content uploaded, and functionality working. It was not until two weeks ago that I was able to sit back and actually focus on making the website look good, instead of making it functional. Although I am  not a fan of certain aspects of the design, I have focused on improving what I could in it, and providing support for all browsers, including the bane of every designer/developer&hellip; Internet Explorer. During the &ldquo;throw it together to make people happy&rdquo; phase, I used plenty of images for buttons, and the designers rounded corners in all of the header images that we uploaded, however that increases their workload, and makes it harder to tweak buttons in the future (which we end up doing more than I&rsquo;d like to admit). It quickly became apparent that the website would become a time-sink for those that manage it, and a resource-hog for those that view it, if drastic measures were not taken. Which brings me to two weeks ago&hellip;</p>
-
-<p>We have always used box-shadows on the website, as I was not willing to go through the pain of transparent PNGs in IE, however we have buttons below the <a href="https://www2.ambrose.edu/Page.aspx?pid=492">menu</a>, that were image based, and I was told that we were to add more buttons to a <a href="https://www2.ambrose.edu/Page.aspx?pid=475">few</a> <a href="https://www2.ambrose.edu/Page.aspx?pid=389">other</a> <a href="https://www2.ambrose.edu/Page.aspx?pid=548">pages</a>. Since content was 99% online, I took a look at how we could improve the load times for the website, by replacing these buttons with CSS3 buttons.</p>
-
-<p>Just a few days earlier, I had picked up <a href="http://twitter.com/drewwilson">Drew Wilson&rsquo;s</a> <a href="http://pictos.drewwilson.com/">Pictos</a> web-font on sale, and I suggested it to my boss, so we picked up another license and I began to fiddle around with some nice buttons. Through the use of border-radius and -webkit-gradient (and others like -moz), I was able to perfectly replicate what our designer had envisioned, but without using a single image. I quickly replaced five buttons with their CSS3 counterparts, and was working on implementing them on the new pages, when I realized that they did not look very nice in Internet Explorer. In fact, they were a solid colour, and due to a glitch with <a href="http://fetchak.com/ie-css3/">IE-CSS3</a>, had rounded corners appearing 20px+ BELOW the buttons. Needless to say, certain faculty did not appreciate that their primary browser did not handle things properly, and I put some work into fixing things. After dropping <a href="http://css3pie.com/">CSS3Pie</a> into the website, in place of IE-CSS3, things started looking up. Our box-shadows were more realistic, and the corners no longer jumped around like schoolkids overdosing on sugar. With a few more tweaks, (-pie-background to add support for two-point gradients in IE), we were back in action, and IE looked <strong>almost</strong> as good as Chrome and Firefox.</p>
-
-<p>Since we&rsquo;ve implemented these CSS3 buttons, I&rsquo;ve managed to kill off close to 1 MB of images, and we&rsquo;ve implemented mouseovers with minimal effort. When a new page is added to the website, we can also add some sidebar links, with images, without going through the longwinded process of designing new buttons, and finding icons that don&rsquo;t really match with the previous set.</p>
-
-<p><a href="http://pictos.drewwilson.com/">Pictos</a> has already proved itself, and is well worth the money we invested in it, and I would highly suggest checking it out, if you have a few buttons that could do with a fresh new look on your website. And, as new as CSS3 is, with a bit of elbow grease (-webkit, -moz, -o, and -ms take up quite a bit of time to type out for every effect) and some fallback support (CSS3Pie for instance), you can do some gorgeous things while still supporting 99% of users.</p>
 
 		
-		
+		<a href="/blog/2010/12/17/css3-and-pictos/" class="more-link">Read on &rarr;</a>
 	</div>
 
 
@@ -585,117 +391,9 @@ $(document).ready(
 
 <p><em>As a warning, Adium Plugins use internal Adium APIs, which sometimes change. If you build a plugin, it may break with future versions of Adium, so be prepared for some upkeep down the road, unless you want to be rude and build a great program, and then abandon it and all of its users.</em> This guide assumes that you understand the basics of Objective-C, XCode, and programming in general. If you don&rsquo;t meet one of these prerequisites, please go research the basics and then come back.</p>
 
-<h2>Step 1: Compiling Adium</h2>
-
-<p>Before you can start coding a plugin, you need the Adium plugin framework. To get this, download and build Adium from <a href="http://trac.adium.im/wiki/GettingNewestAdiumSource">http://trac.adium.im/wiki/GettingNewestAdiumSource</a>. Be sure to download the version that most of your plugin&rsquo;s users will be using (e.g. stable). If you cannot complete this step without googling, I would suggest learning the basics of Objective-C and XCode, among other things, first.</p>
-
-<h2>Step 2: Creating your plugin&rsquo;s project</h2>
-
-<p>Open the <code>New Project</code> window, choose <code>Framework &amp; Library</code>, choose <code>Bundle</code>, and set the Framework to <code>Cocoa</code>.
-Right click on your Bundle under the <code>Targets</code> section of the sidebar, and choose <code>Get Info</code>. Go to the properties tab, and set the <code>Principle Class</code> to the same as your plugin name (I&rsquo;m using MyFirstAdiumPlugin). Also, set your identifier, which is normally the reverse of your domain. Since my domain is SpenserJones.com, I will use com.spenserjones.MyFirstAdiumPlugin. Finally, set the <code>Creator</code> code to <code>AdIM</code>, and confirm that the Type is <code>BNDL</code>.
-Under the Build tab of the Info window, change the following settings:</p>
-
-<table width="100%">
-<tbody>
-<tr><th style="text-align: center;">Setting</th><th style="text-align: center;">Value</th></tr>
-<tr>
-<td>Wrapper Extension</td>
-<td>AdiumPlugin</td>
-</tr>
-<tr>
-<td>Installation Directory</td>
-<td>`$(HOME)/Library/Application Support/Adium 2.0/PlugIns/`</td>
-</tr>
-<tr>
-<td>Base SDK</td>
-<td>Mac OS X 10.5 (or the lowest version of Mac OS X you can set it to)</td>
-</tr>
-</tbody>
-</table>
-
-
-<p>Finally, drag <code>$(ADIUM)/build/Development/Adium.framework</code> (where $(ADIUM) is the directory where you checked out Adium) into <code>Frameworks and Libraries/Other Frameworks</code> in the sidebar of XCode. When prompted, check the <code>Copy items into destination group's folder (if needed)</code> and <code>Recursively create groups for any added folders.</code></p>
-
-<h2>Step 3: Writing the code</h2>
-
-<p>Click on the folder <code>Classes</code> in the left pane of the main window of XCode, and then click <code>File - New File</code> (CMD-N). Choose <code>Cocoa Class</code> and then <code>Objective-C class</code>. Leave the subclass as <code>NSObject</code>, as we will be changing this shortly. Name the file the same name as your plugin, and check the <code>Also create \*.h</code> box.
-Open up <code>MyFirstAdiumPlugin.h</code>, and add an import line of <code>#import &lt;Adium/AIPlugin.h&gt;</code> and also change <code>MyFirstAdiumPlugin : NSObject</code> to <code>MyFirstAdiumPlugin : NSObject &lt;AIPlugin&gt;</code>
-Create two void functions in <code>MyFirstAdiumPlugin.m</code> called installPlugin and uninstallPlugin.  After doing these steps, your code should look like:</p>
-
-<figure class='code'><figcaption><span>MyFirstAdiumPlugin.h</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='obj-c'><span class='line'><span class="cp">#import &lt;Cocoa/Cocoa.h&gt;</span>
-</span><span class='line'><span class="cp">#import &lt;Adium/AIPlugin.h&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">@interface</span> <span class="nc">MyFirstAdiumPlugin</span> : <span class="nc">NSObject</span> <span class="o">&lt;</span><span class="n">AIPlugin</span><span class="o">&gt;</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">@end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><figcaption><span>MyFirstAdiumPlugin.m</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='obj-c'><span class='line'><span class="cp">#import &quot;MyFirstAdiumPlugin.h&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">@implementation</span> <span class="nc">MyFirstAdiumPlugin</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">installPlugin</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">uninstallPlugin</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">@end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Before you get too excited about having coded a plugin, there is one more step. Open <code>Info.plist</code> and add the following line, replacing <code>{VERSION}</code> with the version of Adium you compiled: <code>&lt;key&gt;AIMinimumAdiumVersionRequirement&lt;/key&gt; &lt;string&gt;{VERSION}&lt;/string&gt;</code></p>
-
-<p>As of writing this, the release version is 1.3, while the beta is 1.4. Adium 1.4 will require users to have Leopard or better, while 1.3 requires Tiger.</p>
-
-<h2>Step 4: Bask in the glory of your first Adium plugin</h2>
-
-<p>All that is left is to compile and install your first Adium plugin. Click build, confirm that there are no errors, and then double-click <code>MyFirstAdiumPlugin/build/Debug/MyFirstAdiumPlugin.AdiumPlugin</code> from Finder.</p>
-
-<h2>Step 5: Add some functionality</h2>
-
-<p>I&rsquo;d assume that you want a plugin that actually DOES something, instead of sits pretty in your plugins folder, right? Adium&rsquo;s documentation for plugin creation is fairly sparse (and always has been), however there is a map of Adium&rsquo;s API at <a href="http://trac.adium.im/wiki/MapOfAdium">http://trac.adium.im/wiki/MapOfAdium</a>, and plenty of plugins online that you can examine. Hopefully I will find time soon to write up a continuation of this guide, for adding functionality. If you use this guide to create a plugin, I&rsquo;d love it if you would share what you&rsquo;ve done in the comments below!</p>
 
 		
-		
+		<a href="/blog/2010/08/13/building-your-first-adium-plugin/" class="more-link">Read on &rarr;</a>
 	</div>
 
 
@@ -714,6 +412,10 @@ Create two void functions in <code>MyFirstAdiumPlugin.m</code> called installPlu
 
 <time datetime="2010-08-13T16:51:00-06:00" pubdate data-updated="true">Aug 13<span>th</span>, 2010</time></div>
 	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/adium/'>Adium</a>, <a class='category' href='/blog/categories/obj-c/'>Obj-C</a>, <a class='category' href='/blog/categories/xcode/'>XCode</a>
+
 
 </div>
 	
