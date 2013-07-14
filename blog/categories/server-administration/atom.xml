@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Server Administration | Spenser Jones]]></title>
   <link href="http://SpenserJ.github.io/blog/categories/server-administration/atom.xml" rel="self"/>
   <link href="http://SpenserJ.github.io/"/>
-  <updated>2013-07-14T13:10:23-06:00</updated>
+  <updated>2013-07-14T13:11:55-06:00</updated>
   <id>http://SpenserJ.github.io/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
@@ -166,7 +166,7 @@ Broadcast message from spenserj@dnsmaster</p>
 
 <p>You&rsquo;ll find a sample configuration at <code>/etc/nsd3/nsd.conf.sample</code>, and <a href="http://linux.die.net/man/5/nsd.conf">man nsd.conf</a> is a great place to find more information. The config is quite simplistic though, and I was un and running in minutes.</p>
 
-<p>``` plain
+<p>``` plain /etc/nsd3/nsd.conf
 server:
   logfile: &ldquo;/var/log/nsd.log&rdquo;
   username: nsd
@@ -214,7 +214,7 @@ NzmiUkU7zA/2rQ6nnjut3w==
 
 <p>The slave configuration is nearly identical to the master, with the only change being the <code>notify</code> and <code>provide-xfr</code> lines changing to the slave-variant. Each zone is required to have a zonefile, but you don&rsquo;t need to fill it out if it pulls from the master, so I just touched each file and left it empty.</p>
 
-<p>``` plain
+<p>``` plain /etc/nsd3/nsd.conf
 zone:
   name: ambrose.edu
   zonefile: forward/ambrose.edu.zone</p>

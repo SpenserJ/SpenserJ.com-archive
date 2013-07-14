@@ -4,7 +4,7 @@
   <title><![CDATA[Spenser Jones]]></title>
   <link href="http://SpenserJ.github.io/atom.xml" rel="self"/>
   <link href="http://SpenserJ.github.io/"/>
-  <updated>2013-07-14T13:10:23-06:00</updated>
+  <updated>2013-07-14T13:11:55-06:00</updated>
   <id>http://SpenserJ.github.io/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
@@ -249,7 +249,7 @@
 
 <p>You&rsquo;ll find a sample configuration at <code>/etc/nsd3/nsd.conf.sample</code>, and <a href="http://linux.die.net/man/5/nsd.conf">man nsd.conf</a> is a great place to find more information. The config is quite simplistic though, and I was un and running in minutes.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>/etc/nsd3/nsd.conf</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -327,7 +327,7 @@
 
 <p>The slave configuration is nearly identical to the master, with the only change being the <code>notify</code> and <code>provide-xfr</code> lines changing to the slave-variant. Each zone is required to have a zonefile, but you don&rsquo;t need to fill it out if it pulls from the master, so I just touched each file and left it empty.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>/etc/nsd3/nsd.conf</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
