@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Javascript | Spenser Jones]]></title>
+  <link href="http://SpenserJ.github.io/blog/categories/javascript/atom.xml" rel="self"/>
+  <link href="http://SpenserJ.github.io/"/>
+  <updated>2013-07-13T18:27:28-06:00</updated>
+  <id>http://SpenserJ.github.io/</id>
+  <author>
+    <name><![CDATA[Spenser Jones]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Locking down Blackbaud NetCommunity content author's powers]]></title>
+    <link href="http://SpenserJ.github.io/blog/2010/12/20/locking-down-blackbaud-netcommunity-content-authors-powers/"/>
+    <updated>2010-12-20T18:21:00-07:00</updated>
+    <id>http://SpenserJ.github.io/blog/2010/12/20/locking-down-blackbaud-netcommunity-content-authors-powers</id>
+    <content type="html"><![CDATA[<p>At Ambrose University College, we run Blackbaud NetCommunity as our CMS, and I&rsquo;ve encountered a few issues with permissions for content authors, and how the editor itself works. Over the past few weeks, in an attempt to improve the experience of both our visitors, and our content authors, I have added a few lines to our website&rsquo;s javascript file (hosted in a document part).</p>
+
+<p>One issue we have run into is that Internet Explorer does not play nice with our CSS3 box shadows (using CSS3Pie), and will save the progressive enhancements that are loaded specifically for IE, as part of the page and/or part, for all browsers. This results in pages that have been edited using IE, showing two box shadows in CSS3 compliant browsers, and only one in IE. Since IE is to blame (and has issues with other parts of the editor), I decided to kill off support for using IE when in administration mode.</p>
+
+<p>While I was working on my IE-proofing, one of our content authors accidentally clicked the &ldquo;Template Designer&rdquo; button, which resulted in her inserting a part on every page on the website. This is not the first time we have encountered this issue, and last time it happened, it took about two hours to fix, as changes were also made to the HTML of the template. Two lines of javascript later, and the Stylesheet editor and Template Designer buttons no longer appear. If I need to make changes, I can always go through the page finder, but changes are so infrequent that having a front-and-center button is just asking for trouble.</p>
+
+<p>Incase you would like to implement similar &ldquo;fixes&rdquo; on your NetCommunity website, I have the code for 6.10 posted below :)</p>
+
+<p>``` javascript NetCommunity 6.10
+$(function() {
+  var $adminMenu = $(&lsquo;#bbAdminMenuDiv&rsquo;, top.document);
+  var ieDisabledMessage = &lsquo;In order to edit the Ambrose website, please use Firefox. IE support has been disabled due to compatibility issues.&rsquo;;
+  if ($.browser.msie &amp;&amp; $adminMenu.length > 0) {</p>
+
+<pre><code>$('div, table, a', $adminMenu).remove();
+$adminMenu.append(ieDisabledMessage);
+</code></pre>
+
+<p>  }</p>
+
+<p>  if (top.document.location.href.indexOf(&lsquo;/AdminPage.aspx&rsquo;) > -1) {</p>
+
+<pre><code>$('#pagecntnt_AdminToolbar_btn2, #pagecntnt_AdminToolbar_btn3', top.document).remove();
+if ($.browser.msie) { $('#pagecntnt_divContentPane', top.document).html(ieDisabledMessage); }
+</code></pre>
+
+<p>  }
+});
+```</p>
+
+<p><em>As of December 22nd, we have upgraded to 6.15, and the administration menu and screens have changed. As such, I have rewritten the code, and it is also posted below (for 6.15)</em></p>
+
+<p>``` javascript NetCommunity 6.15
+$(function() {
+  var $adminMenu = $(&lsquo;#ctl05_bbBetaAdminMenuDiv&rsquo;, top.document);
+  var ieDisabledMessage = &lsquo;In order to edit the Ambrose website, please use Firefox. IE support has been disabled due to compatibility issues.&rsquo;;
+  if ($.browser.msie &amp;&amp; $adminMenu.length > 0) {</p>
+
+<pre><code>$('ul.bb_mainMenu li:gt(0), .bb_subMenu', $adminMenu).remove();
+$('li:first', $adminMenu).html('&lt;h2 style="padding: 0px 12px;"&gt;' + ieDisabledMessage + '&lt;/h2&gt;');
+</code></pre>
+
+<p>  }</p>
+
+<p>  if (top.document.location.href.indexOf(&lsquo;ambrose.edu/cms/&rsquo;) > -1) {</p>
+
+<pre><code>$('#pagecntnt_AdminToolbar_btn1lnk, #pagecntnt_AdminToolbar_btn2lnk', top.document).remove();
+if ($.browser.msie) { $('#divPage', top.document).css('color','#fff').html(ieDisabledMessage); }
+</code></pre>
+
+<p>  }
+});
+```</p>
+]]></content>
+  </entry>
+  
+</feed>
