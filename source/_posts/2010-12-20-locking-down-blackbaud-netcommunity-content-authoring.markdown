@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Locking down Blackbaud NetCommunity content author's powers"
+title: "Locking down Blackbaud NetCommunity content authoring"
 date: 2010-12-20 18:21
 comments: true
 categories: 
@@ -33,7 +33,7 @@ $(function() {
 });
 ```
 
-*As of December 22nd, we have upgraded to 6.15, and the administration menu and screens have changed. As such, I have rewritten the code, and it is also posted below (for 6.15)*
+*As of December 22nd, we have upgraded to 6.15, and the administration menu and screens have changed. As such, I have rewritten the code, and it is also posted below*
 
 ``` javascript NetCommunity 6.15
 $(function() {
