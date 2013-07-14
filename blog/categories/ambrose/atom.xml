@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ambrose | Spenser Jones]]></title>
   <link href="http://SpenserJ.github.io/blog/categories/ambrose/atom.xml" rel="self"/>
   <link href="http://SpenserJ.github.io/"/>
-  <updated>2013-07-13T18:27:28-06:00</updated>
+  <updated>2013-07-13T18:29:58-06:00</updated>
   <id>http://SpenserJ.github.io/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
@@ -14,10 +14,10 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Locking down Blackbaud NetCommunity content author's powers]]></title>
-    <link href="http://SpenserJ.github.io/blog/2010/12/20/locking-down-blackbaud-netcommunity-content-authors-powers/"/>
+    <title type="html"><![CDATA[Locking down Blackbaud NetCommunity content authoring]]></title>
+    <link href="http://SpenserJ.github.io/blog/2010/12/20/locking-down-blackbaud-netcommunity-content-authoring/"/>
     <updated>2010-12-20T18:21:00-07:00</updated>
-    <id>http://SpenserJ.github.io/blog/2010/12/20/locking-down-blackbaud-netcommunity-content-authors-powers</id>
+    <id>http://SpenserJ.github.io/blog/2010/12/20/locking-down-blackbaud-netcommunity-content-authoring</id>
     <content type="html"><![CDATA[<p>At Ambrose University College, we run Blackbaud NetCommunity as our CMS, and I&rsquo;ve encountered a few issues with permissions for content authors, and how the editor itself works. Over the past few weeks, in an attempt to improve the experience of both our visitors, and our content authors, I have added a few lines to our website&rsquo;s javascript file (hosted in a document part).</p>
 
 <p>One issue we have run into is that Internet Explorer does not play nice with our CSS3 box shadows (using CSS3Pie), and will save the progressive enhancements that are loaded specifically for IE, as part of the page and/or part, for all browsers. This results in pages that have been edited using IE, showing two box shadows in CSS3 compliant browsers, and only one in IE. Since IE is to blame (and has issues with other parts of the editor), I decided to kill off support for using IE when in administration mode.</p>
@@ -48,7 +48,7 @@ if ($.browser.msie) { $('#pagecntnt_divContentPane', top.document).html(ieDisabl
 });
 ```</p>
 
-<p><em>As of December 22nd, we have upgraded to 6.15, and the administration menu and screens have changed. As such, I have rewritten the code, and it is also posted below (for 6.15)</em></p>
+<p><em>As of December 22nd, we have upgraded to 6.15, and the administration menu and screens have changed. As such, I have rewritten the code, and it is also posted below</em></p>
 
 <p>``` javascript NetCommunity 6.15
 $(function() {
