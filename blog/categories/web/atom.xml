@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Web | Spenser Jones]]></title>
   <link href="http://SpenserJ.github.io/blog/categories/web/atom.xml" rel="self"/>
   <link href="http://SpenserJ.github.io/"/>
-  <updated>2013-07-14T12:50:40-06:00</updated>
+  <updated>2013-07-14T12:54:03-06:00</updated>
   <id>http://SpenserJ.github.io/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
@@ -12,6 +12,33 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Fixing the Blackbaud NetCommunity Login Form]]></title>
+    <link href="http://SpenserJ.github.io/blog/2011/04/14/fixing-the-blackbaud-netcommunity-login-form/"/>
+    <updated>2011-04-14T12:52:00-06:00</updated>
+    <id>http://SpenserJ.github.io/blog/2011/04/14/fixing-the-blackbaud-netcommunity-login-form</id>
+    <content type="html"><![CDATA[<p>Blackbaud NetCommunity 6.15 has a bug in the login form, where tabbing onto the &ldquo;Remember Me&rdquo; field and pressing enter (normal functionality to submit a form) will take you back to the login form, with your username filled in, but no password or error. This is due to the fact that javascript is being (poorly) added directly to the HTML tags, instead of writing a simple, unobtrusive javascript function, that targets all fields on the form.</p>
+
+<p>To remedy this, add a JS file to any layout that may contain a login field, and add this code:</p>
+
+<p>``` javascript
+$(function() {
+  if (($loginForm = $(&lsquo;.LoginFormTable&rsquo;)).length &gt; 0) {</p>
+
+<pre><code>$('input[type!=submit]', $loginForm).keypress(function(e) {
+  if ((e.which &amp;amp;&amp;amp; e.which == 13) || (e.keyCode &amp;amp;&amp;amp; event.ke == 13)) {
+    $('input[type=submit]', $loginForm).click();
+    return false;
+  } else { return true; }
+});
+</code></pre>
+
+<p>  }
+});
+```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Adding iFrames to Blackbaud NetCommunity <= 6.15.70]]></title>

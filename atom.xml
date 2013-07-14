@@ -4,7 +4,7 @@
   <title><![CDATA[Spenser Jones]]></title>
   <link href="http://SpenserJ.github.io/atom.xml" rel="self"/>
   <link href="http://SpenserJ.github.io/"/>
-  <updated>2013-07-14T12:50:40-06:00</updated>
+  <updated>2013-07-14T12:54:03-06:00</updated>
   <id>http://SpenserJ.github.io/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
@@ -427,6 +427,40 @@
     <updated>2013-05-14T13:39:00-06:00</updated>
     <id>http://SpenserJ.github.io/blog/2013/05/14/spring-cleaning</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve decided to wipe out a few years worth of hastily written blog posts and start fresh. Fitting, given that I&rsquo;m also switching to <a href="http://spenserj.com">SpenserJ.com</a> as my domain name, after waiting for it to expire for the better part of two years. My vision is for this site to be a landing zone for the various ideas and tweaks that come to me every week.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Fixing the Blackbaud NetCommunity Login Form]]></title>
+    <link href="http://SpenserJ.github.io/blog/2011/04/14/fixing-the-blackbaud-netcommunity-login-form/"/>
+    <updated>2011-04-14T12:52:00-06:00</updated>
+    <id>http://SpenserJ.github.io/blog/2011/04/14/fixing-the-blackbaud-netcommunity-login-form</id>
+    <content type="html"><![CDATA[<p>Blackbaud NetCommunity 6.15 has a bug in the login form, where tabbing onto the &ldquo;Remember Me&rdquo; field and pressing enter (normal functionality to submit a form) will take you back to the login form, with your username filled in, but no password or error. This is due to the fact that javascript is being (poorly) added directly to the HTML tags, instead of writing a simple, unobtrusive javascript function, that targets all fields on the form.</p>
+
+<p>To remedy this, add a JS file to any layout that may contain a login field, and add this code:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">((</span><span class="nx">$loginForm</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.LoginFormTable&#39;</span><span class="p">)).</span><span class="nx">length</span> <span class="o">&amp;</span><span class="nx">gt</span><span class="p">;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;input[type!=submit]&#39;</span><span class="p">,</span> <span class="nx">$loginForm</span><span class="p">).</span><span class="nx">keypress</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">if</span> <span class="p">((</span><span class="nx">e</span><span class="p">.</span><span class="nx">which</span> <span class="o">&amp;</span><span class="nx">amp</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">amp</span><span class="p">;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">which</span> <span class="o">==</span> <span class="mi">13</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">keyCode</span> <span class="o">&amp;</span><span class="nx">amp</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">amp</span><span class="p">;</span> <span class="nx">event</span><span class="p">.</span><span class="nx">ke</span> <span class="o">==</span> <span class="mi">13</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;input[type=submit]&#39;</span><span class="p">,</span> <span class="nx">$loginForm</span><span class="p">).</span><span class="nx">click</span><span class="p">();</span>
+</span><span class='line'>        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">true</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
 ]]></content>
   </entry>
   
