@@ -4,7 +4,7 @@
   <title><![CDATA[Spenser Jones]]></title>
   <link href="http://SpenserJ.github.io/atom.xml" rel="self"/>
   <link href="http://SpenserJ.github.io/"/>
-  <updated>2013-07-14T13:02:27-06:00</updated>
+  <updated>2013-07-14T13:10:23-06:00</updated>
   <id>http://SpenserJ.github.io/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
@@ -313,6 +313,14 @@
 </span><span class='line'>  name: slave2key
 </span><span class='line'>  algorithm: hmac-md5
 </span><span class='line'>  secret: "95hP9OTvHID2jJO2GNaeuw=="</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You may be asking yourself &ldquo;But Spenser, how do I generate that key?&rdquo;, and thankfully the answer is quite simple.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ dd if=/dev/random bs=16 count=1 2&gt;/dev/null | openssl base64
+</span><span class='line'>NzmiUkU7zA/2rQ6nnjut3w==</span></code></pre></td></tr></table></div></figure>
 
 
 <h3>Configure NSD as a Slave</h3>

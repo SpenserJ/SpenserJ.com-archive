@@ -4,7 +4,7 @@
   <title><![CDATA[Category: DNS | Spenser Jones]]></title>
   <link href="http://SpenserJ.github.io/blog/categories/dns/atom.xml" rel="self"/>
   <link href="http://SpenserJ.github.io/"/>
-  <updated>2013-07-14T13:02:27-06:00</updated>
+  <updated>2013-07-14T13:10:23-06:00</updated>
   <id>http://SpenserJ.github.io/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
@@ -202,6 +202,13 @@ server:
   algorithm: hmac-md5
   secret: &ldquo;95hP9OTvHID2jJO2GNaeuw==&rdquo;
 ```</p>
+
+<p>You may be asking yourself &ldquo;But Spenser, how do I generate that key?&rdquo;, and thankfully the answer is quite simple.</p>
+
+<p><code>plain
+$ dd if=/dev/random bs=16 count=1 2&gt;/dev/null | openssl base64
+NzmiUkU7zA/2rQ6nnjut3w==
+</code></p>
 
 <h3>Configure NSD as a Slave</h3>
 

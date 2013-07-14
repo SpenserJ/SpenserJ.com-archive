@@ -395,6 +395,14 @@ $(document).ready(
 </span><span class='line'>  secret: "95hP9OTvHID2jJO2GNaeuw=="</span></code></pre></td></tr></table></div></figure>
 
 
+<p>You may be asking yourself &ldquo;But Spenser, how do I generate that key?&rdquo;, and thankfully the answer is quite simple.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ dd if=/dev/random bs=16 count=1 2&gt;/dev/null | openssl base64
+</span><span class='line'>NzmiUkU7zA/2rQ6nnjut3w==</span></code></pre></td></tr></table></div></figure>
+
+
 <h3>Configure NSD as a Slave</h3>
 
 <p>The slave configuration is nearly identical to the master, with the only change being the <code>notify</code> and <code>provide-xfr</code> lines changing to the slave-variant. Each zone is required to have a zonefile, but you don&rsquo;t need to fill it out if it pulls from the master, so I just touched each file and left it empty.</p>
