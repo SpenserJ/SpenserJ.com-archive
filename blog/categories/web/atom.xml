@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Web | Spenser Jones]]></title>
   <link href="http://SpenserJ.github.io/blog/categories/web/atom.xml" rel="self"/>
   <link href="http://SpenserJ.github.io/"/>
-  <updated>2013-07-14T12:54:03-06:00</updated>
+  <updated>2013-07-14T12:59:37-06:00</updated>
   <id>http://SpenserJ.github.io/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
@@ -12,6 +12,102 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Upgrading a Moodle 1.9 Block to 2.0]]></title>
+    <link href="http://SpenserJ.github.io/blog/2011/04/14/upgrading-a-moodle-1-dot-9-block-to-2-dot-0/"/>
+    <updated>2011-04-14T12:55:00-06:00</updated>
+    <id>http://SpenserJ.github.io/blog/2011/04/14/upgrading-a-moodle-1-dot-9-block-to-2-dot-0</id>
+    <content type="html"><![CDATA[<p>I recently went through the process of upgrading a Moodle 1.9 block for Panopto, to support Moodle 2.0, which came out in January. As Moodle 2.0 is a huge rewrite, and is still fairly fresh, there is very little documentation on what changes need to be made, or even what functions are deprecated and need replacing. In order to upgrade the plugin at Ambrose University College, I read through multiple core classes, and compared functions in 1.9 to 2.0. In order to make things easier for myself in the future, and for anyone else upgrading a block, I have documented my changes.</p>
+
+<p>Language strings must be listed in <code>blockname/lang/en/block_blockname.php</code>, and one of the strings must be the plugin name:</p>
+
+<p><code>php blockname/lang/en/block_blockname.php
+&lt;?php
+$string['pluginname'] = 'Epic Block';
+$string['name_of_string'] = 'English version of string';
+</code></p>
+
+<p>The version has been moved from <code>blockname/blocks_blockname.php</code> to <code>blockname/version.php</code>. The format of the version remains the same (yyyymmdd00, where 00 can increment if you release multiple patches on a single day)</p>
+
+<p><code>php blockname/version.php
+&lt;?php
+$plugin-&gt;version = 2011040800;
+</code></p>
+
+<p>The function for checking if the current user is a teacher who can edit the current course has changed, as have a few others, so use this as a base, and read through the core classes for the correct values.</p>
+
+<p><code>php
+if(isteacheredit($COURSE-&gt;id)) {
+</code></p>
+
+<p>has now become</p>
+
+<p><code>php
+$context = get_context_instance(CONTEXT_COURSE, $COURSE-&gt;id);
+if(has_capability('moodle/course:update', $context)) {
+</code></p>
+
+<p>Stylesheets are now in <code>style.css</code>, instead of <code>style.php</code>.</p>
+
+<p>Configuration files have also changed, as <code>config_instance.html</code> has been replaced with <code>edit_form.php</code> (below), and <code>config_global.html</code> has been replaced with <code>settings.php</code> (below <code>edit_form.php</code>).</p>
+
+<p>``` php edit_form.php
+&lt;?php
+require_once(&ldquo;lib/panopto_data.php&rdquo;);</p>
+
+<p>class block_panopto_edit_form extends block_edit_form {
+  protected function specific_definition($mform) {</p>
+
+<pre><code>global $COURSE, $CFG;
+
+// Construct the Panopto data proxy object
+$panopto_data = new panopto_data($COURSE-&gt;id);
+
+if(!empty($panopto_data-&gt;servername) &amp;&amp; !empty($panopto_data-&gt;instancename) &amp;&amp; !empty($panopto_data-&gt;applicationkey))
+{
+  $mform-&gt;addElement('header', 'configheader', 'Select the Panopto CourseCast course to display in this block.');
+
+  $params-&gt;course_ids = $COURSE-&gt;id;
+  $params-&gt;return_url = urlencode($_SERVER['REQUEST_URI']);
+  $query_string = http_build_query($params);
+  $provision_url = "$CFG-&gt;wwwroot/blocks/panopto/provision_course.php?" . $query_string;
+  $course_list = $panopto_data-&gt;get_course_options($provision_url);
+  $mform-&gt;addElement('selectgroups', 'config_course', 'Course', $course_list['courses']);
+  $mform-&gt;setDefault('config_course', $course_list['selected']);
+} else {
+  $mform-&gt;addElement('static', 'error', '', 'Cannot configure block instance: Global configuration incomplete. Please contact your system administrator.');
+}
+</code></pre>
+
+<p>  }
+}
+```</p>
+
+<p>``` php settings.php
+&lt;?php</p>
+
+<p>defined(&lsquo;MOODLE_INTERNAL&rsquo;) || die;</p>
+
+<p>if ($ADMIN->fulltree) {</p>
+
+<pre><code>$settings-&gt;add(new admin_setting_configtext('block_panopto_instance_name', 'Moodle Instance Name',
+                   'This value is prefixed before usernames and course-names in Panopto.', 'moodle', PARAM_TEXT));
+
+$settings-&gt;add(new admin_setting_configtext('block_panopto_server_name', 'Panopto Server Hostname', '', '', PARAM_TEXT));
+
+$settings-&gt;add(new admin_setting_configtext('block_panopto_application_key', 'Application Key', '', '', PARAM_TEXT));
+
+$link ='&lt;a href="'.$CFG-&gt;wwwroot.'/blocks/panopto/provision_course.php"&gt;Add Moodle courses to Panopto CourseCast&lt;/a&gt;';
+$settings-&gt;add(new admin_setting_heading('block_panopto_add_courses', '', $link));
+</code></pre>
+
+<p>}
+```</p>
+
+<p>There are many more changes that occurred, and this post is only the tip of the iceberg, so post a comment if you can&rsquo;t find the replacement for a deprecated function, and I&rsquo;ll do my best to help you out. If you want to see a legitimate commit for the changes that I made to upgrade a 1.9 block to a working 2.0 block, take a look at <a href="https://github.com/SpenserJ/Moodle2-Panopto/commit/ca893577b7d34adbeca6e95f5fe2f54194d488a3">this commit</a>.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Fixing the Blackbaud NetCommunity Login Form]]></title>
@@ -235,28 +331,6 @@ if ($.browser.msie) { $('#divPage', top.document).css('color','#fff').html(ieDis
 <p>  }
 });
 ```</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[CSS3 and Pictos]]></title>
-    <link href="http://SpenserJ.github.io/blog/2010/12/17/css3-and-pictos/"/>
-    <updated>2010-12-17T17:24:00-07:00</updated>
-    <id>http://SpenserJ.github.io/blog/2010/12/17/css3-and-pictos</id>
-    <content type="html"><![CDATA[<p>Over the past six months, I&rsquo;ve been charged with redeveloping the <a href="https://www2.ambrose.edu/">Ambrose University College</a> website, using BlackBaud NetCommunity. I worked together with the creative department (mainly focused on print media) for a new design (old one is <del><a href="https://www2.ambrose.edu/">here</a></del> offline), and with many other departments for training in content management and functionality. I&rsquo;ve learned quite a bit through the process, and grown immensely in my skills (primarily CSS and C#.Net). This post, however, is not so much about the experience I went through, as it is with the advancements I&rsquo;ve made when it comes to CSS3 replacing images, and support for it in all major browsers.</p>
-
-<!-- more -->
-
-
-<p>The initial design was thrown together over a few months, as I worked on getting content uploaded, and functionality working. It was not until two weeks ago that I was able to sit back and actually focus on making the website look good, instead of making it functional. Although I am  not a fan of certain aspects of the design, I have focused on improving what I could in it, and providing support for all browsers, including the bane of every designer/developer&hellip; Internet Explorer. During the &ldquo;throw it together to make people happy&rdquo; phase, I used plenty of images for buttons, and the designers rounded corners in all of the header images that we uploaded, however that increases their workload, and makes it harder to tweak buttons in the future (which we end up doing more than I&rsquo;d like to admit). It quickly became apparent that the website would become a time-sink for those that manage it, and a resource-hog for those that view it, if drastic measures were not taken. Which brings me to two weeks ago&hellip;</p>
-
-<p>We have always used box-shadows on the website, as I was not willing to go through the pain of transparent PNGs in IE, however we have buttons below the <a href="https://www2.ambrose.edu/Page.aspx?pid=492">menu</a>, that were image based, and I was told that we were to add more buttons to a <a href="https://www2.ambrose.edu/Page.aspx?pid=475">few</a> <a href="https://www2.ambrose.edu/Page.aspx?pid=389">other</a> <a href="https://www2.ambrose.edu/Page.aspx?pid=548">pages</a>. Since content was 99% online, I took a look at how we could improve the load times for the website, by replacing these buttons with CSS3 buttons.</p>
-
-<p>Just a few days earlier, I had picked up <a href="http://twitter.com/drewwilson">Drew Wilson&rsquo;s</a> <a href="http://pictos.drewwilson.com/">Pictos</a> web-font on sale, and I suggested it to my boss, so we picked up another license and I began to fiddle around with some nice buttons. Through the use of border-radius and -webkit-gradient (and others like -moz), I was able to perfectly replicate what our designer had envisioned, but without using a single image. I quickly replaced five buttons with their CSS3 counterparts, and was working on implementing them on the new pages, when I realized that they did not look very nice in Internet Explorer. In fact, they were a solid colour, and due to a glitch with <a href="http://fetchak.com/ie-css3/">IE-CSS3</a>, had rounded corners appearing 20px+ BELOW the buttons. Needless to say, certain faculty did not appreciate that their primary browser did not handle things properly, and I put some work into fixing things. After dropping <a href="http://css3pie.com/">CSS3Pie</a> into the website, in place of IE-CSS3, things started looking up. Our box-shadows were more realistic, and the corners no longer jumped around like schoolkids overdosing on sugar. With a few more tweaks, (-pie-background to add support for two-point gradients in IE), we were back in action, and IE looked <strong>almost</strong> as good as Chrome and Firefox.</p>
-
-<p>Since we&rsquo;ve implemented these CSS3 buttons, I&rsquo;ve managed to kill off close to 1 MB of images, and we&rsquo;ve implemented mouseovers with minimal effort. When a new page is added to the website, we can also add some sidebar links, with images, without going through the longwinded process of designing new buttons, and finding icons that don&rsquo;t really match with the previous set.</p>
-
-<p><a href="http://pictos.drewwilson.com/">Pictos</a> has already proved itself, and is well worth the money we invested in it, and I would highly suggest checking it out, if you have a few buttons that could do with a fresh new look on your website. And, as new as CSS3 is, with a bit of elbow grease (-webkit, -moz, -o, and -ms take up quite a bit of time to type out for every effect) and some fallback support (CSS3Pie for instance), you can do some gorgeous things while still supporting 99% of users.</p>
 ]]></content>
   </entry>
   

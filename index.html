@@ -255,6 +255,178 @@ $(document).ready(
     <article class="post">
 	<h2 class="title">
 		
+		<a href="/blog/2011/04/14/upgrading-a-moodle-1-dot-9-block-to-2-dot-0/">
+		
+			Upgrading a Moodle 1.9 Block to 2.0</a>
+	</h2>
+	<div class="entry-content">
+		<p>I recently went through the process of upgrading a Moodle 1.9 block for Panopto, to support Moodle 2.0, which came out in January. As Moodle 2.0 is a huge rewrite, and is still fairly fresh, there is very little documentation on what changes need to be made, or even what functions are deprecated and need replacing. In order to upgrade the plugin at Ambrose University College, I read through multiple core classes, and compared functions in 1.9 to 2.0. In order to make things easier for myself in the future, and for anyone else upgrading a block, I have documented my changes.</p>
+
+<p>Language strings must be listed in <code>blockname/lang/en/block_blockname.php</code>, and one of the strings must be the plugin name:</p>
+
+<figure class='code'><figcaption><span>blockname/lang/en/block_blockname.php</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'><span class="nv">$string</span><span class="p">[</span><span class="s1">&#39;pluginname&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Epic Block&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="nv">$string</span><span class="p">[</span><span class="s1">&#39;name_of_string&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;English version of string&#39;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The version has been moved from <code>blockname/blocks_blockname.php</code> to <code>blockname/version.php</code>. The format of the version remains the same (yyyymmdd00, where 00 can increment if you release multiple patches on a single day)</p>
+
+<figure class='code'><figcaption><span>blockname/version.php</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'><span class="nv">$plugin</span><span class="o">-&gt;</span><span class="na">version</span> <span class="o">=</span> <span class="mi">2011040800</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The function for checking if the current user is a teacher who can edit the current course has changed, as have a few others, so use this as a base, and read through the core classes for the correct values.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">if</span><span class="p">(</span><span class="nx">isteacheredit</span><span class="p">(</span><span class="nv">$COURSE</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">))</span> <span class="p">{</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>has now become</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$context</span> <span class="o">=</span> <span class="nx">get_context_instance</span><span class="p">(</span><span class="nx">CONTEXT_COURSE</span><span class="p">,</span> <span class="nv">$COURSE</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">);</span>
+</span><span class='line'><span class="k">if</span><span class="p">(</span><span class="nx">has_capability</span><span class="p">(</span><span class="s1">&#39;moodle/course:update&#39;</span><span class="p">,</span> <span class="nv">$context</span><span class="p">))</span> <span class="p">{</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Stylesheets are now in <code>style.css</code>, instead of <code>style.php</code>.</p>
+
+<p>Configuration files have also changed, as <code>config_instance.html</code> has been replaced with <code>edit_form.php</code> (below), and <code>config_global.html</code> has been replaced with <code>settings.php</code> (below <code>edit_form.php</code>).</p>
+
+<figure class='code'><figcaption><span>edit_form.php</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'><span class="k">require_once</span><span class="p">(</span><span class="s2">&quot;lib/panopto_data.php&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">block_panopto_edit_form</span> <span class="k">extends</span> <span class="nx">block_edit_form</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">protected</span> <span class="k">function</span> <span class="nf">specific_definition</span><span class="p">(</span><span class="nv">$mform</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">global</span> <span class="nv">$COURSE</span><span class="p">,</span> <span class="nv">$CFG</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Construct the Panopto data proxy object</span>
+</span><span class='line'>    <span class="nv">$panopto_data</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">panopto_data</span><span class="p">(</span><span class="nv">$COURSE</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$panopto_data</span><span class="o">-&gt;</span><span class="na">servername</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$panopto_data</span><span class="o">-&gt;</span><span class="na">instancename</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$panopto_data</span><span class="o">-&gt;</span><span class="na">applicationkey</span><span class="p">))</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="nv">$mform</span><span class="o">-&gt;</span><span class="na">addElement</span><span class="p">(</span><span class="s1">&#39;header&#39;</span><span class="p">,</span> <span class="s1">&#39;configheader&#39;</span><span class="p">,</span> <span class="s1">&#39;Select the Panopto CourseCast course to display in this block.&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="nv">$params</span><span class="o">-&gt;</span><span class="na">course_ids</span> <span class="o">=</span> <span class="nv">$COURSE</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">;</span>
+</span><span class='line'>      <span class="nv">$params</span><span class="o">-&gt;</span><span class="na">return_url</span> <span class="o">=</span> <span class="nb">urlencode</span><span class="p">(</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;REQUEST_URI&#39;</span><span class="p">]);</span>
+</span><span class='line'>      <span class="nv">$query_string</span> <span class="o">=</span> <span class="nb">http_build_query</span><span class="p">(</span><span class="nv">$params</span><span class="p">);</span>
+</span><span class='line'>      <span class="nv">$provision_url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">$CFG-&gt;wwwroot</span><span class="s2">/blocks/panopto/provision_course.php?&quot;</span> <span class="o">.</span> <span class="nv">$query_string</span><span class="p">;</span>
+</span><span class='line'>      <span class="nv">$course_list</span> <span class="o">=</span> <span class="nv">$panopto_data</span><span class="o">-&gt;</span><span class="na">get_course_options</span><span class="p">(</span><span class="nv">$provision_url</span><span class="p">);</span>
+</span><span class='line'>      <span class="nv">$mform</span><span class="o">-&gt;</span><span class="na">addElement</span><span class="p">(</span><span class="s1">&#39;selectgroups&#39;</span><span class="p">,</span> <span class="s1">&#39;config_course&#39;</span><span class="p">,</span> <span class="s1">&#39;Course&#39;</span><span class="p">,</span> <span class="nv">$course_list</span><span class="p">[</span><span class="s1">&#39;courses&#39;</span><span class="p">]);</span>
+</span><span class='line'>      <span class="nv">$mform</span><span class="o">-&gt;</span><span class="na">setDefault</span><span class="p">(</span><span class="s1">&#39;config_course&#39;</span><span class="p">,</span> <span class="nv">$course_list</span><span class="p">[</span><span class="s1">&#39;selected&#39;</span><span class="p">]);</span>
+</span><span class='line'>    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nv">$mform</span><span class="o">-&gt;</span><span class="na">addElement</span><span class="p">(</span><span class="s1">&#39;static&#39;</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;Cannot configure block instance: Global configuration incomplete. Please contact your system administrator.&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>settings.php</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">defined</span><span class="p">(</span><span class="s1">&#39;MOODLE_INTERNAL&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="k">die</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nv">$ADMIN</span><span class="o">-&gt;</span><span class="na">fulltree</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$settings</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="k">new</span> <span class="nx">admin_setting_configtext</span><span class="p">(</span><span class="s1">&#39;block_panopto_instance_name&#39;</span><span class="p">,</span> <span class="s1">&#39;Moodle Instance Name&#39;</span><span class="p">,</span>
+</span><span class='line'>                       <span class="s1">&#39;This value is prefixed before usernames and course-names in Panopto.&#39;</span><span class="p">,</span> <span class="s1">&#39;moodle&#39;</span><span class="p">,</span> <span class="nx">PARAM_TEXT</span><span class="p">));</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nv">$settings</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="k">new</span> <span class="nx">admin_setting_configtext</span><span class="p">(</span><span class="s1">&#39;block_panopto_server_name&#39;</span><span class="p">,</span> <span class="s1">&#39;Panopto Server Hostname&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nx">PARAM_TEXT</span><span class="p">));</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nv">$settings</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="k">new</span> <span class="nx">admin_setting_configtext</span><span class="p">(</span><span class="s1">&#39;block_panopto_application_key&#39;</span><span class="p">,</span> <span class="s1">&#39;Application Key&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nx">PARAM_TEXT</span><span class="p">));</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nv">$link</span> <span class="o">=</span><span class="s1">&#39;&lt;a href=&quot;&#39;</span><span class="o">.</span><span class="nv">$CFG</span><span class="o">-&gt;</span><span class="na">wwwroot</span><span class="o">.</span><span class="s1">&#39;/blocks/panopto/provision_course.php&quot;&gt;Add Moodle courses to Panopto CourseCast&lt;/a&gt;&#39;</span><span class="p">;</span>
+</span><span class='line'>    <span class="nv">$settings</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="k">new</span> <span class="nx">admin_setting_heading</span><span class="p">(</span><span class="s1">&#39;block_panopto_add_courses&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nv">$link</span><span class="p">));</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>There are many more changes that occurred, and this post is only the tip of the iceberg, so post a comment if you can&rsquo;t find the replacement for a deprecated function, and I&rsquo;ll do my best to help you out. If you want to see a legitimate commit for the changes that I made to upgrade a 1.9 block to a working 2.0 block, take a look at <a href="https://github.com/SpenserJ/Moodle2-Panopto/commit/ca893577b7d34adbeca6e95f5fe2f54194d488a3">this commit</a>.</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-04-14T12:55:00-06:00" pubdate data-updated="true">Apr 14<span>th</span>, 2011</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/moodle/'>Moodle</a>, <a class='category' href='/blog/categories/web/'>Web</a>
+
+
+</div>
+	
+</div></article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
 		<a href="/blog/2011/04/14/fixing-the-blackbaud-netcommunity-login-form/">
 		
 			Fixing the Blackbaud NetCommunity Login Form</a>
@@ -501,51 +673,10 @@ $(document).ready(
 	
 </div></article>
 
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2010/08/13/building-your-first-adium-plugin/">
-		
-			Building Your First Adium Plugin</a>
-	</h2>
-	<div class="entry-content">
-		<p><strong>This guide is extremely outdated. It was originally authored on August 13th, 2010, and has not been updated recently.</strong></p>
-
-<p><em>As a warning, Adium Plugins use internal Adium APIs, which sometimes change. If you build a plugin, it may break with future versions of Adium, so be prepared for some upkeep down the road, unless you want to be rude and build a great program, and then abandon it and all of its users.</em> This guide assumes that you understand the basics of Objective-C, XCode, and programming in general. If you don&rsquo;t meet one of these prerequisites, please go research the basics and then come back.</p>
-
-
-		
-		<a href="/blog/2010/08/13/building-your-first-adium-plugin/" class="more-link">Read on &rarr;</a>
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-08-13T16:51:00-06:00" pubdate data-updated="true">Aug 13<span>th</span>, 2010</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/adium/'>Adium</a>, <a class='category' href='/blog/categories/obj-c/'>Obj-C</a>, <a class='category' href='/blog/categories/xcode/'>XCode</a>
-
-
-</div>
-	
-</div></article>
-
 <nav id="pagenavi">
     
+    
+        <a href="/blog/page/2/" class="next">Next</a>
     
     <div class="center"><a href="/archives">Blog Archives</a></div>
 </nav></div>
