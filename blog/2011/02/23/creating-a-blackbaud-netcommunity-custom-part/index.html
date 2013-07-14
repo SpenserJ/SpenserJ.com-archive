@@ -1,0 +1,327 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<script data-cfasync="false" type="text/javascript" src="//use.typekit.net/axj3cfp.js"></script>
+	<script data-cfasync="false" type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<meta charset="utf-8">
+	<title>Creating a Blackbaud NetCommunity Custom Part  | Spenser Jones</title>
+
+<meta name="author" content="Spenser Jones"> 
+
+<meta name="description" content="I&rsquo;ve recently been given the task of creating some custom plugins for NetCommunity, so we can do things like unify the design of our Faculty &hellip;"> <meta name="keywords" content="">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Spenser Jones" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
+<script type="text/javascript" src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script language="Javascript" type="text/javascript">
+$(document).ready(
+  function() {
+    (function($) {
+      $(".fancybox[data-content-id]").each(function() {
+        this.href = $(this).data('content-id');
+      });
+      $(".fancybox").fancybox({
+        beforeLoad: function() {
+          var el, 
+              id = $(this.element).data('title-id');
+
+          if (id) {
+            el = $('#' + id);
+
+            if (el.length) {
+              this.title = el.html();
+            }
+          }
+          if ($(this).data('content')) {
+            this.content = $(this).data('content');
+          }
+        },
+        helpers: {
+          title: {
+            type: 'inside'
+          }
+        }
+      });
+    })(jQuery);
+  }
+);
+</script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Spenser Jones</a></h1>
+<h4>Code for Cookies</h4>
+<nav id="main-nav"><ul>
+	<li><a href="/">Blog</a></li>
+	<li><a href="/about">About</a></li>
+	<li><a href="https://github.com/SpenserJ">GitHub</a></li>
+  <li><a href="http://labs.spenserj.com/resume">Resume</a></li>
+	<li><a href="/archives">Archive</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul>
+	<li><a href="/">Blog</a></li>
+	<li><a href="/about">About</a></li>
+	<li><a href="https://github.com/SpenserJ">GitHub</a></li>
+  <li><a href="http://labs.spenserj.com/resume">Resume</a></li>
+	<li><a href="/archives">Archive</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:SpenserJ.github.io">
+			</form>
+		</div>
+	</div>
+</nav>
+
+
+</header>
+
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Creating a Blackbaud NetCommunity Custom Part</h2>
+	<div class="entry-content"><p>I&rsquo;ve recently been given the task of creating some custom plugins for NetCommunity, so we can do things like unify the design of our Faculty Biography pages at Ambrose. I have prior experience with C#, so I figured it would be a fairly simple process, once I figured out how their API works, however there is minimal documentation, and all of the tutorials online are either outdated or incomplete.</p>
+
+<p>As such, I am going to write up a concise walkthrough for creating a NetCommunity plugin (for 6.15) using C#, from scratch, up until you have a functional part.</p>
+
+<p>Begin by creating a new &ldquo;ASP.NET Empty Web Application&rdquo; project in Microsoft Visual Web Developer (<a href="http://cl.ly/4nce">http://cl.ly/4nce</a>). Right click on References, in the Solution Explorer, and choose Add Reference. Under the Browse tab, navigate to the Bin folder of your NetCommunity installation, and choose <code>BBNCExtensions.dll</code> (<a href="http://cl.ly/4nOt">http://cl.ly/4nOt</a>). Finally, go into the Project menu, and click <code>{ProjectName} properties</code>, and change Target framework to <code>.NET Framework 3.5</code> (under the application tab). You&rsquo;re now ready to start coding some basic functionality into your application.</p>
+
+<p>Right click on your project in the Solution Explorer (should be the bold title at the very top), and choose <code>Add-&gt;New Item</code>. You will want to create two new <code>Web User Controls</code> named <code>Display.ascx</code> and <code>Editor.ascx</code> (<a href="http://cl.ly/4n69">http://cl.ly/4n69</a>). In Display.ascx.cs and Editor.ascx.cs, add the following &ldquo;using&rdquo; statements:</p>
+
+<figure class='code'><figcaption><span>Display.ascx.cs and Editor.ascx.cs</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">using</span> <span class="nn">BBNCExtensions</span><span class="p">;</span>
+</span><span class='line'><span class="k">using</span> <span class="nn">BBNCExtensions.Parts</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Then, in <code>Display.ascx.cs</code>, change <code>System.WebUI.UserControl</code> (the class to inherit from) to <code>BBNCExtensions.Parts.CustomPartDisplayBase</code>. In <code>Editor.ascx.cs</code>, you&rsquo;ll want to change <code>System.WebUI.UserControl</code> to <code>BBNCExtensions.Parts.CustomPartEditorBase</code>. You&rsquo;ll also want to add two functions, as follow:</p>
+
+<figure class='code'><figcaption><span>Display.ascx.cs</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">OnLoadContent</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">public</span> <span class="k">override</span> <span class="kt">bool</span> <span class="nf">OnSaveContent</span><span class="p">(</span><span class="kt">bool</span> <span class="n">bDialogIsClosing</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Your plugin is now finished, and it is time to build it, and set it up in NetCommunity. Click build, and copy <code>bin/{ProjectName}.dll</code> to <code>{NetCommunityInstall}/Bin</code>, and copy <code>Display.ascx</code> and <code>Editor.ascx</code> (from the project root) to <code>{NetCommunityInstall}/Custom/{ProjectName}/</code>. Then open up the Custom Part settings page in NetCommunity, click <code>New custom part</code>, and give your part a name. For Display/Edit Control Source, enter <code>~\Custom\{ProjectName}\{Display|Editor}.ascx</code> (depending on which field you&rsquo;re changing), and leave <code>Supports Personalization for</code> set to <code>Not Supported</code>.</p>
+
+<p>Save the custom part, and try creating a part, and you should see a blank editor page, and a blank display page (after you save it). Your NetCommunity plugin is now built, so give yourself a pat on the back, take a quick break, and then we&rsquo;ll add some basic functionality.</p>
+
+<p>Every change you make will require that you update either the DLL, the ascx files, or both (depending on what you change), so lets automate that with some build events. Click the Project Menu, and then <code>{ProjectName} Properties</code>. Open the Build Events tab, and edit the Post-build event so that it reads (with obvious path adjustments):</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>copy "$(ProjectDir)*.ascx"  "c:\Program Files\Blackbaud\NetCommunity\Custom\$(ProjectName)"
+</span><span class='line'>copy "$(TargetDir)$(ProjectName).dll" "c:\Program Files\Blackbaud\NetCommunity\Bin"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Click build, and you should see it automatically copy the three files into their appropriate directories.</p>
+
+<p>Now to bring the plugin to life, and add some actual functionality. Right click on your project in the Solution Explorer, and choose <code>Add-&gt;Class</code>. Name it something appropriate, as this class will hold the settings for this part. Inside of the class declaration, add a public variable for every property of the part (e.g. public string name = &ldquo;&rdquo;;).</p>
+
+<p>Open <code>Editor.ascx</code> in design mode, and add a text field (you can add labels and formatting whenever you please) for each property that you want to make editable, and set the ID to match the property name. I chose to prefix each with &ldquo;field&rdquo; to make it easier to find, which resulted in things like &ldquo;fieldEducation&rdquo; as an ID, but as long as you can keep track of each property, you can name it any proper variable name.</p>
+
+<p>Then, go back to <code>Editor.ascx.cs</code>, and in your <code>OnSaveContent</code> function, add the following (adjusting as necessary). I&rsquo;m going to use property_class, but replace that with whatever you named the class you created above (containing your property declarations):</p>
+
+<figure class='code'><figcaption><span>Editor.ascx.cs - OnSaveContent</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="c1">// Lets create an empty property_class variable, to save our data</span>
+</span><span class='line'><span class="n">property_class</span> <span class="n">save_data</span> <span class="p">=</span> <span class="k">new</span> <span class="n">property_class</span><span class="p">();</span>
+</span><span class='line'><span class="c1">// For each property that you have, add a line similar to this</span>
+</span><span class='line'><span class="n">save_data</span><span class="p">.</span><span class="n">education</span> <span class="p">=</span> <span class="n">fieldEducation</span><span class="p">.</span><span class="n">Text</span><span class="p">;</span>
+</span><span class='line'><span class="c1">// Now lets save all of those properties to the part</span>
+</span><span class='line'><span class="k">base</span><span class="p">.</span><span class="n">Content</span><span class="p">.</span><span class="n">SaveContent</span><span class="p">(</span><span class="n">save_data</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// Finally, let the browser know that everything worked, and let the window close</span>
+</span><span class='line'><span class="c1">// When you add validation, return false if you find an error</span>
+</span><span class='line'><span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>While still in <code>Editor.ascx.cs</code>, add the following to <code>OnLoadContent</code>, again modifying it as needed:</p>
+
+<figure class='code'><figcaption><span>Editor.ascx.cs - OnLoadContent</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="c1">// Check if we&#39;re not updating the data (e.g. we just opened the editor)</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">Request</span><span class="p">.</span><span class="n">RequestType</span> <span class="p">!=</span> <span class="s">&quot;POST&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// Load the content from our part, as property_class</span>
+</span><span class='line'>    <span class="n">property_class</span> <span class="n">get_data</span> <span class="p">=</span> <span class="k">base</span><span class="p">.</span><span class="n">Content</span><span class="p">.</span><span class="n">GetContent</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="n">property_class</span><span class="p">))</span> <span class="k">as</span> <span class="n">property_class</span><span class="p">;</span>
+</span><span class='line'>    <span class="c1">// If get_data is null, this is a brand new part. If it isn&#39;t null, lets set our fields to the data</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">get_data</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// Add a line like this for every property in property_class</span>
+</span><span class='line'>        <span class="n">fieldEducation</span><span class="p">.</span><span class="n">Text</span> <span class="p">=</span> <span class="n">get_data</span><span class="p">.</span><span class="n">education</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you build the part, and try it in NetCommunity at this point, you&rsquo;ll find that you can create and edit the part, and it will retain your changes, however it doesn&rsquo;t display your changes anywhere. To add that in, open up <code>Display.ascx</code> in design mode, and add Literal tags to your code, again, setting the ID to something logical. Then open up <code>Display.ascx.cs</code>, and add the following to your <code>Page_Load</code> function, as usual, editing it where needed:</p>
+
+<figure class='code'><figcaption><span>Display.ascx - Page_Load</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="c1">// Load the content from our part, as property_class</span>
+</span><span class='line'><span class="n">property_class</span> <span class="n">get_data</span> <span class="p">=</span> <span class="k">base</span><span class="p">.</span><span class="n">Content</span><span class="p">.</span><span class="n">GetContent</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="n">property_class</span><span class="p">))</span> <span class="k">as</span> <span class="n">property_class</span><span class="p">;</span>
+</span><span class='line'><span class="c1">// Has this part been saved before?</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">get_data</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// Add a line like this for every property in property_class</span>
+</span><span class='line'>    <span class="n">fieldEducation</span><span class="p">.</span><span class="n">Text</span> <span class="p">=</span> <span class="n">get_data</span><span class="p">.</span><span class="n">education</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you save and build your part again, you&rsquo;ll see that your properties are now being displayed as well. Congratulations on successfully building your first Blackbaud NetCommunity Custom Part.</p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-02-23T18:32:00-07:00" pubdate data-updated="true">Feb 23<span>rd</span>, 2011</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/asp-dot-net/'>ASP.Net</a>, <a class='category' href='/blog/categories/blackbaud-netcommunity/'>Blackbaud NetCommunity</a>, <a class='category' href='/blog/categories/c-number/'>C#</a>, <a class='category' href='/blog/categories/web/'>Web</a>
+
+
+</div>
+	
+</div></article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+	
+<!---	<a class="addthis_counter addthis_pill_style"></a> --->
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2013
+
+    Spenser Jones
+
+<br>
+Powered by Octopress.
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'spenserj';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://SpenserJ.github.io/blog/2011/02/23/creating-a-blackbaud-netcommunity-custom-part/';
+        var disqus_url = 'http://SpenserJ.github.io/blog/2011/02/23/creating-a-blackbaud-netcommunity-custom-part/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-35594055-2']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+</body>
+</html>
