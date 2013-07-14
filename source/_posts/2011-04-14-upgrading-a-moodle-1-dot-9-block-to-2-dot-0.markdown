@@ -9,6 +9,8 @@ categories:
 ---
 I recently went through the process of upgrading a Moodle 1.9 block for Panopto, to support Moodle 2.0, which came out in January. As Moodle 2.0 is a huge rewrite, and is still fairly fresh, there is very little documentation on what changes need to be made, or even what functions are deprecated and need replacing. In order to upgrade the plugin at Ambrose University College, I read through multiple core classes, and compared functions in 1.9 to 2.0. In order to make things easier for myself in the future, and for anyone else upgrading a block, I have documented my changes.
 
+<!-- more -->
+
 Language strings must be listed in `blockname/lang/en/block_blockname.php`, and one of the strings must be the plugin name:
 
 ``` php blockname/lang/en/block_blockname.php
