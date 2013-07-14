@@ -184,6 +184,13 @@ key:
   secret: "95hP9OTvHID2jJO2GNaeuw=="
 ```
 
+You may be asking yourself "But Spenser, how do I generate that key?", and thankfully the answer is quite simple.
+
+``` plain 
+$ dd if=/dev/random bs=16 count=1 2>/dev/null | openssl base64
+NzmiUkU7zA/2rQ6nnjut3w==
+```
+
 ### Configure NSD as a Slave
 
 The slave configuration is nearly identical to the master, with the only change being the `notify` and `provide-xfr` lines changing to the slave-variant. Each zone is required to have a zonefile, but you don't need to fill it out if it pulls from the master, so I just touched each file and left it empty.
