@@ -13,6 +13,8 @@ At Ambrose University College, we run Blackbaud NetCommunity as our CMS, and I'v
 
 One issue we have run into is that Internet Explorer does not play nice with our CSS3 box shadows (using CSS3Pie), and will save the progressive enhancements that are loaded specifically for IE, as part of the page and/or part, for all browsers. This results in pages that have been edited using IE, showing two box shadows in CSS3 compliant browsers, and only one in IE. Since IE is to blame (and has issues with other parts of the editor), I decided to kill off support for using IE when in administration mode.
 
+<!-- more -->
+
 While I was working on my IE-proofing, one of our content authors accidentally clicked the "Template Designer" button, which resulted in her inserting a part on every page on the website. This is not the first time we have encountered this issue, and last time it happened, it took about two hours to fix, as changes were also made to the HTML of the template. Two lines of javascript later, and the Stylesheet editor and Template Designer buttons no longer appear. If I need to make changes, I can always go through the page finder, but changes are so infrequent that having a front-and-center button is just asking for trouble.
 
 Incase you would like to implement similar "fixes" on your NetCommunity website, I have the code for 6.10 posted below :)

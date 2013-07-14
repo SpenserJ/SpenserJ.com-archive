@@ -4,10 +4,15 @@ title: "Building your first Adium Plugin"
 date: 2010-08-13 16:51
 comments: true
 categories: 
+- Adium
+- Obj-C
+- XCode
 ---
 **This guide is extremely outdated. It was originally authored on August 13th, 2010, and has not been updated recently.**
 
 *As a warning, Adium Plugins use internal Adium APIs, which sometimes change. If you build a plugin, it may break with future versions of Adium, so be prepared for some upkeep down the road, unless you want to be rude and build a great program, and then abandon it and all of its users.* This guide assumes that you understand the basics of Objective-C, XCode, and programming in general. If you don't meet one of these prerequisites, please go research the basics and then come back.
+
+<!-- more -->
 
 ## Step 1: Compiling Adium
 

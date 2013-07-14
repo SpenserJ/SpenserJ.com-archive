@@ -13,6 +13,8 @@ I've recently been given the task of creating some custom plugins for NetCommuni
 
 As such, I am going to write up a concise walkthrough for creating a NetCommunity plugin (for 6.15) using C#, from scratch, up until you have a functional part.
 
+<!-- more -->
+
 Begin by creating a new "ASP.NET Empty Web Application" project in Microsoft Visual Web Developer (<http://cl.ly/4nce>). Right click on References, in the Solution Explorer, and choose Add Reference. Under the Browse tab, navigate to the Bin folder of your NetCommunity installation, and choose `BBNCExtensions.dll` (<http://cl.ly/4nOt>). Finally, go into the Project menu, and click `{ProjectName} properties`, and change Target framework to `.NET Framework 3.5` (under the application tab). You're now ready to start coding some basic functionality into your application.
 
 Right click on your project in the Solution Explorer (should be the bold title at the very top), and choose `Add->New Item`. You will want to create two new `Web User Controls` named `Display.ascx` and `Editor.ascx` (<http://cl.ly/4n69>). In Display.ascx.cs and Editor.ascx.cs, add the following "using" statements:
