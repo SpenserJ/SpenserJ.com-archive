@@ -4,7 +4,7 @@
   <title><![CDATA[Spenser Jones]]></title>
   <link href="http://SpenserJ.github.io/atom.xml" rel="self"/>
   <link href="http://SpenserJ.github.io/"/>
-  <updated>2013-07-15T10:48:41-06:00</updated>
+  <updated>2013-07-15T10:52:32-06:00</updated>
   <id>http://SpenserJ.github.io/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
@@ -21,6 +21,9 @@
     <content type="html"><![CDATA[<p>It is a rare to watch someone secure a freshly installed server right off the bat, yet the world we live in makes this a necessity. So why do so many people put it off until the end, if at all? I&rsquo;ve done the exact same thing, and it often comes down to wanting to get right into the fun stuff. Hopefully this post will show that it is far easier than you think to secure a server, and can be quite entertaining to look down from your fortress, when the attacks begin to flow.</p>
 
 <p>This post is written for Ubuntu 12.04.2 LTS, however you can do similar things on any other Linux distribution.</p>
+
+<!-- more -->
+
 
 <h2>Where do I begin?</h2>
 
@@ -460,155 +463,7 @@
 
 <h2>Securing your server</h2>
 
-<p>Logging in as root is a surefire way to let hackers into your box, so lets begin by creating a new user, adding them to an admin group for sudo.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo addgroup admin
-</span><span class='line'>Adding group 'admin' (GID 1001)
-</span><span class='line'>Done.
-</span><span class='line'>
-</span><span class='line'>$ sudo adduser spenserj
-</span><span class='line'>Adding user `spenserj' ...
-</span><span class='line'>Adding new group `spenserj' (1002) ...
-</span><span class='line'>Adding new user `spenserj' (1001) with group `spenserj' ...
-</span><span class='line'>Creating home directory `/home/spenserj' ...
-</span><span class='line'>Copying files from `/etc/skel' ...
-</span><span class='line'>Enter new UNIX password:
-</span><span class='line'>Retype new UNIX password:
-</span><span class='line'>passwd: password updated successfully
-</span><span class='line'>Changing the user information for spenserj
-</span><span class='line'>Enter the new value, or press ENTER for the default
-</span><span class='line'>    Full Name []: Spenser Jones
-</span><span class='line'>    Room Number []:
-</span><span class='line'>    Work Phone []:
-</span><span class='line'>    Home Phone []:
-</span><span class='line'>    Other []:
-</span><span class='line'>Is the information correct? [Y/n] y
-</span><span class='line'>
-</span><span class='line'>$ sudo usermod -a -G admin spenserj</span></code></pre></td></tr></table></div></figure>
-
-
-<p>You&rsquo;ll also want to create a private key on your computer, and disable that pesky password authentication on the server.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ mkdir ~/.ssh
-</span><span class='line'>$ echo "ssh-rsa [your public key]" &gt; ~/.ssh/authorized_keys</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><figcaption><span>/etc/ssh/sshd_config</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>PermitRootLogin no
-</span><span class='line'>PasswordAuthentication no
-</span><span class='line'>AllowUsers spenserj</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Reload SSH to apply the changes, and then try logging in <strong>in a new session</strong> to ensure everything worked. If you can&rsquo;t log in, you&rsquo;ll still have your original session to fix things up.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo service ssh restart
-</span><span class='line'>ssh stop/waiting
-</span><span class='line'>ssh start/running, process 1599</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>Update the server</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get update
-</span><span class='line'>...
-</span><span class='line'>Hit http://ca.archive.ubuntu.com precise-updates/universe Translation-en_CA
-</span><span class='line'>Hit http://ca.archive.ubuntu.com precise-updates/universe Translation-en
-</span><span class='line'>Hit http://ca.archive.ubuntu.com precise-backports/main Translation-en
-</span><span class='line'>Hit http://ca.archive.ubuntu.com precise-backports/multiverse Translation-en
-</span><span class='line'>Hit http://ca.archive.ubuntu.com precise-backports/restricted Translation-en
-</span><span class='line'>Hit http://ca.archive.ubuntu.com precise-backports/universe Translation-en
-</span><span class='line'>Fetched 3,285 kB in 5s (573 kB/s)
-</span><span class='line'>Reading package lists... Done
-</span><span class='line'>
-</span><span class='line'>$ sudo apt-get upgrade
-</span><span class='line'>Reading package lists... Done
-</span><span class='line'>Building dependency tree
-</span><span class='line'>Reading state information... Done
-</span><span class='line'>The following packages have been kept back:
-</span><span class='line'>  linux-headers-generic-lts-quantal linux-image-generic-lts-quantal
-</span><span class='line'>The following packages will be upgraded:
-</span><span class='line'>  accountsservice apport apt apt-transport-https apt-utils aptitude bash ...
-</span><span class='line'>73 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
-</span><span class='line'>Need to get 61.0 MB of archives.
-</span><span class='line'>After this operation, 151 kB of additional disk space will be used.
-</span><span class='line'>Do you want to continue [Y/n]? Y
-</span><span class='line'>...
-</span><span class='line'>Setting up libisc83 (1:9.8.1.dfsg.P1-4ubuntu0.6) ...
-</span><span class='line'>Setting up libdns81 (1:9.8.1.dfsg.P1-4ubuntu0.6) ...
-</span><span class='line'>Setting up libisccc80 (1:9.8.1.dfsg.P1-4ubuntu0.6) ...
-</span><span class='line'>Setting up libisccfg82 (1:9.8.1.dfsg.P1-4ubuntu0.6) ...
-</span><span class='line'>Setting up libbind9-80 (1:9.8.1.dfsg.P1-4ubuntu0.6) ...
-</span><span class='line'>Setting up liblwres80 (1:9.8.1.dfsg.P1-4ubuntu0.6) ...
-</span><span class='line'>Setting up bind9-host (1:9.8.1.dfsg.P1-4ubuntu0.6) ...
-</span><span class='line'>Setting up dnsutils (1:9.8.1.dfsg.P1-4ubuntu0.6) ...
-</span><span class='line'>Setting up iptables (1.4.12-1ubuntu5) ...
-</span><span class='line'>...</span></code></pre></td></tr></table></div></figure>
-
+<p>Before you even consider working on your DNS server, you&rsquo;ll want to lock down your security. What good is a server if you can&rsquo;t trust it? I&rsquo;ve written up a separate post on <a href="http://SpenserJ.github.io/blog/2013/07/15/securing-a-linux-server/">Securing a Linux Server</a> that should give you a head start.</p>
 
 <h2>Install NSD</h2>
 

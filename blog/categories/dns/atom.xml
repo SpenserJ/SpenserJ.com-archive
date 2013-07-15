@@ -4,7 +4,7 @@
   <title><![CDATA[Category: DNS | Spenser Jones]]></title>
   <link href="http://SpenserJ.github.io/blog/categories/dns/atom.xml" rel="self"/>
   <link href="http://SpenserJ.github.io/"/>
-  <updated>2013-07-15T10:48:41-06:00</updated>
+  <updated>2013-07-15T10:52:32-06:00</updated>
   <id>http://SpenserJ.github.io/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
@@ -25,96 +25,7 @@
 
 <h2>Securing your server</h2>
 
-<p>Logging in as root is a surefire way to let hackers into your box, so lets begin by creating a new user, adding them to an admin group for sudo.</p>
-
-<p>``` plain
-$ sudo addgroup admin
-Adding group &lsquo;admin&rsquo; (GID 1001)
-Done.</p>
-
-<p>$ sudo adduser spenserj
-Adding user <code>spenserj' ...
-Adding new group</code>spenserj' (1002) &hellip;
-Adding new user <code>spenserj' (1001) with group</code>spenserj' &hellip;
-Creating home directory <code>/home/spenserj' ...
-Copying files from</code>/etc/skel' &hellip;
-Enter new UNIX password:
-Retype new UNIX password:
-passwd: password updated successfully
-Changing the user information for spenserj
-Enter the new value, or press ENTER for the default</p>
-
-<pre><code>Full Name []: Spenser Jones
-Room Number []:
-Work Phone []:
-Home Phone []:
-Other []:
-</code></pre>
-
-<p>Is the information correct? [Y/n] y</p>
-
-<p>$ sudo usermod -a -G admin spenserj
-```</p>
-
-<p>You&rsquo;ll also want to create a private key on your computer, and disable that pesky password authentication on the server.</p>
-
-<p><code>plain
-$ mkdir ~/.ssh
-$ echo "ssh-rsa [your public key]" &gt; ~/.ssh/authorized_keys
-</code></p>
-
-<p><code>plain /etc/ssh/sshd_config
-PermitRootLogin no
-PasswordAuthentication no
-AllowUsers spenserj
-</code></p>
-
-<p>Reload SSH to apply the changes, and then try logging in <strong>in a new session</strong> to ensure everything worked. If you can&rsquo;t log in, you&rsquo;ll still have your original session to fix things up.</p>
-
-<p><code>plain
-$ sudo service ssh restart
-ssh stop/waiting
-ssh start/running, process 1599
-</code></p>
-
-<h3>Update the server</h3>
-
-<p>``` plain
-$ sudo apt-get update
-&hellip;
-Hit <a href="http://ca.archive.ubuntu.com">http://ca.archive.ubuntu.com</a> precise-updates/universe Translation-en_CA
-Hit <a href="http://ca.archive.ubuntu.com">http://ca.archive.ubuntu.com</a> precise-updates/universe Translation-en
-Hit <a href="http://ca.archive.ubuntu.com">http://ca.archive.ubuntu.com</a> precise-backports/main Translation-en
-Hit <a href="http://ca.archive.ubuntu.com">http://ca.archive.ubuntu.com</a> precise-backports/multiverse Translation-en
-Hit <a href="http://ca.archive.ubuntu.com">http://ca.archive.ubuntu.com</a> precise-backports/restricted Translation-en
-Hit <a href="http://ca.archive.ubuntu.com">http://ca.archive.ubuntu.com</a> precise-backports/universe Translation-en
-Fetched 3,285 kB in 5s (573 kB/s)
-Reading package lists&hellip; Done</p>
-
-<p>$ sudo apt-get upgrade
-Reading package lists&hellip; Done
-Building dependency tree
-Reading state information&hellip; Done
-The following packages have been kept back:
-  linux-headers-generic-lts-quantal linux-image-generic-lts-quantal
-The following packages will be upgraded:
-  accountsservice apport apt apt-transport-https apt-utils aptitude bash &hellip;
-73 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
-Need to get 61.0 MB of archives.
-After this operation, 151 kB of additional disk space will be used.
-Do you want to continue [Y/n]? Y
-&hellip;
-Setting up libisc83 (1:9.8.1.dfsg.P1-4ubuntu0.6) &hellip;
-Setting up libdns81 (1:9.8.1.dfsg.P1-4ubuntu0.6) &hellip;
-Setting up libisccc80 (1:9.8.1.dfsg.P1-4ubuntu0.6) &hellip;
-Setting up libisccfg82 (1:9.8.1.dfsg.P1-4ubuntu0.6) &hellip;
-Setting up libbind9-80 (1:9.8.1.dfsg.P1-4ubuntu0.6) &hellip;
-Setting up liblwres80 (1:9.8.1.dfsg.P1-4ubuntu0.6) &hellip;
-Setting up bind9-host (1:9.8.1.dfsg.P1-4ubuntu0.6) &hellip;
-Setting up dnsutils (1:9.8.1.dfsg.P1-4ubuntu0.6) &hellip;
-Setting up iptables (1.4.12-1ubuntu5) &hellip;
-&hellip;
-```</p>
+<p>Before you even consider working on your DNS server, you&rsquo;ll want to lock down your security. What good is a server if you can&rsquo;t trust it? I&rsquo;ve written up a separate post on <a href="/blog/2013/07/15/securing-a-linux-server/">Securing a Linux Server</a> that should give you a head start.</p>
 
 <h2>Install NSD</h2>
 

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Server Administration | Spenser Jones]]></title>
   <link href="http://SpenserJ.github.io/blog/categories/server-administration/atom.xml" rel="self"/>
   <link href="http://SpenserJ.github.io/"/>
-  <updated>2013-07-15T10:48:41-06:00</updated>
+  <updated>2013-07-15T10:52:32-06:00</updated>
   <id>http://SpenserJ.github.io/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
@@ -21,6 +21,9 @@
     <content type="html"><![CDATA[<p>It is a rare to watch someone secure a freshly installed server right off the bat, yet the world we live in makes this a necessity. So why do so many people put it off until the end, if at all? I&rsquo;ve done the exact same thing, and it often comes down to wanting to get right into the fun stuff. Hopefully this post will show that it is far easier than you think to secure a server, and can be quite entertaining to look down from your fortress, when the attacks begin to flow.</p>
 
 <p>This post is written for Ubuntu 12.04.2 LTS, however you can do similar things on any other Linux distribution.</p>
+
+<!-- more -->
+
 
 <h2>Where do I begin?</h2>
 
@@ -231,7 +234,7 @@ maxretry = 3</p>
 
 <h1>jail.{conf,local} configuration files.</h1>
 
-<p>destemail = root@localhost,<a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#58;&#102;&#x61;&#105;&#x6c;&#50;&#x62;&#x61;&#x6e;&#x40;&#98;&#108;&#x6f;&#x63;&#107;&#108;&#105;&#x73;&#x74;&#x2e;&#x64;&#101;">&#102;&#97;&#105;&#x6c;&#50;&#98;&#x61;&#110;&#64;&#x62;&#x6c;&#x6f;&#x63;&#107;&#x6c;&#105;&#x73;&#116;&#46;&#x64;&#101;</a>
+<p>destemail = root@localhost,<a href="&#109;&#97;&#x69;&#x6c;&#x74;&#111;&#58;&#x66;&#x61;&#105;&#x6c;&#50;&#98;&#x61;&#110;&#x40;&#98;&#x6c;&#x6f;&#99;&#x6b;&#108;&#x69;&#x73;&#116;&#46;&#100;&#101;">&#x66;&#x61;&#105;&#x6c;&#x32;&#x62;&#x61;&#x6e;&#64;&#x62;&#108;&#x6f;&#99;&#x6b;&#108;&#105;&#115;&#116;&#46;&#100;&#x65;</a>
 ```</p>
 
 <p>There are a few other settings you&rsquo;ll want to check out, although the defaults are quite sufficient, so skim through the file quickly until you reach the Actions section.</p>
@@ -322,96 +325,7 @@ DROP       all  --  195.128.126.114      anywhere
 
 <h2>Securing your server</h2>
 
-<p>Logging in as root is a surefire way to let hackers into your box, so lets begin by creating a new user, adding them to an admin group for sudo.</p>
-
-<p>``` plain
-$ sudo addgroup admin
-Adding group &lsquo;admin&rsquo; (GID 1001)
-Done.</p>
-
-<p>$ sudo adduser spenserj
-Adding user <code>spenserj' ...
-Adding new group</code>spenserj' (1002) &hellip;
-Adding new user <code>spenserj' (1001) with group</code>spenserj' &hellip;
-Creating home directory <code>/home/spenserj' ...
-Copying files from</code>/etc/skel' &hellip;
-Enter new UNIX password:
-Retype new UNIX password:
-passwd: password updated successfully
-Changing the user information for spenserj
-Enter the new value, or press ENTER for the default</p>
-
-<pre><code>Full Name []: Spenser Jones
-Room Number []:
-Work Phone []:
-Home Phone []:
-Other []:
-</code></pre>
-
-<p>Is the information correct? [Y/n] y</p>
-
-<p>$ sudo usermod -a -G admin spenserj
-```</p>
-
-<p>You&rsquo;ll also want to create a private key on your computer, and disable that pesky password authentication on the server.</p>
-
-<p><code>plain
-$ mkdir ~/.ssh
-$ echo "ssh-rsa [your public key]" &gt; ~/.ssh/authorized_keys
-</code></p>
-
-<p><code>plain /etc/ssh/sshd_config
-PermitRootLogin no
-PasswordAuthentication no
-AllowUsers spenserj
-</code></p>
-
-<p>Reload SSH to apply the changes, and then try logging in <strong>in a new session</strong> to ensure everything worked. If you can&rsquo;t log in, you&rsquo;ll still have your original session to fix things up.</p>
-
-<p><code>plain
-$ sudo service ssh restart
-ssh stop/waiting
-ssh start/running, process 1599
-</code></p>
-
-<h3>Update the server</h3>
-
-<p>``` plain
-$ sudo apt-get update
-&hellip;
-Hit <a href="http://ca.archive.ubuntu.com">http://ca.archive.ubuntu.com</a> precise-updates/universe Translation-en_CA
-Hit <a href="http://ca.archive.ubuntu.com">http://ca.archive.ubuntu.com</a> precise-updates/universe Translation-en
-Hit <a href="http://ca.archive.ubuntu.com">http://ca.archive.ubuntu.com</a> precise-backports/main Translation-en
-Hit <a href="http://ca.archive.ubuntu.com">http://ca.archive.ubuntu.com</a> precise-backports/multiverse Translation-en
-Hit <a href="http://ca.archive.ubuntu.com">http://ca.archive.ubuntu.com</a> precise-backports/restricted Translation-en
-Hit <a href="http://ca.archive.ubuntu.com">http://ca.archive.ubuntu.com</a> precise-backports/universe Translation-en
-Fetched 3,285 kB in 5s (573 kB/s)
-Reading package lists&hellip; Done</p>
-
-<p>$ sudo apt-get upgrade
-Reading package lists&hellip; Done
-Building dependency tree
-Reading state information&hellip; Done
-The following packages have been kept back:
-  linux-headers-generic-lts-quantal linux-image-generic-lts-quantal
-The following packages will be upgraded:
-  accountsservice apport apt apt-transport-https apt-utils aptitude bash &hellip;
-73 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
-Need to get 61.0 MB of archives.
-After this operation, 151 kB of additional disk space will be used.
-Do you want to continue [Y/n]? Y
-&hellip;
-Setting up libisc83 (1:9.8.1.dfsg.P1-4ubuntu0.6) &hellip;
-Setting up libdns81 (1:9.8.1.dfsg.P1-4ubuntu0.6) &hellip;
-Setting up libisccc80 (1:9.8.1.dfsg.P1-4ubuntu0.6) &hellip;
-Setting up libisccfg82 (1:9.8.1.dfsg.P1-4ubuntu0.6) &hellip;
-Setting up libbind9-80 (1:9.8.1.dfsg.P1-4ubuntu0.6) &hellip;
-Setting up liblwres80 (1:9.8.1.dfsg.P1-4ubuntu0.6) &hellip;
-Setting up bind9-host (1:9.8.1.dfsg.P1-4ubuntu0.6) &hellip;
-Setting up dnsutils (1:9.8.1.dfsg.P1-4ubuntu0.6) &hellip;
-Setting up iptables (1.4.12-1ubuntu5) &hellip;
-&hellip;
-```</p>
+<p>Before you even consider working on your DNS server, you&rsquo;ll want to lock down your security. What good is a server if you can&rsquo;t trust it? I&rsquo;ve written up a separate post on <a href="/blog/2013/07/15/securing-a-linux-server/">Securing a Linux Server</a> that should give you a head start.</p>
 
 <h2>Install NSD</h2>
 
