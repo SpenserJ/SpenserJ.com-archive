@@ -1,9 +1,8 @@
 ---
 layout: post
 title: "Securing a Linux Server"
-date: 2013-07-12 14:52
+date: 2013-07-15 10:52
 comments: true
-published: false
 categories: 
 - Server Administration
 - Security
@@ -155,3 +154,123 @@ $ sudo /etc/network/if-pre-up.d/iptables
 
 ## Fail2ban those wannabe-hackers
 
+Fail2ban is one of my favourite tools when it comes to security, as it will monitor your logfiles, and temporarily ban users that are misusing your resources, be it brute forcing your SSH connection, or DoSing your webserver.
+
+``` plain Install Fail2ban
+$ sudo apt-get install fail2ban
+[sudo] password for sjones:
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following extra packages will be installed:
+  gamin libgamin0 python-central python-gamin python-support whois
+Suggested packages:
+  mailx
+The following NEW packages will be installed:
+  fail2ban gamin libgamin0 python-central python-gamin python-support whois
+0 upgraded, 7 newly installed, 0 to remove and 2 not upgraded.
+Need to get 254 kB of archives.
+After this operation, 1,381 kB of additional disk space will be used.
+Do you want to continue [Y/n]? y
+...
+```
+
+Fail2ban installs a default configuration (`/etc/fail2ban/jail.conf`), but we'll want to make our changes in `/etc/fail2ban/jail.local`, so copy it there.
+
+``` plain 
+sudo cp /etc/fail2ban/jail.{conf,local}
+```
+
+### Configuration
+
+Change the `ignoreip` line to your IP, and decide on an amount of time to ban the scumbags for (default is 10 minutes). You'll also want to set up a `destemail`, which I normally enter as my own email address followed by `,fail2ban@blocklist.de`. [BlockList.de](http://www.blocklist.de/) is a system to track and automatically report hacking attempts to the proper abuse contact for their IP.
+
+``` plain /etc/fail2ban/jail.local
+[DEFAULT]
+
+# "ignoreip" can be an IP address, a CIDR mask or a DNS host
+ignoreip = 127.0.0.1/8
+bantime  = 600
+maxretry = 3
+
+# "backend" specifies the backend used to get files modification. Available
+# options are "gamin", "polling" and "auto".
+# yoh: For some reason Debian shipped python-gamin didn't work as expected
+#      This issue left ToDo, so polling is default backend for now
+backend = auto
+
+#
+# Destination email address used solely for the interpolations in
+# jail.{conf,local} configuration files.
+destemail = root@localhost,fail2ban@blocklist.de
+```
+
+There are a few other settings you'll want to check out, although the defaults are quite sufficient, so skim through the file quickly until you reach the Actions section.
+
+### Actions
+
+Actions allow you to react to malicious activity, however the default is to issue an IPTables ban, while we want it to ban *and* send an email. Thankfully there is a preconfigured `action_wml`, which does just that.
+
+``` plain /etc/fail2ban/jail.local
+# Choose default action.  To change, just override value of 'action' with the
+# interpolation to the chosen action shortcut (e.g.  action_mw, action_mwl, etc) in jail.local
+# globally (section [DEFAULT]) or per specific section
+action = %(action_mwl)s
+```
+
+### Jails
+
+In order for Fail2ban to work, it needs to know what to watch. These are configured in the Jails section of the config, and there are quite a few examples pre-loaded and disabled. Since you've only enabled SSH access on the server so far, we'll only enable the SSH and SSH-DDoS jails, however you'll want to add a new jail for each publicly-accessible service that you install on this server.
+
+``` plain /etc/fail2ban/jail.local
+[ssh]
+
+enabled  = true
+port     = ssh
+filter   = sshd
+logpath  = /var/log/auth.log
+maxretry = 6
+
+[ssh-ddos]
+
+enabled  = true
+port     = ssh
+filter   = sshd-ddos
+logpath  = /var/log/auth.log
+maxretry = 6
+```
+
+### Apply the changes
+
+Now that we've configured Fail2ban, you'll want to reload it, and confirm that it is adding the appropriate rules to IPTables.
+
+``` plain 
+$ sudo service fail2ban restart
+ * Restarting authentication failure monitor fail2ban
+   ...done.
+
+$ sudo iptables -L
+Chain INPUT (policy DROP)
+target     prot opt source               destination
+fail2ban-ssh-ddos  tcp  --  anywhere             anywhere             multiport dports ssh
+fail2ban-ssh  tcp  --  anywhere             anywhere             multiport dports ssh
+...
+Chain fail2ban-ssh (1 references)
+target     prot opt source               destination
+RETURN     all  --  anywhere             anywhere
+
+Chain fail2ban-ssh-ddos (1 references)
+target     prot opt source               destination
+RETURN     all  --  anywhere             anywhere
+```
+
+At any time, you can use `sudo iptables -L` to list your rules, and subsequently list any currently-banned IPs. At the moment, Fail2ban is handling two malicious individuals:
+
+``` plain Banned IPs
+DROP       all  --  204.50.33.22         anywhere
+DROP       all  --  195.128.126.114      anywhere
+```
+
+## Staying on top of things
+
+You should now have a server that is locked down and ready to use, however this is not the end of your security journey. Stay on top of updates (and always test them in a non-production environment first), always close ports that you don't need, check your logs regularly, and know your servers inside-and-out.
