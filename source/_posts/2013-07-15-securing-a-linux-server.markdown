@@ -11,6 +11,8 @@ It is a rare to watch someone secure a freshly installed server right off the ba
 
 This post is written for Ubuntu 12.04.2 LTS, however you can do similar things on any other Linux distribution.
 
+<!-- more -->
+
 ## Where do I begin?
 
 If this server already has a public IP, you'll want to lock down root access immediately. In fact, you'll want to lock down SSH access entirely, and make sure that only *you* can get in. Add a new user, and add it to an admin group (preconfigured in `/etc/sudoers` to have access to `sudo`).
