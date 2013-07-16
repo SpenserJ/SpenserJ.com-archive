@@ -336,7 +336,7 @@ $(document).ready(
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo echo "#\!/bin/sh\niptables-restore &lt; /etc/iptables/rules" &gt; /etc/network/if-pre-up.d/iptables
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ echo "#\!/bin/sh\niptables-restore &lt; /etc/iptables/rules" | sudo tee /etc/network/if-pre-up.d/iptables
 </span><span class='line'>$ sudo chmod +x /etc/network/if-pre-up.d/iptables
 </span><span class='line'>$ sudo /etc/network/if-pre-up.d/iptables</span></code></pre></td></tr></table></div></figure>
 
