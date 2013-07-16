@@ -149,7 +149,7 @@ COMMIT
 Auto-load the rules with the network, and apply them now.
 
 ``` plain 
-$ sudo echo "#\!/bin/sh\niptables-restore < /etc/iptables/rules" > /etc/network/if-pre-up.d/iptables
+$ echo "#\!/bin/sh\niptables-restore < /etc/iptables/rules" | sudo tee /etc/network/if-pre-up.d/iptables
 $ sudo chmod +x /etc/network/if-pre-up.d/iptables
 $ sudo /etc/network/if-pre-up.d/iptables
 ```
