@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://SpenserJ.github.io/sitemap.xml 
+Sitemap: http://spenserj.com/sitemap.xml 

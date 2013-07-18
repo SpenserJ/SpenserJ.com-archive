@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: XCode | Spenser Jones]]></title>
-  <link href="http://SpenserJ.github.io/blog/categories/xcode/atom.xml" rel="self"/>
-  <link href="http://SpenserJ.github.io/"/>
-  <updated>2013-07-16T15:01:03-06:00</updated>
-  <id>http://SpenserJ.github.io/</id>
+  <link href="http://spenserj.com/blog/categories/xcode/atom.xml" rel="self"/>
+  <link href="http://spenserj.com/"/>
+  <updated>2013-07-18T13:38:47-06:00</updated>
+  <id>http://spenserj.com/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Building your first Adium Plugin]]></title>
-    <link href="http://SpenserJ.github.io/blog/2010/08/13/building-your-first-adium-plugin/"/>
+    <link href="http://spenserj.com/blog/2010/08/13/building-your-first-adium-plugin/"/>
     <updated>2010-08-13T16:51:00-06:00</updated>
-    <id>http://SpenserJ.github.io/blog/2010/08/13/building-your-first-adium-plugin</id>
+    <id>http://spenserj.com/blog/2010/08/13/building-your-first-adium-plugin</id>
     <content type="html"><![CDATA[<p><strong>This guide is extremely outdated. It was originally authored on August 13th, 2010, and has not been updated recently.</strong></p>
 
 <p><em>As a warning, Adium Plugins use internal Adium APIs, which sometimes change. If you build a plugin, it may break with future versions of Adium, so be prepared for some upkeep down the road, unless you want to be rude and build a great program, and then abandon it and all of its users.</em> This guide assumes that you understand the basics of Objective-C, XCode, and programming in general. If you don&rsquo;t meet one of these prerequisites, please go research the basics and then come back.</p>

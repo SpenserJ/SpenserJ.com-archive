@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Javascript | Spenser Jones]]></title>
-  <link href="http://SpenserJ.github.io/blog/categories/javascript/atom.xml" rel="self"/>
-  <link href="http://SpenserJ.github.io/"/>
-  <updated>2013-07-16T15:01:03-06:00</updated>
-  <id>http://SpenserJ.github.io/</id>
+  <link href="http://spenserj.com/blog/categories/javascript/atom.xml" rel="self"/>
+  <link href="http://spenserj.com/"/>
+  <updated>2013-07-18T13:38:47-06:00</updated>
+  <id>http://spenserj.com/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Fixing the Blackbaud NetCommunity Login Form]]></title>
-    <link href="http://SpenserJ.github.io/blog/2011/04/14/fixing-the-blackbaud-netcommunity-login-form/"/>
+    <link href="http://spenserj.com/blog/2011/04/14/fixing-the-blackbaud-netcommunity-login-form/"/>
     <updated>2011-04-14T12:52:00-06:00</updated>
-    <id>http://SpenserJ.github.io/blog/2011/04/14/fixing-the-blackbaud-netcommunity-login-form</id>
+    <id>http://spenserj.com/blog/2011/04/14/fixing-the-blackbaud-netcommunity-login-form</id>
     <content type="html"><![CDATA[<p>Blackbaud NetCommunity 6.15 has a bug in the login form, where tabbing onto the &ldquo;Remember Me&rdquo; field and pressing enter (normal functionality to submit a form) will take you back to the login form, with your username filled in, but no password or error. This is due to the fact that javascript is being (poorly) added directly to the HTML tags, instead of writing a simple, unobtrusive javascript function, that targets all fields on the form.</p>
 
 <p>To remedy this, add a JS file to any layout that may contain a login field, and add this code:</p>
@@ -42,9 +42,9 @@ $(function() {
   
   <entry>
     <title type="html"><![CDATA[Locking down Blackbaud NetCommunity content authoring]]></title>
-    <link href="http://SpenserJ.github.io/blog/2010/12/20/locking-down-blackbaud-netcommunity-content-authoring/"/>
+    <link href="http://spenserj.com/blog/2010/12/20/locking-down-blackbaud-netcommunity-content-authoring/"/>
     <updated>2010-12-20T18:21:00-07:00</updated>
-    <id>http://SpenserJ.github.io/blog/2010/12/20/locking-down-blackbaud-netcommunity-content-authoring</id>
+    <id>http://spenserj.com/blog/2010/12/20/locking-down-blackbaud-netcommunity-content-authoring</id>
     <content type="html"><![CDATA[<p>At Ambrose University College, we run Blackbaud NetCommunity as our CMS, and I&rsquo;ve encountered a few issues with permissions for content authors, and how the editor itself works. Over the past few weeks, in an attempt to improve the experience of both our visitors, and our content authors, I have added a few lines to our website&rsquo;s javascript file (hosted in a document part).</p>
 
 <p>One issue we have run into is that Internet Explorer does not play nice with our CSS3 box shadows (using CSS3Pie), and will save the progressive enhancements that are loaded specifically for IE, as part of the page and/or part, for all browsers. This results in pages that have been edited using IE, showing two box shadows in CSS3 compliant browsers, and only one in IE. Since IE is to blame (and has issues with other parts of the editor), I decided to kill off support for using IE when in administration mode.</p>

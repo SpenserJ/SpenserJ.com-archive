@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: TinyMCE | Spenser Jones]]></title>
-  <link href="http://SpenserJ.github.io/blog/categories/tinymce/atom.xml" rel="self"/>
-  <link href="http://SpenserJ.github.io/"/>
-  <updated>2013-07-16T15:01:03-06:00</updated>
-  <id>http://SpenserJ.github.io/</id>
+  <link href="http://spenserj.com/blog/categories/tinymce/atom.xml" rel="self"/>
+  <link href="http://spenserj.com/"/>
+  <updated>2013-07-18T13:38:47-06:00</updated>
+  <id>http://spenserj.com/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Adding iFrames to Blackbaud NetCommunity <= 6.15.70]]></title>
-    <link href="http://SpenserJ.github.io/blog/2011/03/25/adding-iframes-to-blackbaud-netcommunity/"/>
+    <link href="http://spenserj.com/blog/2011/03/25/adding-iframes-to-blackbaud-netcommunity/"/>
     <updated>2011-03-25T12:47:00-06:00</updated>
-    <id>http://SpenserJ.github.io/blog/2011/03/25/adding-iframes-to-blackbaud-netcommunity</id>
+    <id>http://spenserj.com/blog/2011/03/25/adding-iframes-to-blackbaud-netcommunity</id>
     <content type="html"><![CDATA[<p>Version 6.15 of Blackbaud NetCommunity consisted of many large changes to how BBNC works, one of which was the editor. In this update, Blackbaud moved from BBCuteEditor to TinyMCE (a great decision IMO, as TinyMCE is one of the most popular WYSIWYG editors). Sadly, patch 70 and below do not support iFrames, even if you have the iFrame set as a &ldquo;Safe HTML Tag&rdquo; in the settings. Blackbaud is working on a patch for this (patch 71 to be exact), however they do not have an ETA for it yet.</p>
 
 <!-- more -->

@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Web | Spenser Jones]]></title>
-  <link href="http://SpenserJ.github.io/blog/categories/web/atom.xml" rel="self"/>
-  <link href="http://SpenserJ.github.io/"/>
-  <updated>2013-07-16T15:01:03-06:00</updated>
-  <id>http://SpenserJ.github.io/</id>
+  <link href="http://spenserj.com/blog/categories/web/atom.xml" rel="self"/>
+  <link href="http://spenserj.com/"/>
+  <updated>2013-07-18T13:38:47-06:00</updated>
+  <id>http://spenserj.com/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Upgrading a Moodle 1.9 Block to 2.0]]></title>
-    <link href="http://SpenserJ.github.io/blog/2011/04/14/upgrading-a-moodle-1-dot-9-block-to-2-dot-0/"/>
+    <link href="http://spenserj.com/blog/2011/04/14/upgrading-a-moodle-1-dot-9-block-to-2-dot-0/"/>
     <updated>2011-04-14T12:55:00-06:00</updated>
-    <id>http://SpenserJ.github.io/blog/2011/04/14/upgrading-a-moodle-1-dot-9-block-to-2-dot-0</id>
+    <id>http://spenserj.com/blog/2011/04/14/upgrading-a-moodle-1-dot-9-block-to-2-dot-0</id>
     <content type="html"><![CDATA[<p>I recently went through the process of upgrading a Moodle 1.9 block for Panopto, to support Moodle 2.0, which came out in January. As Moodle 2.0 is a huge rewrite, and is still fairly fresh, there is very little documentation on what changes need to be made, or even what functions are deprecated and need replacing. In order to upgrade the plugin at Ambrose University College, I read through multiple core classes, and compared functions in 1.9 to 2.0. In order to make things easier for myself in the future, and for anyone else upgrading a block, I have documented my changes.</p>
 
 <!-- more -->
@@ -114,9 +114,9 @@ $settings-&gt;add(new admin_setting_heading('block_panopto_add_courses', '', $li
   
   <entry>
     <title type="html"><![CDATA[Fixing the Blackbaud NetCommunity Login Form]]></title>
-    <link href="http://SpenserJ.github.io/blog/2011/04/14/fixing-the-blackbaud-netcommunity-login-form/"/>
+    <link href="http://spenserj.com/blog/2011/04/14/fixing-the-blackbaud-netcommunity-login-form/"/>
     <updated>2011-04-14T12:52:00-06:00</updated>
-    <id>http://SpenserJ.github.io/blog/2011/04/14/fixing-the-blackbaud-netcommunity-login-form</id>
+    <id>http://spenserj.com/blog/2011/04/14/fixing-the-blackbaud-netcommunity-login-form</id>
     <content type="html"><![CDATA[<p>Blackbaud NetCommunity 6.15 has a bug in the login form, where tabbing onto the &ldquo;Remember Me&rdquo; field and pressing enter (normal functionality to submit a form) will take you back to the login form, with your username filled in, but no password or error. This is due to the fact that javascript is being (poorly) added directly to the HTML tags, instead of writing a simple, unobtrusive javascript function, that targets all fields on the form.</p>
 
 <p>To remedy this, add a JS file to any layout that may contain a login field, and add this code:</p>
@@ -141,9 +141,9 @@ $(function() {
   
   <entry>
     <title type="html"><![CDATA[Adding iFrames to Blackbaud NetCommunity <= 6.15.70]]></title>
-    <link href="http://SpenserJ.github.io/blog/2011/03/25/adding-iframes-to-blackbaud-netcommunity/"/>
+    <link href="http://spenserj.com/blog/2011/03/25/adding-iframes-to-blackbaud-netcommunity/"/>
     <updated>2011-03-25T12:47:00-06:00</updated>
-    <id>http://SpenserJ.github.io/blog/2011/03/25/adding-iframes-to-blackbaud-netcommunity</id>
+    <id>http://spenserj.com/blog/2011/03/25/adding-iframes-to-blackbaud-netcommunity</id>
     <content type="html"><![CDATA[<p>Version 6.15 of Blackbaud NetCommunity consisted of many large changes to how BBNC works, one of which was the editor. In this update, Blackbaud moved from BBCuteEditor to TinyMCE (a great decision IMO, as TinyMCE is one of the most popular WYSIWYG editors). Sadly, patch 70 and below do not support iFrames, even if you have the iFrame set as a &ldquo;Safe HTML Tag&rdquo; in the settings. Blackbaud is working on a patch for this (patch 71 to be exact), however they do not have an ETA for it yet.</p>
 
 <!-- more -->
@@ -171,9 +171,9 @@ $(function() {
   
   <entry>
     <title type="html"><![CDATA[Creating a Blackbaud NetCommunity Custom Part]]></title>
-    <link href="http://SpenserJ.github.io/blog/2011/02/23/creating-a-blackbaud-netcommunity-custom-part/"/>
+    <link href="http://spenserj.com/blog/2011/02/23/creating-a-blackbaud-netcommunity-custom-part/"/>
     <updated>2011-02-23T18:32:00-07:00</updated>
-    <id>http://SpenserJ.github.io/blog/2011/02/23/creating-a-blackbaud-netcommunity-custom-part</id>
+    <id>http://spenserj.com/blog/2011/02/23/creating-a-blackbaud-netcommunity-custom-part</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve recently been given the task of creating some custom plugins for NetCommunity, so we can do things like unify the design of our Faculty Biography pages at Ambrose. I have prior experience with C#, so I figured it would be a fairly simple process, once I figured out how their API works, however there is minimal documentation, and all of the tutorials online are either outdated or incomplete.</p>
 
 <p>As such, I am going to write up a concise walkthrough for creating a NetCommunity plugin (for 6.15) using C#, from scratch, up until you have a functional part.</p>
@@ -278,9 +278,9 @@ fieldEducation.Text = get_data.education;
   
   <entry>
     <title type="html"><![CDATA[Locking down Blackbaud NetCommunity content authoring]]></title>
-    <link href="http://SpenserJ.github.io/blog/2010/12/20/locking-down-blackbaud-netcommunity-content-authoring/"/>
+    <link href="http://spenserj.com/blog/2010/12/20/locking-down-blackbaud-netcommunity-content-authoring/"/>
     <updated>2010-12-20T18:21:00-07:00</updated>
-    <id>http://SpenserJ.github.io/blog/2010/12/20/locking-down-blackbaud-netcommunity-content-authoring</id>
+    <id>http://spenserj.com/blog/2010/12/20/locking-down-blackbaud-netcommunity-content-authoring</id>
     <content type="html"><![CDATA[<p>At Ambrose University College, we run Blackbaud NetCommunity as our CMS, and I&rsquo;ve encountered a few issues with permissions for content authors, and how the editor itself works. Over the past few weeks, in an attempt to improve the experience of both our visitors, and our content authors, I have added a few lines to our website&rsquo;s javascript file (hosted in a document part).</p>
 
 <p>One issue we have run into is that Internet Explorer does not play nice with our CSS3 box shadows (using CSS3Pie), and will save the progressive enhancements that are loaded specifically for IE, as part of the page and/or part, for all browsers. This results in pages that have been edited using IE, showing two box shadows in CSS3 compliant browsers, and only one in IE. Since IE is to blame (and has issues with other parts of the editor), I decided to kill off support for using IE when in administration mode.</p>

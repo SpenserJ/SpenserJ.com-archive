@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: ASP.Net | Spenser Jones]]></title>
-  <link href="http://SpenserJ.github.io/blog/categories/asp-dot-net/atom.xml" rel="self"/>
-  <link href="http://SpenserJ.github.io/"/>
-  <updated>2013-07-16T15:01:03-06:00</updated>
-  <id>http://SpenserJ.github.io/</id>
+  <link href="http://spenserj.com/blog/categories/asp-dot-net/atom.xml" rel="self"/>
+  <link href="http://spenserj.com/"/>
+  <updated>2013-07-18T13:38:47-06:00</updated>
+  <id>http://spenserj.com/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Creating a Blackbaud NetCommunity Custom Part]]></title>
-    <link href="http://SpenserJ.github.io/blog/2011/02/23/creating-a-blackbaud-netcommunity-custom-part/"/>
+    <link href="http://spenserj.com/blog/2011/02/23/creating-a-blackbaud-netcommunity-custom-part/"/>
     <updated>2011-02-23T18:32:00-07:00</updated>
-    <id>http://SpenserJ.github.io/blog/2011/02/23/creating-a-blackbaud-netcommunity-custom-part</id>
+    <id>http://spenserj.com/blog/2011/02/23/creating-a-blackbaud-netcommunity-custom-part</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve recently been given the task of creating some custom plugins for NetCommunity, so we can do things like unify the design of our Faculty Biography pages at Ambrose. I have prior experience with C#, so I figured it would be a fairly simple process, once I figured out how their API works, however there is minimal documentation, and all of the tutorials online are either outdated or incomplete.</p>
 
 <p>As such, I am going to write up a concise walkthrough for creating a NetCommunity plugin (for 6.15) using C#, from scratch, up until you have a functional part.</p>

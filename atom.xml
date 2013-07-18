@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Spenser Jones]]></title>
-  <link href="http://SpenserJ.github.io/atom.xml" rel="self"/>
-  <link href="http://SpenserJ.github.io/"/>
-  <updated>2013-07-16T15:01:03-06:00</updated>
-  <id>http://SpenserJ.github.io/</id>
+  <link href="http://spenserj.com/atom.xml" rel="self"/>
+  <link href="http://spenserj.com/"/>
+  <updated>2013-07-18T13:38:47-06:00</updated>
+  <id>http://spenserj.com/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Securing a Linux Server]]></title>
-    <link href="http://SpenserJ.github.io/blog/2013/07/15/securing-a-linux-server/"/>
+    <link href="http://spenserj.com/blog/2013/07/15/securing-a-linux-server/"/>
     <updated>2013-07-15T10:52:00-06:00</updated>
-    <id>http://SpenserJ.github.io/blog/2013/07/15/securing-a-linux-server</id>
+    <id>http://spenserj.com/blog/2013/07/15/securing-a-linux-server</id>
     <content type="html"><![CDATA[<p>It is a rare to watch someone secure a freshly installed server right off the bat, yet the world we live in makes this a necessity. So why do so many people put it off until the end, if at all? I&rsquo;ve done the exact same thing, and it often comes down to wanting to get right into the fun stuff. Hopefully this post will show that it is far easier than you think to secure a server, and can be quite entertaining to look down from your fortress, when the attacks begin to flow.</p>
 
 <p>This post is written for Ubuntu 12.04.2 LTS, however you can do similar things on any other Linux distribution.</p>
@@ -453,9 +453,9 @@
   
   <entry>
     <title type="html"><![CDATA[Setting up NSD3 for DNS]]></title>
-    <link href="http://SpenserJ.github.io/blog/2013/07/12/setting-up-nsd3-for-dns/"/>
+    <link href="http://spenserj.com/blog/2013/07/12/setting-up-nsd3-for-dns/"/>
     <updated>2013-07-12T11:31:00-06:00</updated>
-    <id>http://SpenserJ.github.io/blog/2013/07/12/setting-up-nsd3-for-dns</id>
+    <id>http://spenserj.com/blog/2013/07/12/setting-up-nsd3-for-dns</id>
     <content type="html"><![CDATA[<p>There are two major players in the Domain Name System server market: <a href="https://www.isc.org/downloads/bind/">Bind</a> and <a href="https://www.nlnetlabs.nl/projects/nsd/">NSD</a>. The former has been around since the 1980s and makes up a majority of the installations in use today, while the latter saw its first release around the turn of the century, and is designed to be purely authoritative (incapable of recursive DNS queries). While selecting a DNS server for <a href="https://ambrose.edu">Ambrose University College</a>, NSD&rsquo;s ability to easily run from a Chroot, and its lightweight footprint (currently using 69MB of RAM for the entire server), easily won our vote. Furthermore, NSD can make use of BIND&rsquo;s zonefiles, and the migration from our old server was complete in a matter of minutes.</p>
 
 <!-- more -->
@@ -463,7 +463,7 @@
 
 <h2>Securing your server</h2>
 
-<p>Before you even consider working on your DNS server, you&rsquo;ll want to lock down your security. What good is a server if you can&rsquo;t trust it? I&rsquo;ve written up a separate post on <a href="http://SpenserJ.github.io/blog/2013/07/15/securing-a-linux-server/">Securing a Linux Server</a> that should give you a head start.</p>
+<p>Before you even consider working on your DNS server, you&rsquo;ll want to lock down your security. What good is a server if you can&rsquo;t trust it? I&rsquo;ve written up a separate post on <a href="http://spenserj.com/blog/2013/07/15/securing-a-linux-server/">Securing a Linux Server</a> that should give you a head start.</p>
 
 <h2>Install NSD</h2>
 
@@ -699,9 +699,9 @@
   
   <entry>
     <title type="html"><![CDATA[Testing, 1 2 3. This is a test.]]></title>
-    <link href="http://SpenserJ.github.io/blog/2013/07/12/testing-1-2-3-this-is-a-test/"/>
+    <link href="http://spenserj.com/blog/2013/07/12/testing-1-2-3-this-is-a-test/"/>
     <updated>2013-07-12T10:54:00-06:00</updated>
-    <id>http://SpenserJ.github.io/blog/2013/07/12/testing-1-2-3-this-is-a-test</id>
+    <id>http://spenserj.com/blog/2013/07/12/testing-1-2-3-this-is-a-test</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve decided to give <a href="http://octopress.org/">Octopress</a> a chance, and so far I&rsquo;m enjoying it far more than <a href="https://drupal.org/">Drupal</a>. While a content management framework is great, I&rsquo;ve always found that there is far too much bloat for it to be used as a blogging platform. On top of that, <a href="http://daringfireball.net/projects/markdown/">Markdown</a> is a fantastic language, and being able to easily write beautiful code through it is extremely enticing.</p>
 
 <p>Only time will tell if this results in me posting more frequently, but I&rsquo;m optimistic.</p>
@@ -710,9 +710,9 @@
   
   <entry>
     <title type="html"><![CDATA[Building the Science Lab]]></title>
-    <link href="http://SpenserJ.github.io/blog/2013/05/14/building-the-science-lab/"/>
+    <link href="http://spenserj.com/blog/2013/05/14/building-the-science-lab/"/>
     <updated>2013-05-14T19:53:00-06:00</updated>
-    <id>http://SpenserJ.github.io/blog/2013/05/14/building-the-science-lab</id>
+    <id>http://spenserj.com/blog/2013/05/14/building-the-science-lab</id>
     <content type="html"><![CDATA[<p>There have been a significant number of bugs with the <a href="http://pecl.php.net/package/APC">Alternative PHP Cache (APC)</a> over the past year, causing me to pass over PHP updates for fear of segfaults, however that has finally come to an end. APC is still just as buggy, but <a href="https://wiki.php.net/rfc/optimizerplus">PHP 5.5</a> will be bringing <a href="http://pecl.php.net/package/ZendOpcache">Zend OPCache</a> to the core, so I&rsquo;ve decided to transition early and configure the PECL package. As Zend OPCache does not come with a User Cache, I decided to set up Memcache on the <a href="https://ambrose.edu/">Ambrose University College</a> Drupal website, and was seeing benchmarks of around 65 requests per second (up from 30-35 req/sec with APC only).</p>
 
 <p>As <a href="https://github.com/krakjoe/apcu">APCu</a> (userland caching) continues to branch from the crusty old APC branch, and the old APC Opcaching code is remove, I&rsquo;ll be running a few tests to see whether APCu can bring more to the table than Memcache can, as I have no need for the distributed functionality that Memcache provides.</p>
@@ -721,18 +721,18 @@
   
   <entry>
     <title type="html"><![CDATA[Spring Cleaning]]></title>
-    <link href="http://SpenserJ.github.io/blog/2013/05/14/spring-cleaning/"/>
+    <link href="http://spenserj.com/blog/2013/05/14/spring-cleaning/"/>
     <updated>2013-05-14T13:39:00-06:00</updated>
-    <id>http://SpenserJ.github.io/blog/2013/05/14/spring-cleaning</id>
+    <id>http://spenserj.com/blog/2013/05/14/spring-cleaning</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve decided to wipe out a few years worth of hastily written blog posts and start fresh. Fitting, given that I&rsquo;m also switching to <a href="http://spenserj.com">SpenserJ.com</a> as my domain name, after waiting for it to expire for the better part of two years. My vision is for this site to be a landing zone for the various ideas and tweaks that come to me every week.</p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Upgrading a Moodle 1.9 Block to 2.0]]></title>
-    <link href="http://SpenserJ.github.io/blog/2011/04/14/upgrading-a-moodle-1-dot-9-block-to-2-dot-0/"/>
+    <link href="http://spenserj.com/blog/2011/04/14/upgrading-a-moodle-1-dot-9-block-to-2-dot-0/"/>
     <updated>2011-04-14T12:55:00-06:00</updated>
-    <id>http://SpenserJ.github.io/blog/2011/04/14/upgrading-a-moodle-1-dot-9-block-to-2-dot-0</id>
+    <id>http://spenserj.com/blog/2011/04/14/upgrading-a-moodle-1-dot-9-block-to-2-dot-0</id>
     <content type="html"><![CDATA[<p>I recently went through the process of upgrading a Moodle 1.9 block for Panopto, to support Moodle 2.0, which came out in January. As Moodle 2.0 is a huge rewrite, and is still fairly fresh, there is very little documentation on what changes need to be made, or even what functions are deprecated and need replacing. In order to upgrade the plugin at Ambrose University College, I read through multiple core classes, and compared functions in 1.9 to 2.0. In order to make things easier for myself in the future, and for anyone else upgrading a block, I have documented my changes.</p>
 
 <!-- more -->
@@ -874,9 +874,9 @@
   
   <entry>
     <title type="html"><![CDATA[Fixing the Blackbaud NetCommunity Login Form]]></title>
-    <link href="http://SpenserJ.github.io/blog/2011/04/14/fixing-the-blackbaud-netcommunity-login-form/"/>
+    <link href="http://spenserj.com/blog/2011/04/14/fixing-the-blackbaud-netcommunity-login-form/"/>
     <updated>2011-04-14T12:52:00-06:00</updated>
-    <id>http://SpenserJ.github.io/blog/2011/04/14/fixing-the-blackbaud-netcommunity-login-form</id>
+    <id>http://spenserj.com/blog/2011/04/14/fixing-the-blackbaud-netcommunity-login-form</id>
     <content type="html"><![CDATA[<p>Blackbaud NetCommunity 6.15 has a bug in the login form, where tabbing onto the &ldquo;Remember Me&rdquo; field and pressing enter (normal functionality to submit a form) will take you back to the login form, with your username filled in, but no password or error. This is due to the fact that javascript is being (poorly) added directly to the HTML tags, instead of writing a simple, unobtrusive javascript function, that targets all fields on the form.</p>
 
 <p>To remedy this, add a JS file to any layout that may contain a login field, and add this code:</p>
@@ -908,9 +908,9 @@
   
   <entry>
     <title type="html"><![CDATA[Adding iFrames to Blackbaud NetCommunity <= 6.15.70]]></title>
-    <link href="http://SpenserJ.github.io/blog/2011/03/25/adding-iframes-to-blackbaud-netcommunity/"/>
+    <link href="http://spenserj.com/blog/2011/03/25/adding-iframes-to-blackbaud-netcommunity/"/>
     <updated>2011-03-25T12:47:00-06:00</updated>
-    <id>http://SpenserJ.github.io/blog/2011/03/25/adding-iframes-to-blackbaud-netcommunity</id>
+    <id>http://spenserj.com/blog/2011/03/25/adding-iframes-to-blackbaud-netcommunity</id>
     <content type="html"><![CDATA[<p>Version 6.15 of Blackbaud NetCommunity consisted of many large changes to how BBNC works, one of which was the editor. In this update, Blackbaud moved from BBCuteEditor to TinyMCE (a great decision IMO, as TinyMCE is one of the most popular WYSIWYG editors). Sadly, patch 70 and below do not support iFrames, even if you have the iFrame set as a &ldquo;Safe HTML Tag&rdquo; in the settings. Blackbaud is working on a patch for this (patch 71 to be exact), however they do not have an ETA for it yet.</p>
 
 <!-- more -->
@@ -938,9 +938,9 @@
   
   <entry>
     <title type="html"><![CDATA[Creating a Blackbaud NetCommunity Custom Part]]></title>
-    <link href="http://SpenserJ.github.io/blog/2011/02/23/creating-a-blackbaud-netcommunity-custom-part/"/>
+    <link href="http://spenserj.com/blog/2011/02/23/creating-a-blackbaud-netcommunity-custom-part/"/>
     <updated>2011-02-23T18:32:00-07:00</updated>
-    <id>http://SpenserJ.github.io/blog/2011/02/23/creating-a-blackbaud-netcommunity-custom-part</id>
+    <id>http://spenserj.com/blog/2011/02/23/creating-a-blackbaud-netcommunity-custom-part</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve recently been given the task of creating some custom plugins for NetCommunity, so we can do things like unify the design of our Faculty Biography pages at Ambrose. I have prior experience with C#, so I figured it would be a fairly simple process, once I figured out how their API works, however there is minimal documentation, and all of the tutorials online are either outdated or incomplete.</p>
 
 <p>As such, I am going to write up a concise walkthrough for creating a NetCommunity plugin (for 6.15) using C#, from scratch, up until you have a functional part.</p>
@@ -1075,9 +1075,9 @@
   
   <entry>
     <title type="html"><![CDATA[Locking down Blackbaud NetCommunity content authoring]]></title>
-    <link href="http://SpenserJ.github.io/blog/2010/12/20/locking-down-blackbaud-netcommunity-content-authoring/"/>
+    <link href="http://spenserj.com/blog/2010/12/20/locking-down-blackbaud-netcommunity-content-authoring/"/>
     <updated>2010-12-20T18:21:00-07:00</updated>
-    <id>http://SpenserJ.github.io/blog/2010/12/20/locking-down-blackbaud-netcommunity-content-authoring</id>
+    <id>http://spenserj.com/blog/2010/12/20/locking-down-blackbaud-netcommunity-content-authoring</id>
     <content type="html"><![CDATA[<p>At Ambrose University College, we run Blackbaud NetCommunity as our CMS, and I&rsquo;ve encountered a few issues with permissions for content authors, and how the editor itself works. Over the past few weeks, in an attempt to improve the experience of both our visitors, and our content authors, I have added a few lines to our website&rsquo;s javascript file (hosted in a document part).</p>
 
 <p>One issue we have run into is that Internet Explorer does not play nice with our CSS3 box shadows (using CSS3Pie), and will save the progressive enhancements that are loaded specifically for IE, as part of the page and/or part, for all browsers. This results in pages that have been edited using IE, showing two box shadows in CSS3 compliant browsers, and only one in IE. Since IE is to blame (and has issues with other parts of the editor), I decided to kill off support for using IE when in administration mode.</p>
@@ -1153,9 +1153,9 @@
   
   <entry>
     <title type="html"><![CDATA[CSS3 and Pictos]]></title>
-    <link href="http://SpenserJ.github.io/blog/2010/12/17/css3-and-pictos/"/>
+    <link href="http://spenserj.com/blog/2010/12/17/css3-and-pictos/"/>
     <updated>2010-12-17T17:24:00-07:00</updated>
-    <id>http://SpenserJ.github.io/blog/2010/12/17/css3-and-pictos</id>
+    <id>http://spenserj.com/blog/2010/12/17/css3-and-pictos</id>
     <content type="html"><![CDATA[<p>Over the past six months, I&rsquo;ve been charged with redeveloping the <a href="https://www2.ambrose.edu/">Ambrose University College</a> website, using BlackBaud NetCommunity. I worked together with the creative department (mainly focused on print media) for a new design (old one is <del><a href="https://www2.ambrose.edu/">here</a></del> offline), and with many other departments for training in content management and functionality. I&rsquo;ve learned quite a bit through the process, and grown immensely in my skills (primarily CSS and C#.Net). This post, however, is not so much about the experience I went through, as it is with the advancements I&rsquo;ve made when it comes to CSS3 replacing images, and support for it in all major browsers.</p>
 
 <!-- more -->
@@ -1175,9 +1175,9 @@
   
   <entry>
     <title type="html"><![CDATA[Building your first Adium Plugin]]></title>
-    <link href="http://SpenserJ.github.io/blog/2010/08/13/building-your-first-adium-plugin/"/>
+    <link href="http://spenserj.com/blog/2010/08/13/building-your-first-adium-plugin/"/>
     <updated>2010-08-13T16:51:00-06:00</updated>
-    <id>http://SpenserJ.github.io/blog/2010/08/13/building-your-first-adium-plugin</id>
+    <id>http://spenserj.com/blog/2010/08/13/building-your-first-adium-plugin</id>
     <content type="html"><![CDATA[<p><strong>This guide is extremely outdated. It was originally authored on August 13th, 2010, and has not been updated recently.</strong></p>
 
 <p><em>As a warning, Adium Plugins use internal Adium APIs, which sometimes change. If you build a plugin, it may break with future versions of Adium, so be prepared for some upkeep down the road, unless you want to be rude and build a great program, and then abandon it and all of its users.</em> This guide assumes that you understand the basics of Objective-C, XCode, and programming in general. If you don&rsquo;t meet one of these prerequisites, please go research the basics and then come back.</p>

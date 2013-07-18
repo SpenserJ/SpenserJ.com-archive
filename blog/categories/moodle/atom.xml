@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Moodle | Spenser Jones]]></title>
-  <link href="http://SpenserJ.github.io/blog/categories/moodle/atom.xml" rel="self"/>
-  <link href="http://SpenserJ.github.io/"/>
-  <updated>2013-07-16T15:01:03-06:00</updated>
-  <id>http://SpenserJ.github.io/</id>
+  <link href="http://spenserj.com/blog/categories/moodle/atom.xml" rel="self"/>
+  <link href="http://spenserj.com/"/>
+  <updated>2013-07-18T13:38:47-06:00</updated>
+  <id>http://spenserj.com/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Upgrading a Moodle 1.9 Block to 2.0]]></title>
-    <link href="http://SpenserJ.github.io/blog/2011/04/14/upgrading-a-moodle-1-dot-9-block-to-2-dot-0/"/>
+    <link href="http://spenserj.com/blog/2011/04/14/upgrading-a-moodle-1-dot-9-block-to-2-dot-0/"/>
     <updated>2011-04-14T12:55:00-06:00</updated>
-    <id>http://SpenserJ.github.io/blog/2011/04/14/upgrading-a-moodle-1-dot-9-block-to-2-dot-0</id>
+    <id>http://spenserj.com/blog/2011/04/14/upgrading-a-moodle-1-dot-9-block-to-2-dot-0</id>
     <content type="html"><![CDATA[<p>I recently went through the process of upgrading a Moodle 1.9 block for Panopto, to support Moodle 2.0, which came out in January. As Moodle 2.0 is a huge rewrite, and is still fairly fresh, there is very little documentation on what changes need to be made, or even what functions are deprecated and need replacing. In order to upgrade the plugin at Ambrose University College, I read through multiple core classes, and compared functions in 1.9 to 2.0. In order to make things easier for myself in the future, and for anyone else upgrading a block, I have documented my changes.</p>
 
 <!-- more -->

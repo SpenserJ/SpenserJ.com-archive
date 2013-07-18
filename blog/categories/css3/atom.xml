@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: CSS3 | Spenser Jones]]></title>
-  <link href="http://SpenserJ.github.io/blog/categories/css3/atom.xml" rel="self"/>
-  <link href="http://SpenserJ.github.io/"/>
-  <updated>2013-07-16T15:01:03-06:00</updated>
-  <id>http://SpenserJ.github.io/</id>
+  <link href="http://spenserj.com/blog/categories/css3/atom.xml" rel="self"/>
+  <link href="http://spenserj.com/"/>
+  <updated>2013-07-18T13:38:47-06:00</updated>
+  <id>http://spenserj.com/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[CSS3 and Pictos]]></title>
-    <link href="http://SpenserJ.github.io/blog/2010/12/17/css3-and-pictos/"/>
+    <link href="http://spenserj.com/blog/2010/12/17/css3-and-pictos/"/>
     <updated>2010-12-17T17:24:00-07:00</updated>
-    <id>http://SpenserJ.github.io/blog/2010/12/17/css3-and-pictos</id>
+    <id>http://spenserj.com/blog/2010/12/17/css3-and-pictos</id>
     <content type="html"><![CDATA[<p>Over the past six months, I&rsquo;ve been charged with redeveloping the <a href="https://www2.ambrose.edu/">Ambrose University College</a> website, using BlackBaud NetCommunity. I worked together with the creative department (mainly focused on print media) for a new design (old one is <del><a href="https://www2.ambrose.edu/">here</a></del> offline), and with many other departments for training in content management and functionality. I&rsquo;ve learned quite a bit through the process, and grown immensely in my skills (primarily CSS and C#.Net). This post, however, is not so much about the experience I went through, as it is with the advancements I&rsquo;ve made when it comes to CSS3 replacing images, and support for it in all major browsers.</p>
 
 <!-- more -->
