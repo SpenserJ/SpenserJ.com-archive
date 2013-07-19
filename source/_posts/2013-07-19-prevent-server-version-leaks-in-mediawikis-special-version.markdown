@@ -13,6 +13,8 @@ Setting up a knowledge base or wiki is a great way of keeping people (coworkers,
 
 While obscuring version information should never be your only form of security, it makes life slightly harder for anyone looking to vandalize or penetrate your webserver. By default, MediaWiki will tell anyone who will listen what software you're running ([example](https://www.mediawiki.org/wiki/Special:Version)), and there is no obvious way of disabling this. The solution? Let's dig into the code behind this page, and cut it off at the source.
 
+<!-- more -->
+
 Open up `includes/specials/SpecialVersion.php`, and locate the `execute` function (somewhere around line 50). You'll find a variable called `$text` that will contain all of the information to be displayed, and one of the functions it calls is `softwareInformation()`. If you comment out the entire line and save the file, you'll plug MediaWiki's version leak.
 
 ``` php includes/specials/SpecialVersion.php - SpecialVersion->execute
@@ -29,4 +31,18 @@ public function execute( $par ) {
     // $this->softwareInformation() .
     $this->getEntryPointInfo() .
     $this->getExtensionCredits();
+```
+
+## Kill it with fire
+
+If removing your software version doesn't leave you feeling satisfied, you can remove the page entirely by commenting out a line in `includes/SpecialPageFactory.php`. I'm not a fan of this extreme step, as it removes recognition for the developers, licensing information, and a list of the extensions you're using, none of which are a security risk.
+
+``` php includes/SpecialPageFactory.php
+    // Wiki data and tools
+    'Statistics'                => 'SpecialStatistics',
+    'Allmessages'               => 'SpecialAllmessages',
+    // Commented out to remove the Special:Version page entirely
+    // 'Version'                   => 'SpecialVersion',
+    'Lockdb'                    => 'SpecialLockdb',
+    'Unlockdb'                  => 'SpecialUnlockdb',
 ```
