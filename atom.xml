@@ -4,7 +4,7 @@
   <title><![CDATA[Spenser Jones]]></title>
   <link href="http://spenserj.com/atom.xml" rel="self"/>
   <link href="http://spenserj.com/"/>
-  <updated>2013-07-19T16:49:14-06:00</updated>
+  <updated>2013-07-19T16:55:53-06:00</updated>
   <id>http://spenserj.com/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
@@ -21,6 +21,9 @@
     <content type="html"><![CDATA[<p>Setting up a knowledge base or wiki is a great way of keeping people (coworkers, clients, strangers, and anyone else you can think of) informed about certain topics, and MediaWiki is one of the most popular choices for this. It powers Wikipedia, the <a href="https://en.wikipedia.org/wiki/Wikipedia">worlds largest general reference work</a>, and thousands of other wikis on a variety of subjects.</p>
 
 <p>While obscuring version information should never be your only form of security, it makes life slightly harder for anyone looking to vandalize or penetrate your webserver. By default, MediaWiki will tell anyone who will listen what software you&rsquo;re running (<a href="https://www.mediawiki.org/wiki/Special:Version">example</a>), and there is no obvious way of disabling this. The solution? Let&rsquo;s dig into the code behind this page, and cut it off at the source.</p>
+
+<!-- more -->
+
 
 <p>Open up <code>includes/specials/SpecialVersion.php</code>, and locate the <code>execute</code> function (somewhere around line 50). You&rsquo;ll find a variable called <code>$text</code> that will contain all of the information to be displayed, and one of the functions it calls is <code>softwareInformation()</code>. If you comment out the entire line and save the file, you&rsquo;ll plug MediaWiki&rsquo;s version leak.</p>
 
@@ -50,6 +53,27 @@
 </span><span class='line'>    <span class="c1">// $this-&gt;softwareInformation() .</span>
 </span><span class='line'>    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getEntryPointInfo</span><span class="p">()</span> <span class="o">.</span>
 </span><span class='line'>    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getExtensionCredits</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Kill it with fire</h2>
+
+<p>If removing your software version doesn&rsquo;t leave you feeling satisfied, you can remove the page entirely by commenting out a line in <code>includes/SpecialPageFactory.php</code>. I&rsquo;m not a fan of this extreme step, as it removes recognition for the developers, licensing information, and a list of the extensions you&rsquo;re using, none of which are a security risk.</p>
+
+<figure class='code'><figcaption><span>includes/SpecialPageFactory.php</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="c1">// Wiki data and tools</span>
+</span><span class='line'><span class="s1">&#39;Statistics&#39;</span>                <span class="o">=&gt;</span> <span class="s1">&#39;SpecialStatistics&#39;</span><span class="p">,</span>
+</span><span class='line'><span class="s1">&#39;Allmessages&#39;</span>               <span class="o">=&gt;</span> <span class="s1">&#39;SpecialAllmessages&#39;</span><span class="p">,</span>
+</span><span class='line'><span class="c1">// Commented out to remove the Special:Version page entirely</span>
+</span><span class='line'><span class="c1">// &#39;Version&#39;                   =&gt; &#39;SpecialVersion&#39;,</span>
+</span><span class='line'><span class="s1">&#39;Lockdb&#39;</span>                    <span class="o">=&gt;</span> <span class="s1">&#39;SpecialLockdb&#39;</span><span class="p">,</span>
+</span><span class='line'><span class="s1">&#39;Unlockdb&#39;</span>                  <span class="o">=&gt;</span> <span class="s1">&#39;SpecialUnlockdb&#39;</span><span class="p">,</span>
 </span></code></pre></td></tr></table></div></figure>
 
 ]]></content>
