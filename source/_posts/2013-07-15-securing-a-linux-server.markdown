@@ -119,27 +119,27 @@ $ sudo mkdir /etc/iptables
 :INPUT DROP [0:0]
 :FORWARD DROP [0:0]
 :OUTPUT DROP [0:0]
- 
+
 # Accept any related or established connections
 -I INPUT  1 -m state --state RELATED,ESTABLISHED -j ACCEPT
 -I OUTPUT 1 -m state --state RELATED,ESTABLISHED -j ACCEPT
- 
+
 # Allow all traffic on the loopback interface
 -A INPUT  -i lo -j ACCEPT
 -A OUTPUT -o lo -j ACCEPT
- 
+
 # Allow outbound DHCP request - Some hosts (Linode) automatically assign the primary IP
 #-A OUTPUT -p udp --dport 67:68 --sport 67:68 -j ACCEPT
 
 # Outbound DNS lookups
 -A OUTPUT -o eth0 -p udp -m udp --dport 53 -j ACCEPT
- 
+
 # Outbound PING requests
 -A OUTPUT -p icmp -j ACCEPT
- 
+
 # Outbound Network Time Protocol (NTP) request
 -A OUTPUT -p udp --dport 123 --sport 123 -j ACCEPT
- 
+
 # SSH
 -A INPUT  -i eth0 -p tcp -m tcp --dport 22 -m state --state NEW -j ACCEPT
 
@@ -149,7 +149,7 @@ COMMIT
 Auto-load the rules with the network, and apply them now.
 
 ``` plain 
-$ echo "#\!/bin/sh\niptables-restore < /etc/iptables/rules" | sudo tee /etc/network/if-pre-up.d/iptables
+$ echo -e "#\!/bin/sh\niptables-restore < /etc/iptables/rules" | sudo tee /etc/network/if-pre-up.d/iptables
 $ sudo chmod +x /etc/network/if-pre-up.d/iptables
 $ sudo /etc/network/if-pre-up.d/iptables
 ```
