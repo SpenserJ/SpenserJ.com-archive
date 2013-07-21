@@ -304,27 +304,27 @@ $(document).ready(
 </span><span class='line'>:INPUT DROP [0:0]
 </span><span class='line'>:FORWARD DROP [0:0]
 </span><span class='line'>:OUTPUT DROP [0:0]
-</span><span class='line'> 
+</span><span class='line'>
 </span><span class='line'># Accept any related or established connections
 </span><span class='line'>-I INPUT  1 -m state --state RELATED,ESTABLISHED -j ACCEPT
 </span><span class='line'>-I OUTPUT 1 -m state --state RELATED,ESTABLISHED -j ACCEPT
-</span><span class='line'> 
+</span><span class='line'>
 </span><span class='line'># Allow all traffic on the loopback interface
 </span><span class='line'>-A INPUT  -i lo -j ACCEPT
 </span><span class='line'>-A OUTPUT -o lo -j ACCEPT
-</span><span class='line'> 
+</span><span class='line'>
 </span><span class='line'># Allow outbound DHCP request - Some hosts (Linode) automatically assign the primary IP
 </span><span class='line'>#-A OUTPUT -p udp --dport 67:68 --sport 67:68 -j ACCEPT
 </span><span class='line'>
 </span><span class='line'># Outbound DNS lookups
 </span><span class='line'>-A OUTPUT -o eth0 -p udp -m udp --dport 53 -j ACCEPT
-</span><span class='line'> 
+</span><span class='line'>
 </span><span class='line'># Outbound PING requests
 </span><span class='line'>-A OUTPUT -p icmp -j ACCEPT
-</span><span class='line'> 
+</span><span class='line'>
 </span><span class='line'># Outbound Network Time Protocol (NTP) request
 </span><span class='line'>-A OUTPUT -p udp --dport 123 --sport 123 -j ACCEPT
-</span><span class='line'> 
+</span><span class='line'>
 </span><span class='line'># SSH
 </span><span class='line'>-A INPUT  -i eth0 -p tcp -m tcp --dport 22 -m state --state NEW -j ACCEPT
 </span><span class='line'>
@@ -336,7 +336,7 @@ $(document).ready(
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ echo "#\!/bin/sh\niptables-restore &lt; /etc/iptables/rules" | sudo tee /etc/network/if-pre-up.d/iptables
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ echo -e "#\!/bin/sh\niptables-restore &lt; /etc/iptables/rules" | sudo tee /etc/network/if-pre-up.d/iptables
 </span><span class='line'>$ sudo chmod +x /etc/network/if-pre-up.d/iptables
 </span><span class='line'>$ sudo /etc/network/if-pre-up.d/iptables</span></code></pre></td></tr></table></div></figure>
 
