@@ -4,7 +4,7 @@
   <title><![CDATA[Spenser Jones]]></title>
   <link href="http://spenserj.com/atom.xml" rel="self"/>
   <link href="http://spenserj.com/"/>
-  <updated>2013-07-21T13:23:28-06:00</updated>
+  <updated>2013-07-21T13:31:31-06:00</updated>
   <id>http://spenserj.com/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
@@ -322,7 +322,7 @@
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ echo -e "#\!/bin/sh\niptables-restore &lt; /etc/iptables/rules" | sudo tee /etc/network/if-pre-up.d/iptables
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ echo -e "#!/bin/sh\niptables-restore &lt; /etc/iptables/rules" | sudo tee /etc/network/if-pre-up.d/iptables
 </span><span class='line'>$ sudo chmod +x /etc/network/if-pre-up.d/iptables
 </span><span class='line'>$ sudo /etc/network/if-pre-up.d/iptables</span></code></pre></td></tr></table></div></figure>
 
