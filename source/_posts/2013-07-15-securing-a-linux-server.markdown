@@ -145,6 +145,7 @@ $ sudo mkdir /etc/iptables
 
 # Outbound HTTP
 -A OUTPUT -o eth0 -p tcp -m tcp --dport 22 -m state --state NEW -j ACCEPT
+-A OUTPUT -o eth0 -p tcp -m tcp --dport 443 -m state --state NEW -j ACCEPT
 
 COMMIT
 ```
