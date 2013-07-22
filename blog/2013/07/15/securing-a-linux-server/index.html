@@ -300,6 +300,9 @@ $(document).ready(
 <span class='line-number'>27</span>
 <span class='line-number'>28</span>
 <span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>*filter
 </span><span class='line'>:INPUT DROP [0:0]
 </span><span class='line'>:FORWARD DROP [0:0]
@@ -327,6 +330,9 @@ $(document).ready(
 </span><span class='line'>
 </span><span class='line'># SSH
 </span><span class='line'>-A INPUT  -i eth0 -p tcp -m tcp --dport 22 -m state --state NEW -j ACCEPT
+</span><span class='line'>
+</span><span class='line'># Outbound HTTP
+</span><span class='line'>-A OUTPUT -o eth0 -p tcp -m tcp --dport 22 -m state --state NEW -j ACCEPT
 </span><span class='line'>
 </span><span class='line'>COMMIT</span></code></pre></td></tr></table></div></figure>
 
