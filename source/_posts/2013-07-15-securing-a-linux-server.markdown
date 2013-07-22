@@ -143,6 +143,9 @@ $ sudo mkdir /etc/iptables
 # SSH
 -A INPUT  -i eth0 -p tcp -m tcp --dport 22 -m state --state NEW -j ACCEPT
 
+# Outbound HTTP
+-A OUTPUT -o eth0 -p tcp -m tcp --dport 22 -m state --state NEW -j ACCEPT
+
 COMMIT
 ```
 
