@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Server Administration | Spenser Jones]]></title>
   <link href="http://spenserj.com/blog/categories/server-administration/atom.xml" rel="self"/>
   <link href="http://spenserj.com/"/>
-  <updated>2013-07-21T22:52:55-06:00</updated>
+  <updated>2013-07-22T18:35:25-06:00</updated>
   <id>http://spenserj.com/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
@@ -167,16 +167,33 @@ $ sudo mkdir /etc/iptables
 
 <h1>Outbound HTTP</h1>
 
-<p>-A OUTPUT -o eth0 -p tcp -m tcp &mdash;dport 22 -m state &mdash;state NEW -j ACCEPT
+<p>-A OUTPUT -o eth0 -p tcp -m tcp &mdash;dport 80 -m state &mdash;state NEW -j ACCEPT
 -A OUTPUT -o eth0 -p tcp -m tcp &mdash;dport 443 -m state &mdash;state NEW -j ACCEPT</p>
 
 <p>COMMIT
 ```</p>
 
-<p>Auto-load the rules with the network, and apply them now.</p>
+<p>Apply the ruleset with a timeout through <code>iptables-apply</code>, and if you lose the connection, fix your rules and try again before continuing.</p>
 
 <p><code>plain
-$ echo -e "#!/bin/sh\niptables-restore &lt; /etc/iptables/rules" | sudo tee /etc/network/if-pre-up.d/iptables
+$ sudo iptables-apply /etc/iptables/rules
+Applying new ruleset... done.
+Can you establish NEW connections to the machine? (y/N) y
+... then my job is done. See you next time.
+</code></p>
+
+<p>Create the file <code>/etc/network/if-pre-up.d/iptables</code>, with the following content. This will automatically load your IPTables rules when you start the server.</p>
+
+<p>``` plain /etc/network/if-pre-up.d/iptables</p>
+
+<h1>!/bin/sh</h1>
+
+<p>iptables-restore &lt; /etc/iptables/rules
+```</p>
+
+<p>Now give it execute permissions, and execute the file to ensure it loads properly.</p>
+
+<p><code>plain
 $ sudo chmod +x /etc/network/if-pre-up.d/iptables
 $ sudo /etc/network/if-pre-up.d/iptables
 </code></p>
@@ -239,7 +256,7 @@ maxretry = 3</p>
 
 <h1>jail.{conf,local} configuration files.</h1>
 
-<p>destemail = root@localhost,<a href="&#109;&#x61;&#105;&#108;&#x74;&#x6f;&#x3a;&#x66;&#x61;&#x69;&#108;&#x32;&#x62;&#x61;&#x6e;&#x40;&#x62;&#108;&#x6f;&#x63;&#107;&#x6c;&#105;&#115;&#x74;&#x2e;&#100;&#101;">&#102;&#97;&#105;&#108;&#x32;&#98;&#x61;&#110;&#x40;&#98;&#x6c;&#x6f;&#x63;&#107;&#108;&#105;&#x73;&#x74;&#46;&#100;&#x65;</a>
+<p>destemail = root@localhost,<a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#111;&#58;&#x66;&#x61;&#105;&#x6c;&#x32;&#x62;&#x61;&#x6e;&#64;&#98;&#108;&#111;&#99;&#x6b;&#x6c;&#x69;&#115;&#116;&#x2e;&#x64;&#x65;">&#x66;&#x61;&#105;&#108;&#x32;&#x62;&#97;&#x6e;&#64;&#98;&#108;&#x6f;&#99;&#x6b;&#108;&#x69;&#115;&#116;&#46;&#x64;&#101;</a>
 ```</p>
 
 <p>There are a few other settings you&rsquo;ll want to check out, although the defaults are quite sufficient, so skim through the file quickly until you reach the Actions section.</p>
