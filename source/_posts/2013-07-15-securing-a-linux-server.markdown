@@ -144,16 +144,31 @@ $ sudo mkdir /etc/iptables
 -A INPUT  -i eth0 -p tcp -m tcp --dport 22 -m state --state NEW -j ACCEPT
 
 # Outbound HTTP
--A OUTPUT -o eth0 -p tcp -m tcp --dport 22 -m state --state NEW -j ACCEPT
+-A OUTPUT -o eth0 -p tcp -m tcp --dport 80 -m state --state NEW -j ACCEPT
 -A OUTPUT -o eth0 -p tcp -m tcp --dport 443 -m state --state NEW -j ACCEPT
 
 COMMIT
 ```
 
-Auto-load the rules with the network, and apply them now.
+Apply the ruleset with a timeout through `iptables-apply`, and if you lose the connection, fix your rules and try again before continuing.
 
 ``` plain 
-$ echo -e "#!/bin/sh\niptables-restore < /etc/iptables/rules" | sudo tee /etc/network/if-pre-up.d/iptables
+$ sudo iptables-apply /etc/iptables/rules
+Applying new ruleset... done.
+Can you establish NEW connections to the machine? (y/N) y
+... then my job is done. See you next time.
+```
+
+Create the file `/etc/network/if-pre-up.d/iptables`, with the following content. This will automatically load your IPTables rules when you start the server.
+
+``` plain /etc/network/if-pre-up.d/iptables
+#!/bin/sh
+iptables-restore < /etc/iptables/rules
+```
+
+Now give it execute permissions, and execute the file to ensure it loads properly.
+
+``` plain 
 $ sudo chmod +x /etc/network/if-pre-up.d/iptables
 $ sudo /etc/network/if-pre-up.d/iptables
 ```
