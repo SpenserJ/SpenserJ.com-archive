@@ -6,6 +6,8 @@ comments: true
 categories: 
 - Server Administration
 - Security
+description: "Security should be your first concern after installing a new server, and a few simple steps can have your new box locked down in minutes."
+keywords: Security, Server Administration, Linux, Ubuntu
 ---
 It is a rare to watch someone secure a freshly installed server right off the bat, yet the world we live in makes this a necessity. So why do so many people put it off until the end, if at all? I've done the exact same thing, and it often comes down to wanting to get right into the fun stuff. Hopefully this post will show that it is far easier than you think to secure a server, and can be quite entertaining to look down from your fortress, when the attacks begin to flow.
 

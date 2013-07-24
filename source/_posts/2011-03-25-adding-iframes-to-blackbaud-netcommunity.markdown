@@ -7,6 +7,8 @@ categories:
 - Web
 - Blackbaud NetCommunity
 - TinyMCE
+description: "Adding support for iFrames to Blackbaud NetCommunity's TinyMCE editor in versions 6.15.70 and below"
+keywords: Blackbaud NetCommunity, TinyMCE, iFrames
 ---
 Version 6.15 of Blackbaud NetCommunity consisted of many large changes to how BBNC works, one of which was the editor. In this update, Blackbaud moved from BBCuteEditor to TinyMCE (a great decision IMO, as TinyMCE is one of the most popular WYSIWYG editors). Sadly, patch 70 and below do not support iFrames, even if you have the iFrame set as a "Safe HTML Tag" in the settings. Blackbaud is working on a patch for this (patch 71 to be exact), however they do not have an ETA for it yet.
 

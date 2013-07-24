@@ -7,6 +7,8 @@ categories:
 - Web
 - Javascript
 - Blackbaud NetCommunity
+description: "Blackbaud NetCommunity's login form fails to handle the enter key properly, and will reload the page without submitting, but we can fix it with less than 10 lines of JS"
+keywords: Blackbaud NetCommunity, Javascript, Form
 ---
 Blackbaud NetCommunity 6.15 has a bug in the login form, where tabbing onto the "Remember Me" field and pressing enter (normal functionality to submit a form) will take you back to the login form, with your username filled in, but no password or error. This is due to the fact that javascript is being (poorly) added directly to the HTML tags, instead of writing a simple, unobtrusive javascript function, that targets all fields on the form.
 

@@ -7,6 +7,8 @@ categories:
 - Ambrose
 - Web
 - CSS3
+description: "Using Pictos (web-font) in place of images and sprites results in an impressive reduction in page size and load-times."
+keywords: CSS3, Pictos, Optimization, Web Fonts
 ---
 Over the past six months, I've been charged with redeveloping the [Ambrose University College](https://www2.ambrose.edu/) website, using BlackBaud NetCommunity. I worked together with the creative department (mainly focused on print media) for a new design (old one is ~~[here](https://www2.ambrose.edu/)~~ offline), and with many other departments for training in content management and functionality. I've learned quite a bit through the process, and grown immensely in my skills (primarily CSS and C#.Net). This post, however, is not so much about the experience I went through, as it is with the advancements I've made when it comes to CSS3 replacing images, and support for it in all major browsers.
 

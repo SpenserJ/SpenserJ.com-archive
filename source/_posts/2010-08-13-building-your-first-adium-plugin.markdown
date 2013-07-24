@@ -7,6 +7,7 @@ categories:
 - Adium
 - Obj-C
 - XCode
+keywords: Adium, Plugin, XCode
 ---
 **This guide is extremely outdated. It was originally authored on August 13th, 2010, and has not been updated recently.**
 

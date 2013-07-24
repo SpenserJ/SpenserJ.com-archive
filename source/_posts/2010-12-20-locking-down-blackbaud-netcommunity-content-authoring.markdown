@@ -8,6 +8,8 @@ categories:
 - Web
 - Javascript
 - Blackbaud NetCommunity
+description: "Restricting the administration capabilities of Internet Explorer within Blackbaud NetCommunity, to reduce the number of rendering issues it results in."
+keywords: Blackbaud NetCommunity, Internet Explorer, Security, CSS, Javascript
 ---
 At Ambrose University College, we run Blackbaud NetCommunity as our CMS, and I've encountered a few issues with permissions for content authors, and how the editor itself works. Over the past few weeks, in an attempt to improve the experience of both our visitors, and our content authors, I have added a few lines to our website's javascript file (hosted in a document part).
 

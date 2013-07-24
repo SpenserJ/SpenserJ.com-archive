@@ -8,6 +8,8 @@ categories:
 - PHP
 - MediaWiki
 - Security
+description: "MediaWiki leaks information about your server through Special:Version, however it is quite simple to turn this off if you know where to look."
+keywords: MediaWiki, Security, PHP, Web, Special:Version
 ---
 Setting up a knowledge base or wiki is a great way of keeping people (coworkers, clients, strangers, and anyone else you can think of) informed about certain topics, and MediaWiki is one of the most popular choices for this. It powers Wikipedia, the [worlds largest general reference work](https://en.wikipedia.org/wiki/Wikipedia), and thousands of other wikis on a variety of subjects.
 

@@ -8,6 +8,8 @@ categories:
 - C#
 - Web
 - Blackbaud NetCommunity
+description: "Developing a Blackbaud NetCommunity Custom Part in C# can seem like a daunting task when there is inaccurate guides on Blackbaud's own site. Thankfully, it is quite simple."
+keywords: Blackbaud NetCommunity, Custom Part, C#, Development
 ---
 I've recently been given the task of creating some custom plugins for NetCommunity, so we can do things like unify the design of our Faculty Biography pages at Ambrose. I have prior experience with C#, so I figured it would be a fairly simple process, once I figured out how their API works, however there is minimal documentation, and all of the tutorials online are either outdated or incomplete.
 
