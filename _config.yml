@@ -99,3 +99,6 @@ google_analytics_tracking_id: UA-35594055-2
 
 # Facebook Like
 facebook_like: true
+
+piwik_url: piwik.spenserj.com
+piwik_siteid: 1
