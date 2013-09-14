@@ -9,7 +9,7 @@ categories:
 description: "Security should be your first concern after installing a new server, and a few simple steps can have your new box locked down in minutes."
 keywords: Security, Server Administration, Linux, Ubuntu
 ---
-It is a rare to watch someone secure a freshly installed server right off the bat, yet the world we live in makes this a necessity. So why do so many people put it off until the end, if at all? I've done the exact same thing, and it often comes down to wanting to get right into the fun stuff. Hopefully this post will show that it is far easier than you think to secure a server, and can be quite entertaining to look down from your fortress, when the attacks begin to flow.
+It is a rarity to watch someone secure a freshly installed server right off the bat, yet the world we live in makes this a necessity. So why do so many people put it off until the end, if at all? I've done the exact same thing, and it often comes down to wanting to get right into the fun stuff. Hopefully this post will show that it is far easier than you think to secure a server, and can be quite entertaining to look down from your fortress, when the attacks begin to flow.
 
 This post is written for Ubuntu 12.04.2 LTS, however you can do similar things on any other Linux distribution.
 
@@ -297,3 +297,7 @@ DROP       all  --  195.128.126.114      anywhere
 ## Staying on top of things
 
 You should now have a server that is locked down and ready to use, however this is not the end of your security journey. Stay on top of updates (and always test them in a non-production environment first), always close ports that you don't need, check your logs regularly, and know your servers inside-and-out.
+
+## HackerNews Followup
+
+There are some great comments over at [HackerNews](https://news.ycombinator.com/item?id=6384603), and I suggest you read through them if you're interested in different perspectives and higher security. This post is intended as a beginners guide to security, and the end of this post does not mean your server is invulnerable. Use this to quickly lock down a new server, and then build upon it for your unique situation. You may want to look into IPV6 security, changing your SSH port (security through obscurity), secured kernels (SELinux and GRSecurity), tracking system changes, and full audits if your server has ever been unsecured, or has been online for any substantial length of time. There are hundreds of entry points into a server, and every application you install brings yet another possible hole, but with the proper tools, you can go to bed without worries.
