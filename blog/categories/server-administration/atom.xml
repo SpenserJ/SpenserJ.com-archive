@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Server Administration | Spenser Jones]]></title>
   <link href="http://spenserj.com/blog/categories/server-administration/atom.xml" rel="self"/>
   <link href="http://spenserj.com/"/>
-  <updated>2013-07-26T09:33:34-06:00</updated>
+  <updated>2013-09-14T15:15:46-06:00</updated>
   <id>http://spenserj.com/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
@@ -18,7 +18,7 @@
     <link href="http://spenserj.com/blog/2013/07/15/securing-a-linux-server/"/>
     <updated>2013-07-15T10:52:00-06:00</updated>
     <id>http://spenserj.com/blog/2013/07/15/securing-a-linux-server</id>
-    <content type="html"><![CDATA[<p>It is a rare to watch someone secure a freshly installed server right off the bat, yet the world we live in makes this a necessity. So why do so many people put it off until the end, if at all? I&rsquo;ve done the exact same thing, and it often comes down to wanting to get right into the fun stuff. Hopefully this post will show that it is far easier than you think to secure a server, and can be quite entertaining to look down from your fortress, when the attacks begin to flow.</p>
+    <content type="html"><![CDATA[<p>It is a rarity to watch someone secure a freshly installed server right off the bat, yet the world we live in makes this a necessity. So why do so many people put it off until the end, if at all? I&rsquo;ve done the exact same thing, and it often comes down to wanting to get right into the fun stuff. Hopefully this post will show that it is far easier than you think to secure a server, and can be quite entertaining to look down from your fortress, when the attacks begin to flow.</p>
 
 <p>This post is written for Ubuntu 12.04.2 LTS, however you can do similar things on any other Linux distribution.</p>
 
@@ -256,7 +256,7 @@ maxretry = 3</p>
 
 <h1>jail.{conf,local} configuration files.</h1>
 
-<p>destemail = root@localhost,<a href="&#109;&#x61;&#x69;&#108;&#x74;&#x6f;&#58;&#102;&#97;&#x69;&#x6c;&#50;&#98;&#97;&#x6e;&#64;&#98;&#x6c;&#111;&#x63;&#107;&#108;&#x69;&#x73;&#116;&#46;&#x64;&#101;">&#x66;&#x61;&#105;&#108;&#50;&#98;&#97;&#x6e;&#x40;&#x62;&#108;&#x6f;&#99;&#x6b;&#x6c;&#105;&#115;&#116;&#46;&#100;&#x65;</a>
+<p>destemail = root@localhost,<a href="&#109;&#x61;&#105;&#108;&#116;&#111;&#58;&#102;&#x61;&#105;&#x6c;&#x32;&#x62;&#x61;&#x6e;&#64;&#98;&#108;&#x6f;&#x63;&#x6b;&#x6c;&#x69;&#115;&#116;&#x2e;&#x64;&#101;">&#x66;&#97;&#105;&#108;&#x32;&#x62;&#97;&#x6e;&#x40;&#98;&#108;&#111;&#99;&#x6b;&#x6c;&#105;&#115;&#116;&#46;&#100;&#101;</a>
 ```</p>
 
 <p>There are a few other settings you&rsquo;ll want to check out, although the defaults are quite sufficient, so skim through the file quickly until you reach the Actions section.</p>
@@ -332,6 +332,10 @@ DROP       all  --  195.128.126.114      anywhere
 <h2>Staying on top of things</h2>
 
 <p>You should now have a server that is locked down and ready to use, however this is not the end of your security journey. Stay on top of updates (and always test them in a non-production environment first), always close ports that you don&rsquo;t need, check your logs regularly, and know your servers inside-and-out.</p>
+
+<h2>HackerNews Followup</h2>
+
+<p>There are some great comments over at <a href="https://news.ycombinator.com/item?id=6384603">HackerNews</a>, and I suggest you read through them if you&rsquo;re interested in different perspectives and higher security. This post is intended as a beginners guide to security, and the end of this post does not mean your server is invulnerable. Use this to quickly lock down a new server, and then build upon it for your unique situation. You may want to look into IPV6 security, changing your SSH port (security through obscurity), secured kernels (SELinux and GRSecurity), tracking system changes, and full audits if your server has ever been unsecured, or has been online for any substantial length of time. There are hundreds of entry points into a server, and every application you install brings yet another possible hole, but with the proper tools, you can go to bed without worries.</p>
 ]]></content>
   </entry>
   
