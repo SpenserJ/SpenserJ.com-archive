@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Server Administration | Spenser Jones]]></title>
   <link href="http://spenserj.com/blog/categories/server-administration/atom.xml" rel="self"/>
   <link href="http://spenserj.com/"/>
-  <updated>2013-11-11T11:59:39-07:00</updated>
+  <updated>2013-11-11T12:01:00-07:00</updated>
   <id>http://spenserj.com/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
@@ -12,6 +12,53 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Installing tmux in CentOS]]></title>
+    <link href="http://spenserj.com/blog/2013/11/11/installing-tmux-in-centos/"/>
+    <updated>2013-11-11T11:53:00-07:00</updated>
+    <id>http://spenserj.com/blog/2013/11/11/installing-tmux-in-centos</id>
+    <content type="html"><![CDATA[<p>I&rsquo;ve recently started a job at <a href="http://simplesimple.ca/">Simple Simple Advertising</a>, and have spent my first week optimizing servers and configuring proper dev environments, all of which are CentOS. While CentOS is a rock-solid OS, I&rsquo;m not particularly fond of the 100% binary compatibility concept, since I don&rsquo;t try to run 100% of the available software on a single server, and test my stacks before they reach production. I&rsquo;m far more interested in having semi-recent packages with security fixes, and tools that make my life easier. Tools like my <a href="http://spenserj.com/blog/2013/11/11/dotfiles-a-home-away-from-home/">Dotfiles</a> and the configurations that they contain, along with tmux and Zsh for managing multiple windows within a single ssh connection. Sadly, CentOS' version of Tmux does not work. More specifically, tmux won&rsquo;t start with the Zsh config I&rsquo;ve built, so I built a more recent version from source.</p>
+
+<!-- more -->
+
+
+<h2>Dependencies</h2>
+
+<pre><code>$ sudo yum install gcc make automake pkgconfig wget git-core ncurses-devel
+$ mkdir ~/src
+</code></pre>
+
+<h2>LibEvent</h2>
+
+<p>Tmux relies on LibEvent, which I could also <code>yum install</code>, but the version has been pinned there as well. Since I&rsquo;m running x64, we&rsquo;ll have to symlink it to the <code>/usr/lib64</code> folder after install.</p>
+
+<pre><code>$ cd ~/src
+$ wget https://github.com/downloads/libevent/libevent/libevent-2.0.21-stable.tar.gz
+$ tar -zxvf libevent-2.0.21-stable.tar.gz
+$ cd libevent-2.0.21-stable
+$ ./configure
+$ make
+$ sudo make install
+$ sudo ln -s /usr/local/lib/libevent-2.0.so.5 /usr/lib64
+</code></pre>
+
+<h2>Tmux</h2>
+
+<p>Now that we&rsquo;re set up with dependencies for tmux, clone the repository and build it.</p>
+
+<pre><code>$ cd ~/src
+$ git clone git://git.code.sf.net/p/tmux/tmux-code
+$ cd tmux-code
+$ sh autogen.sh
+$ ./configure
+$ make
+$ sudo make install
+</code></pre>
+
+<p>Now you have a recent version of tmux that works properly with Zsh+<a href="https://github.com/sorin-ionescu/prezto">Prezto</a>.  It&rsquo;s good to be <code>~/</code></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Dotfiles - A ~/ away from ~/]]></title>
@@ -315,7 +362,7 @@ maxretry = 3</p>
 
 <h1>jail.{conf,local} configuration files.</h1>
 
-<p>destemail = root@localhost,<a href="&#109;&#97;&#x69;&#x6c;&#116;&#x6f;&#58;&#102;&#97;&#x69;&#x6c;&#x32;&#x62;&#97;&#110;&#x40;&#x62;&#x6c;&#111;&#x63;&#x6b;&#108;&#x69;&#115;&#116;&#x2e;&#100;&#101;">&#102;&#97;&#105;&#108;&#50;&#98;&#97;&#110;&#x40;&#98;&#108;&#x6f;&#x63;&#x6b;&#108;&#105;&#115;&#x74;&#46;&#x64;&#101;</a>
+<p>destemail = root@localhost,<a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#x6f;&#x3a;&#102;&#x61;&#105;&#x6c;&#50;&#98;&#97;&#110;&#64;&#x62;&#x6c;&#111;&#x63;&#x6b;&#x6c;&#105;&#x73;&#116;&#x2e;&#100;&#x65;">&#x66;&#x61;&#105;&#108;&#x32;&#98;&#x61;&#110;&#x40;&#x62;&#x6c;&#111;&#x63;&#107;&#108;&#x69;&#115;&#x74;&#46;&#100;&#101;</a>
 ```</p>
 
 <p>There are a few other settings you&rsquo;ll want to check out, although the defaults are quite sufficient, so skim through the file quickly until you reach the Actions section.</p>

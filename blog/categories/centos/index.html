@@ -3,11 +3,11 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Installing tmux in CentOS  | Spenser Jones</title>
+	<title>Category: CentOS  | Spenser Jones</title>
 
 <meta name="author" content="Spenser Jones"> 
 
-<meta name="description" content="Spenser Jones is a Senior Applications Developer and System Administrator with a passion for optimization and security"> <meta name="keywords" content="Linux, Web, Server Administration, Development, Code">
+<meta name="description" content="Category: CentOS"> <meta name="keywords" content="Linux, Web, Server Administration, Development, Code">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -59,97 +59,29 @@
 
 </header>
 
-	<div id="content" class="inner"><article class="post">
-	<h2 class="title">Installing Tmux in CentOS</h2>
-	<div class="entry-content"><p>I&rsquo;ve recently started a job at <a href="http://simplesimple.ca/">Simple Simple Advertising</a>, and have spent my first week optimizing servers and configuring proper dev environments, all of which are CentOS. While CentOS is a rock-solid OS, I&rsquo;m not particularly fond of the 100% binary compatibility concept, since I don&rsquo;t try to run 100% of the available software on a single server, and test my stacks before they reach production. I&rsquo;m far more interested in having semi-recent packages with security fixes, and tools that make my life easier. Tools like my <a href="http://spenserj.com/blog/2013/11/11/dotfiles-a-home-away-from-home/">Dotfiles</a> and the configurations that they contain, along with tmux and Zsh for managing multiple windows within a single ssh connection. Sadly, CentOS&#8217; version of Tmux does not work. More specifically, tmux won&rsquo;t start with the Zsh config I&rsquo;ve built, so I built a more recent version from source.</p>
-
-<!-- more -->
+	<div id="content" class="inner">
+	
 
 
-<h2>Dependencies</h2>
+	
+	
+	<section class="archives"><h1 class="year">2013</h1>
 
-<pre><code>$ sudo yum install gcc make automake pkgconfig wget git-core ncurses-devel
-$ mkdir ~/src
-</code></pre>
-
-<h2>LibEvent</h2>
-
-<p>Tmux relies on LibEvent, which I could also <code>yum install</code>, but the version has been pinned there as well. Since I&rsquo;m running x64, we&rsquo;ll have to symlink it to the <code>/usr/lib64</code> folder after install.</p>
-
-<pre><code>$ cd ~/src
-$ wget https://github.com/downloads/libevent/libevent/libevent-2.0.21-stable.tar.gz
-$ tar -zxvf libevent-2.0.21-stable.tar.gz
-$ cd libevent-2.0.21-stable
-$ ./configure
-$ make
-$ sudo make install
-$ sudo ln -s /usr/local/lib/libevent-2.0.so.5 /usr/lib64
-</code></pre>
-
-<h2>Tmux</h2>
-
-<p>Now that we&rsquo;re set up with dependencies for tmux, clone the repository and build it.</p>
-
-<pre><code>$ cd ~/src
-$ git clone git://git.code.sf.net/p/tmux/tmux-code
-$ cd tmux-code
-$ sh autogen.sh
-$ ./configure
-$ make
-$ sudo make install
-</code></pre>
-
-<p>Now you have a recent version of tmux that works properly with Zsh+<a href="https://github.com/sorin-ionescu/prezto">Prezto</a>.  It&rsquo;s good to be <code>~/</code></p>
-</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-11-11T11:53:00-07:00" pubdate data-updated="true">Nov 11<span>th</span>, 2013</time></div>
-	<div class="tags">
+<article>
+	<h2 class="title"><a href="/blog/2013/11/11/installing-tmux-in-centos/">Installing tmux in CentOS</a></h2>
+	<div class="meta">
+		<span class="date">Nov 11</span>
+		<span class="tags">
 
 
 	<a class='category' href='/blog/categories/centos/'>CentOS</a>, <a class='category' href='/blog/categories/dotfiles/'>Dotfiles</a>, <a class='category' href='/blog/categories/server-administration/'>Server Administration</a>
 
 
-</div>
-	
-</div></article>
-
-	<div class="share">
-	<div class="addthis_toolbox addthis_default_style ">
-	
-	<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-	
-	
-	<a class="addthis_button_tweet"></a>
-	
-	
-	<a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
-	
-<!---	<a class="addthis_counter addthis_pill_style"></a> --->
+</span>
+	    
 	</div>
-  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
-</div>
+</article>
 
-
-
-<section id="comment">
-    <h2 class="title">Comments</h2>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-</section>
 </div>
 	<footer id="footer" class="inner">Copyright &copy; 2013
 
@@ -165,10 +97,7 @@ Powered by Octopress.
       var disqus_shortname = 'spenserj';
       
         
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://spenserj.com/blog/2013/11/11/installing-tmux-in-centos/';
-        var disqus_url = 'http://spenserj.com/blog/2013/11/11/installing-tmux-in-centos/';
-        var disqus_script = 'embed.js';
+        var disqus_script = 'count.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
