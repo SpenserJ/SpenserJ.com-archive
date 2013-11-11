@@ -4,6 +4,9 @@ title: "Installing tmux in CentOS"
 date: 2013-11-11 11:53
 comments: true
 categories: 
+- Server Administration
+- CentOS
+- Dotfiles
 ---
 I've recently started a job at [Simple Simple Advertising](http://simplesimple.ca/), and have spent my first week optimizing servers and configuring proper dev environments, all of which are CentOS. While CentOS is a rock-solid OS, I'm not particularly fond of the 100% binary compatibility concept, since I don't try to run 100% of the available software on a single server, and test my stacks before they reach production. I'm far more interested in having semi-recent packages with security fixes, and tools that make my life easier. Tools like my [Dotfiles](http://spenserj.com/blog/2013/11/11/dotfiles-a-home-away-from-home/) and the configurations that they contain, along with tmux and Zsh for managing multiple windows within a single ssh connection. Sadly, CentOS' version of Tmux does not work. More specifically, tmux won't start with the Zsh config I've built, so I built a more recent version from source.
 
