@@ -65,6 +65,86 @@
     <article class="post">
 	<h2 class="title">
 		
+		<a href="/blog/2013/11/11/installing-tmux-in-centos/">
+		
+			Installing Tmux in CentOS</a>
+	</h2>
+	<div class="entry-content">
+		<p>I&rsquo;ve recently started a job at <a href="http://simplesimple.ca/">Simple Simple Advertising</a>, and have spent my first week optimizing servers and configuring proper dev environments, all of which are CentOS. While CentOS is a rock-solid OS, I&rsquo;m not particularly fond of the 100% binary compatibility concept, since I don&rsquo;t try to run 100% of the available software on a single server, and test my stacks before they reach production. I&rsquo;m far more interested in having semi-recent packages with security fixes, and tools that make my life easier. Tools like my <a href="http://spenserj.com/blog/2013/11/11/dotfiles-a-home-away-from-home/">Dotfiles</a> and the configurations that they contain, along with tmux and Zsh for managing multiple windows within a single ssh connection. Sadly, CentOS&#8217; version of Tmux does not work. More specifically, tmux won&rsquo;t start with the Zsh config I&rsquo;ve built, so I built a more recent version from source.</p>
+
+
+		
+		<a href="/blog/2013/11/11/installing-tmux-in-centos/" class="more-link">Read on &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-11T11:53:00-07:00" pubdate data-updated="true">Nov 11<span>th</span>, 2013</time></div>
+	<div class="tags">
+
+</div>
+	
+</div></article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2013/11/11/dotfiles-a-home-away-from-home/">
+		
+			Dotfiles - a ~/ Away From ~/</a>
+	</h2>
+	<div class="entry-content">
+		<p>I&rsquo;ve built out a nice little environment for myself, that I bring to each server I&rsquo;m regularly working on through the use of <a href="https://github.com/SpenserJ/dotfiles">Dotfiles</a>. At its core, Zsh provides an attractive and helpful prompt, while Tmux provides panes, windows, and session resumption. There are Vim and Irssi configs as well, since I make heavy use of both.</p>
+
+<p>The process of bringing an entire repository of config files to a new server, and then keeping all (1, 5, 10, 100) servers&#8217; configs in sync is a daunting task. Thankfully, there are tools that exist to handle the heavy lifting, and setting up your environment takes just a few minutes.</p>
+
+
+		
+		<a href="/blog/2013/11/11/dotfiles-a-home-away-from-home/" class="more-link">Read on &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-11T11:45:00-07:00" pubdate data-updated="true">Nov 11<span>th</span>, 2013</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/dotfiles/'>Dotfiles</a>, <a class='category' href='/blog/categories/server-administration/'>Server Administration</a>
+
+
+</div>
+	
+</div></article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
 		<a href="/blog/2013/07/19/prevent-server-version-leaks-in-mediawikis-special-version/">
 		
 			Prevent Server Version Leaks in MediaWiki&#8217;s Special:Version</a>
@@ -400,90 +480,6 @@
 
 
 	<a class='category' href='/blog/categories/blackbaud-netcommunity/'>Blackbaud NetCommunity</a>, <a class='category' href='/blog/categories/javascript/'>Javascript</a>, <a class='category' href='/blog/categories/web/'>Web</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2011/03/25/adding-iframes-to-blackbaud-netcommunity/">
-		
-			Adding iFrames to Blackbaud NetCommunity <= 6.15.70</a>
-	</h2>
-	<div class="entry-content">
-		<p>Version 6.15 of Blackbaud NetCommunity consisted of many large changes to how BBNC works, one of which was the editor. In this update, Blackbaud moved from BBCuteEditor to TinyMCE (a great decision IMO, as TinyMCE is one of the most popular WYSIWYG editors). Sadly, patch 70 and below do not support iFrames, even if you have the iFrame set as a &ldquo;Safe HTML Tag&rdquo; in the settings. Blackbaud is working on a patch for this (patch 71 to be exact), however they do not have an ETA for it yet.</p>
-
-
-		
-		<a href="/blog/2011/03/25/adding-iframes-to-blackbaud-netcommunity/" class="more-link">Read on &rarr;</a>
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-03-25T12:47:00-06:00" pubdate data-updated="true">Mar 25<span>th</span>, 2011</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/blackbaud-netcommunity/'>Blackbaud NetCommunity</a>, <a class='category' href='/blog/categories/tinymce/'>TinyMCE</a>, <a class='category' href='/blog/categories/web/'>Web</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2011/02/23/creating-a-blackbaud-netcommunity-custom-part/">
-		
-			Creating a Blackbaud NetCommunity Custom Part</a>
-	</h2>
-	<div class="entry-content">
-		<p>I&rsquo;ve recently been given the task of creating some custom plugins for NetCommunity, so we can do things like unify the design of our Faculty Biography pages at Ambrose. I have prior experience with C#, so I figured it would be a fairly simple process, once I figured out how their API works, however there is minimal documentation, and all of the tutorials online are either outdated or incomplete.</p>
-
-<p>As such, I am going to write up a concise walkthrough for creating a NetCommunity plugin (for 6.15) using C#, from scratch, up until you have a functional part.</p>
-
-
-		
-		<a href="/blog/2011/02/23/creating-a-blackbaud-netcommunity-custom-part/" class="more-link">Read on &rarr;</a>
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-02-23T18:32:00-07:00" pubdate data-updated="true">Feb 23<span>rd</span>, 2011</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/asp-dot-net/'>ASP.Net</a>, <a class='category' href='/blog/categories/blackbaud-netcommunity/'>Blackbaud NetCommunity</a>, <a class='category' href='/blog/categories/c-number/'>C#</a>, <a class='category' href='/blog/categories/web/'>Web</a>
 
 
 </div>
