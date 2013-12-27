@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Development | Spenser Jones]]></title>
   <link href="http://spenserj.com/blog/categories/development/atom.xml" rel="self"/>
   <link href="http://spenserj.com/"/>
-  <updated>2013-12-26T23:20:35-07:00</updated>
+  <updated>2013-12-26T23:28:31-07:00</updated>
   <id>http://spenserj.com/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
@@ -12,6 +12,15 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[A successful Git branching model - nvie]]></title>
+    <link href="http://spenserj.com/blog/2013/12/26/a-successful-git-branching-model/"/>
+    <updated>2013-12-26T23:26:00-07:00</updated>
+    <id>http://spenserj.com/blog/2013/12/26/a-successful-git-branching-model</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Devtools Console, from Novice to Ninja - Adnane Belmadiaf]]></title>
