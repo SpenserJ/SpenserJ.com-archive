@@ -65,6 +65,46 @@
     <article class="post">
 	<h2 class="title">
 		
+		<a href="http://blog.baugues.com/code-like-a-chef-work-clean">
+		
+			Code Life a Chef: Work Clean - Greg Bauges</a>
+	</h2>
+	<div class="entry-content">
+		
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-26T20:28:00-07:00" pubdate data-updated="true">Dec 26<span>th</span>, 2013</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/development/'>Development</a>
+
+
+</div>
+	
+</div></article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
 		<a href="/blog/2013/11/11/installing-tmux-in-centos/">
 		
 			Installing Tmux in CentOS</a>
@@ -419,71 +459,6 @@
 
 
 	<a class='category' href='/blog/categories/moodle/'>Moodle</a>, <a class='category' href='/blog/categories/web/'>Web</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2011/04/14/fixing-the-blackbaud-netcommunity-login-form/">
-		
-			Fixing the Blackbaud NetCommunity Login Form</a>
-	</h2>
-	<div class="entry-content">
-		<p>Blackbaud NetCommunity 6.15 has a bug in the login form, where tabbing onto the &ldquo;Remember Me&rdquo; field and pressing enter (normal functionality to submit a form) will take you back to the login form, with your username filled in, but no password or error. This is due to the fact that javascript is being (poorly) added directly to the HTML tags, instead of writing a simple, unobtrusive javascript function, that targets all fields on the form.</p>
-
-<p>To remedy this, add a JS file to any layout that may contain a login field, and add this code:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">if</span> <span class="p">((</span><span class="nx">$loginForm</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.LoginFormTable&#39;</span><span class="p">)).</span><span class="nx">length</span> <span class="o">&amp;</span><span class="nx">gt</span><span class="p">;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;input[type!=submit]&#39;</span><span class="p">,</span> <span class="nx">$loginForm</span><span class="p">).</span><span class="nx">keypress</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">if</span> <span class="p">((</span><span class="nx">e</span><span class="p">.</span><span class="nx">which</span> <span class="o">&amp;</span><span class="nx">amp</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">amp</span><span class="p">;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">which</span> <span class="o">==</span> <span class="mi">13</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">keyCode</span> <span class="o">&amp;</span><span class="nx">amp</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">amp</span><span class="p">;</span> <span class="nx">event</span><span class="p">.</span><span class="nx">ke</span> <span class="o">==</span> <span class="mi">13</span><span class="p">))</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;input[type=submit]&#39;</span><span class="p">,</span> <span class="nx">$loginForm</span><span class="p">).</span><span class="nx">click</span><span class="p">();</span>
-</span><span class='line'>        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-</span><span class='line'>      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">true</span><span class="p">;</span> <span class="p">}</span>
-</span><span class='line'>    <span class="p">});</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-04-14T12:52:00-06:00" pubdate data-updated="true">Apr 14<span>th</span>, 2011</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/blackbaud-netcommunity/'>Blackbaud NetCommunity</a>, <a class='category' href='/blog/categories/javascript/'>Javascript</a>, <a class='category' href='/blog/categories/web/'>Web</a>
 
 
 </div>

@@ -2,96 +2,100 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://spenserj.com/blog/2010/08/13/building-your-first-adium-plugin/</loc>
-        <lastmod>2013-07-24T16:53:20-06:00</lastmod>
+        <lastmod>2013-12-26T20:34:48-07:00</lastmod>
     </url>
     <url>
         <loc>http://spenserj.com/blog/2010/12/17/css3-and-pictos/</loc>
-        <lastmod>2013-07-24T16:55:36-06:00</lastmod>
+        <lastmod>2013-12-26T20:34:48-07:00</lastmod>
     </url>
     <url>
         <loc>
             http://spenserj.com/blog/2010/12/20/locking-down-blackbaud-netcommunity-content-authoring/
         </loc>
-        <lastmod>2013-07-24T16:57:20-06:00</lastmod>
+        <lastmod>2013-12-26T20:34:48-07:00</lastmod>
     </url>
     <url>
         <loc>
             http://spenserj.com/blog/2011/02/23/creating-a-blackbaud-netcommunity-custom-part/
         </loc>
-        <lastmod>2013-07-24T16:58:45-06:00</lastmod>
+        <lastmod>2013-12-26T20:34:48-07:00</lastmod>
     </url>
     <url>
         <loc>http://spenserj.com/blog/2011/03/25/adding-iframes-to-blackbaud-netcommunity/</loc>
-        <lastmod>2013-07-24T16:59:55-06:00</lastmod>
+        <lastmod>2013-12-26T20:34:48-07:00</lastmod>
     </url>
     <url>
         <loc>
             http://spenserj.com/blog/2011/04/14/fixing-the-blackbaud-netcommunity-login-form/
         </loc>
-        <lastmod>2013-07-24T17:02:34-06:00</lastmod>
+        <lastmod>2013-12-26T20:34:48-07:00</lastmod>
     </url>
     <url>
         <loc>
             http://spenserj.com/blog/2011/04/14/upgrading-a-moodle-1-dot-9-block-to-2-dot-0/
         </loc>
-        <lastmod>2013-07-24T17:04:31-06:00</lastmod>
+        <lastmod>2013-12-26T20:34:48-07:00</lastmod>
     </url>
     <url>
         <loc>http://spenserj.com/blog/2013/05/14/spring-cleaning/</loc>
-        <lastmod>2013-07-18T13:45:53-06:00</lastmod>
+        <lastmod>2013-12-26T20:34:48-07:00</lastmod>
     </url>
     <url>
         <loc>http://spenserj.com/blog/2013/05/14/building-the-science-lab/</loc>
-        <lastmod>2013-07-18T13:44:04-06:00</lastmod>
+        <lastmod>2013-12-26T20:34:48-07:00</lastmod>
     </url>
     <url>
         <loc>http://spenserj.com/blog/2013/07/12/testing-1-2-3-this-is-a-test/</loc>
-        <lastmod>2013-07-12T11:27:36-06:00</lastmod>
+        <lastmod>2013-12-26T20:34:48-07:00</lastmod>
     </url>
     <url>
         <loc>http://spenserj.com/blog/2013/07/12/setting-up-nsd3-for-dns/</loc>
-        <lastmod>2013-07-24T17:09:03-06:00</lastmod>
+        <lastmod>2013-12-26T20:34:48-07:00</lastmod>
     </url>
     <url>
         <loc>http://spenserj.com/blog/2013/07/15/securing-a-linux-server/</loc>
-        <lastmod>2013-09-14T15:14:33-06:00</lastmod>
+        <lastmod>2013-12-26T20:34:48-07:00</lastmod>
     </url>
     <url>
         <loc>
             http://spenserj.com/blog/2013/07/19/prevent-server-version-leaks-in-mediawikis-special-version/
         </loc>
-        <lastmod>2013-07-24T17:11:13-06:00</lastmod>
+        <lastmod>2013-12-26T20:34:48-07:00</lastmod>
     </url>
     <url>
         <loc>http://spenserj.com/blog/2013/11/11/dotfiles-a-home-away-from-home/</loc>
-        <lastmod>2013-11-11T11:48:28-07:00</lastmod>
+        <lastmod>2013-12-26T20:34:48-07:00</lastmod>
     </url>
     <url>
         <loc>http://spenserj.com/blog/2013/11/11/installing-tmux-in-centos/</loc>
-        <lastmod>2013-11-11T12:00:25-07:00</lastmod>
+        <lastmod>2013-12-26T20:34:48-07:00</lastmod>
     </url>
     <url>
-        <loc>http://spenserj.com/blog/archives/</loc>
-        <lastmod>2013-11-11T12:00:25-07:00</lastmod>
-    </url>
-    <url>
-        <loc>http://spenserj.com/blog/</loc>
-        <lastmod>2013-11-11T12:00:25-07:00</lastmod>
-    </url>
-    <url>
-        <loc>http://spenserj.com/</loc>
-        <lastmod>2013-11-11T12:00:25-07:00</lastmod>
-    </url>
-    <url>
-        <loc>http://spenserj.com/robots.txt</loc>
-        <lastmod>2013-07-12T11:27:36-06:00</lastmod>
-    </url>
-    <url>
-        <loc>http://spenserj.com/archives/</loc>
-        <lastmod>2013-11-11T12:00:25-07:00</lastmod>
+        <loc>http://spenserj.com/blog/2013/12/26/code-life-a-chef-work-clean-greg-bauges/</loc>
+        <lastmod>2013-12-26T20:34:48-07:00</lastmod>
     </url>
     <url>
         <loc>http://spenserj.com/about/</loc>
-        <lastmod>2013-07-12T14:22:53-06:00</lastmod>
+        <lastmod>2013-12-26T20:34:49-07:00</lastmod>
+    </url>
+    <url>
+        <loc>http://spenserj.com/archives/</loc>
+        <lastmod>2013-12-26T20:34:49-07:00</lastmod>
+    </url>
+    <url>
+        <loc>http://spenserj.com/blog/archives/</loc>
+        <lastmod>2013-12-26T20:34:49-07:00</lastmod>
+    </url>
+    <url>
+        <loc>http://spenserj.com/blog/</loc>
+        <lastmod>2013-12-26T20:34:49-07:00</lastmod>
+    </url>
+    <url>
+        <loc>http://spenserj.com/</loc>
+        <lastmod>2013-12-26T20:34:49-07:00</lastmod>
+    </url>
+    <url>
+        <loc>http://spenserj.com/robots.txt</loc>
+        <lastmod>2013-12-26T20:34:49-07:00</lastmod>
     </url>
 </urlset>

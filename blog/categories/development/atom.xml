@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Development | Spenser Jones]]></title>
+  <link href="http://spenserj.com/blog/categories/development/atom.xml" rel="self"/>
+  <link href="http://spenserj.com/"/>
+  <updated>2013-12-26T20:35:22-07:00</updated>
+  <id>http://spenserj.com/</id>
+  <author>
+    <name><![CDATA[Spenser Jones]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Code Life a Chef: Work Clean - Greg Bauges]]></title>
+    <link href="http://spenserj.com/blog/2013/12/26/code-life-a-chef-work-clean-greg-bauges/"/>
+    <updated>2013-12-26T20:28:00-07:00</updated>
+    <id>http://spenserj.com/blog/2013/12/26/code-life-a-chef-work-clean-greg-bauges</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+</feed>
