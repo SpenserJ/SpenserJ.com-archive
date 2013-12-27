@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Server Administration | Spenser Jones]]></title>
   <link href="http://spenserj.com/blog/categories/server-administration/atom.xml" rel="self"/>
   <link href="http://spenserj.com/"/>
-  <updated>2013-12-26T20:50:59-07:00</updated>
+  <updated>2013-12-26T22:56:40-07:00</updated>
   <id>http://spenserj.com/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
@@ -362,7 +362,7 @@ maxretry = 3</p>
 
 <h1>jail.{conf,local} configuration files.</h1>
 
-<p>destemail = root@localhost,<a href="&#x6d;&#97;&#x69;&#x6c;&#x74;&#111;&#x3a;&#x66;&#x61;&#105;&#x6c;&#50;&#x62;&#x61;&#110;&#64;&#x62;&#x6c;&#111;&#x63;&#107;&#108;&#105;&#x73;&#116;&#46;&#x64;&#101;">&#102;&#x61;&#x69;&#108;&#50;&#98;&#x61;&#x6e;&#64;&#98;&#108;&#111;&#99;&#x6b;&#108;&#x69;&#115;&#116;&#x2e;&#x64;&#101;</a>
+<p>destemail = root@localhost,<a href="&#109;&#x61;&#x69;&#108;&#x74;&#111;&#58;&#x66;&#97;&#105;&#108;&#x32;&#x62;&#97;&#x6e;&#x40;&#98;&#x6c;&#111;&#99;&#107;&#x6c;&#x69;&#x73;&#x74;&#x2e;&#100;&#x65;">&#102;&#x61;&#105;&#108;&#50;&#x62;&#x61;&#x6e;&#64;&#x62;&#x6c;&#111;&#x63;&#x6b;&#x6c;&#x69;&#x73;&#116;&#46;&#100;&#x65;</a>
 ```</p>
 
 <p>There are a few other settings you&rsquo;ll want to check out, although the defaults are quite sufficient, so skim through the file quickly until you reach the Actions section.</p>
