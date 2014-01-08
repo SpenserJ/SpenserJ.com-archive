@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Development | Spenser Jones]]></title>
   <link href="http://spenserj.com/blog/categories/development/atom.xml" rel="self"/>
   <link href="http://spenserj.com/"/>
-  <updated>2013-12-26T23:28:31-07:00</updated>
+  <updated>2014-01-08T10:02:44-07:00</updated>
   <id>http://spenserj.com/</id>
   <author>
     <name><![CDATA[Spenser Jones]]></name>
@@ -12,6 +12,15 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[JavaScript for hackers]]></title>
+    <link href="http://spenserj.com/blog/2014/01/08/javascript-for-hackers/"/>
+    <updated>2014-01-08T09:57:00-07:00</updated>
+    <id>http://spenserj.com/blog/2014/01/08/javascript-for-hackers</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[A successful Git branching model - nvie]]></title>
